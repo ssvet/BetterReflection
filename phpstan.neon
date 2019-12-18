@@ -11,7 +11,6 @@ parameters:
             message: '#does not call parent constructor#'
             paths:
                 - %currentWorkingDirectory%/src/Reflection/Adapter/*
-                - %currentWorkingDirectory%/src/Reflection/ReflectionObject.php
         -
             message: '#Access to an undefined property PhpParser\\Node\\Param::\$isOptional#'
             paths:
@@ -24,3 +23,6 @@ parameters:
         -
             message: '#Call to an undefined method PhpParser\\NodeVisitorAbstract::(getNode|setConstantName)\(\)#'
             path: %currentWorkingDirectory%/src/SourceLocator/Type/AutoloadSourceLocator.php
+        -
+            message: '#Parameter \#1 \$autoload_function of function spl_autoload_register expects callable\(string\): void, \$this\(Roave\\BetterReflection\\Util\\Autoload\\ClassLoader\) given\.#'
+            path: %currentWorkingDirectory%/src/Util/Autoload/ClassLoader.php
