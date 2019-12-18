@@ -11,6 +11,16 @@ before_script:
 jobs:
   include:
     - stage: Test
+      php: 7.1
+      env: DEPENDENCIES=""
+      script: vendor/bin/phpunit
+
+    - stage: Test
+      php: 7.1
+      env: DEPENDENCIES="--prefer-lowest --prefer-stable"
+      script: vendor/bin/phpunit
+
+    - stage: Test
       php: 7.2
       env: DEPENDENCIES=""
       script: vendor/bin/phpunit
@@ -22,7 +32,32 @@ jobs:
 
     - stage: Test
       os: windows
-      language: shell # No PHP currently
+      dist: 1803-containers
+      language: sh # No PHP currently
+      env: PHP_VERSION=7.1.33 DEPENDENCIES=""
+      install:
+        - choco install php --version=${PHP_VERSION} --package-parameters="/InstallDir:c:\tools\php"
+        - choco install composer --ia "/DEV=C:\tools\php"
+        - export PATH=/c/tools/php:$PATH
+        - echo "memory_limit=1G" >> /c/tools/php/php.ini
+      script: vendor/bin/phpunit
+
+    - stage: Test
+      os: windows
+      dist: 1803-containers
+      language: sh # No PHP currently
+      env: PHP_VERSION=7.1.33 DEPENDENCIES="--prefer-lowest --prefer-stable"
+      install:
+        - choco install php --version=${PHP_VERSION} --package-parameters="/InstallDir:c:\tools\php"
+        - choco install composer --ia "/DEV=C:\tools\php"
+        - export PATH=/c/tools/php:$PATH
+        - echo "memory_limit=1G" >> /c/tools/php/php.ini
+      script: vendor/bin/phpunit
+
+    - stage: Test
+      os: windows
+      dist: 1803-containers
+      language: sh # No PHP currently
       env: PHP_VERSION=7.2.26 DEPENDENCIES=""
       install:
         - choco install php --version=${PHP_VERSION} --package-parameters="/InstallDir:c:\tools\php"
@@ -107,6 +142,16 @@ jobs:
       script: vendor/bin/phpunit
 
     - stage: Test Compatibility
+      php: 7.1
+      env: DEPENDENCIES=""
+      script: vendor/bin/phpunit test/compat
+
+    - stage: Test Compatibility
+      php: 7.1
+      env: DEPENDENCIES="--prefer-lowest --prefer-stable"
+      script: vendor/bin/phpunit test/compat
+
+    - stage: Test Compatibility
       php: 7.2
       env: DEPENDENCIES=""
       script: vendor/bin/phpunit test/compat
@@ -201,6 +246,16 @@ jobs:
         - export PATH=/c/tools/php:$PATH
         - echo "memory_limit=1G" >> /c/tools/php/php.ini
       script: vendor/bin/phpunit test/compat
+
+    - stage: Check Demo Scripts
+      php: 7.1
+      env: DEPENDENCIES=""
+      script: test/demo/check-demo.sh
+
+    - stage: Check Demo Scripts
+      php: 7.1
+      env: DEPENDENCIES="--prefer-lowest --prefer-stable"
+      script: test/demo/check-demo.sh
 
     - stage: Check Demo Scripts
       php: 7.2
