@@ -1,7 +1,7 @@
 Better Reflection
 =================
 
-[![Build Status](https://travis-ci.org/Roave/BetterReflection.svg?branch=master)](https://travis-ci.org/Roave/BetterReflection) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Roave/BetterReflection/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Roave/BetterReflection/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/Roave/BetterReflection/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Roave/BetterReflection/?branch=master) [![Latest Stable Version](https://poser.pugx.org/roave/better-reflection/v/stable)](https://packagist.org/packages/roave/better-reflection) [![License](https://poser.pugx.org/roave/better-reflection/license)](https://packagist.org/packages/roave/better-reflection)
+[![Build Status](https://travis-ci.org/ondrejmirtes/BetterReflection.svg?branch=master)](https://travis-ci.org/ondrejmirtes/BetterReflection) [![Latest Stable Version](https://poser.pugx.org/ondrejmirtes/better-reflection/v/stable)](https://packagist.org/packages/ondrejmirtes/better-reflection) [![License](https://poser.pugx.org/ondrejmirtes/better-reflection/license)](https://packagist.org/packages/ondrejmirtes/better-reflection)
 
 Better Reflection is a reflection API that aims to improve and provide more features than PHP's built-in 
 [reflection API](https://php.net/manual/en/book.reflection.php).
@@ -28,7 +28,7 @@ Be sure to read more in the [feature documentation](docs/features.md).
 Require using composer:
 
 ```shell
-$ composer require roave/better-reflection
+$ composer require ondrejmirtes/better-reflection
 ```
 
 ## Usage
@@ -49,7 +49,7 @@ $classInfo = (new BetterReflection())
 * [Basic usage instructions](docs/usage.md)
 * [Using types](docs/types.md)
 * [The features](docs/features.md)
-* [Test suite](https://github.com/Roave/BetterReflection/blob/master/test/README.md)
+* [Test suite](https://github.com/ondrejmirtes/BetterReflection/blob/master/test/README.md)
 * [AST extraction](docs/ast-extraction.md)
 * [Reflection modification](docs/reflection-modification.md)
 
