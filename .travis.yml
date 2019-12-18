@@ -6,10 +6,6 @@ before_script:
   - rm composer.lock
   - travis_retry composer update --prefer-dist $DEPENDENCIES
 
-matrix:
-  allow_failures:
-    - php: 7.4snapshot
-
 jobs:
   include:
     - stage: Test
@@ -303,6 +299,9 @@ jobs:
       script:
         - vendor/bin/phpunit --coverage-text --coverage-clover=clover.xml
         - php ocular.phar code-coverage:upload --format=php-clover clover.xml
+
+  allow_failures:
+    - php: 7.4snapshot
 
 cache:
   directories:
