@@ -276,16 +276,6 @@ jobs:
         - travis_retry composer require --dev --prefer-dist --prefer-stable phpbench/phpbench:^0.16.9
       script: ./vendor/bin/phpbench run --progress=dots --iterations=1
 
-    - stage: Upload Coverage
-      php: 7.2
-      env: DEPENDENCIES=""
-      before_script:
-        - travis_retry composer update --prefer-dist $DEPENDENCIES
-        - wget https://scrutinizer-ci.com/ocular.phar
-      script:
-        - vendor/bin/phpunit --coverage-text --coverage-clover=clover.xml
-        - php ocular.phar code-coverage:upload --format=php-clover clover.xml
-
   allow_failures:
     - php: 7.4snapshot
 
