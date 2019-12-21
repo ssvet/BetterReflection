@@ -81,7 +81,7 @@ class ReflectionTypeTest extends TestCase
 
     public function testFromReturnTypeOrNullWithBetterReflectionType() : void
     {
-        self::assertInstanceOf(ReflectionTypeAdapter::class, ReflectionType::fromReturnTypeOrNull($this->createMock(BetterReflectionType::class)));
+        self::assertInstanceOf(CoreReflectionType::class, ReflectionType::fromReturnTypeOrNull($this->createMock(BetterReflectionType::class)));
     }
 
     public function testSelfIsNotBuiltin() : void

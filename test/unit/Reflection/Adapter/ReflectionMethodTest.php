@@ -9,11 +9,11 @@ use PHPUnit\Framework\TestCase;
 use ReflectionClass as CoreReflectionClass;
 use ReflectionException as CoreReflectionException;
 use ReflectionMethod as CoreReflectionMethod;
+use ReflectionType as CoreReflectionType;
 use Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
 use Roave\BetterReflection\Reflection\Adapter\ReflectionClass as ReflectionClassAdapter;
 use Roave\BetterReflection\Reflection\Adapter\ReflectionMethod as ReflectionMethodAdapter;
 use Roave\BetterReflection\Reflection\Adapter\ReflectionParameter as ReflectionParameterAdapter;
-use Roave\BetterReflection\Reflection\Adapter\ReflectionType as ReflectionTypeAdapter;
 use Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
 use Roave\BetterReflection\Reflection\Exception\NotAnObject;
 use Roave\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass;
@@ -135,7 +135,7 @@ class ReflectionMethodTest extends TestCase
                 break;
 
             case 'getReturnType':
-                self::assertInstanceOf(ReflectionTypeAdapter::class, $adapterReturnValue);
+                self::assertInstanceOf(CoreReflectionType::class, $adapterReturnValue);
                 break;
 
             case 'getPrototype':

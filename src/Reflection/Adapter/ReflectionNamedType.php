@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflection\Reflection\Adapter;
 
-use ReflectionType as CoreReflectionType;
+use ReflectionNamedType as CoreReflectionType;
 use Roave\BetterReflection\Reflection\ReflectionType as BetterReflectionType;
 
-class ReflectionType extends CoreReflectionType
+class ReflectionNamedType extends CoreReflectionType
 {
     /** @var BetterReflectionType */
     private $betterReflectionType;
@@ -15,15 +15,6 @@ class ReflectionType extends CoreReflectionType
     public function __construct(BetterReflectionType $betterReflectionType)
     {
         $this->betterReflectionType = $betterReflectionType;
-    }
-
-    public static function fromReturnTypeOrNull(?BetterReflectionType $betterReflectionType) : ?CoreReflectionType
-    {
-        if ($betterReflectionType === null) {
-            return null;
-        }
-
-        return new ReflectionNamedType($betterReflectionType);
     }
 
     /**
@@ -54,5 +45,10 @@ class ReflectionType extends CoreReflectionType
         }
 
         return $this->betterReflectionType->isBuiltin();
+    }
+
+    public function getName() : string
+    {
+        return $this->__toString();
     }
 }
