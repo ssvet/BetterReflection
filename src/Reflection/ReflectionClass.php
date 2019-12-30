@@ -92,6 +92,15 @@ class ReflectionClass implements Reflection
      */
     private $cachedMethods;
 
+    /** @var self|null */
+    private $cachedParentClass;
+
+    /** @var self[]|null */
+    private $cachedInheritanceClassHierarchy;
+
+    /** @var string|null */
+    private $cachedName;
+
     private function __construct()
     {
     }
@@ -191,11 +200,15 @@ class ReflectionClass implements Reflection
      */
     public function getName() : string
     {
-        if (! $this->inNamespace()) {
-            return $this->getShortName();
+        if ($this->cachedName === null) {
+            if (! $this->inNamespace()) {
+                $this->cachedName = $this->getShortName();
+            } else {
+                $this->cachedName = $this->node->namespacedName->toString();
+            }
         }
 
-        return $this->node->namespacedName->toString();
+        return $this->cachedName;
     }
 
     /**
@@ -804,9 +817,14 @@ class ReflectionClass implements Reflection
             return null;
         }
 
-        $parent = $this->reflector->reflect($this->node->extends->toString());
-        // @TODO use actual `ClassReflector` or `FunctionReflector`?
-        assert($parent instanceof self);
+        if ($this->cachedParentClass === null) {
+            $parent = $this->reflector->reflect($this->node->extends->toString());
+            // @TODO use actual `ClassReflector` or `FunctionReflector`?
+            assert($parent instanceof self);
+            $this->cachedParentClass = $parent;
+        } else {
+            $parent = $this->cachedParentClass;
+        }
 
         if ($parent->isInterface() || $parent->isTrait()) {
             throw NotAClassReflection::fromReflectionClass($parent);
@@ -1213,11 +1231,14 @@ class ReflectionClass implements Reflection
      */
     private function getInheritanceClassHierarchy() : array
     {
-        $parentClass = $this->getParentClass();
+        if ($this->cachedInheritanceClassHierarchy === null) {
+            $parentClass                           = $this->getParentClass();
+            $this->cachedInheritanceClassHierarchy = $parentClass
+                ? array_merge($parentClass->getInheritanceClassHierarchy(), [$this])
+                : [$this];
+        }
 
-        return $parentClass
-            ? array_merge($parentClass->getInheritanceClassHierarchy(), [$this])
-            : [$this];
+        return $this->cachedInheritanceClassHierarchy;
     }
 
     /**
