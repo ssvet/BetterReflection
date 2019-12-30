@@ -39,12 +39,12 @@ class ClassReflector implements Reflector
         } else {
             $identifier = new Identifier($className, new IdentifierType(IdentifierType::IDENTIFIER_CLASS));
             /** @var ReflectionClass|null $classInfo */
-            $classInfo = $this->sourceLocator->locateIdentifier($this, $identifier);
+            $classInfo                           = $this->sourceLocator->locateIdentifier($this, $identifier);
             $this->cachedReflections[$className] = $classInfo;
         }
 
         if ($classInfo === null) {
-            if (!isset($identifier)) {
+            if (! isset($identifier)) {
                 $identifier = new Identifier($className, new IdentifierType(IdentifierType::IDENTIFIER_CLASS));
             }
             throw Exception\IdentifierNotFound::fromIdentifier($identifier);

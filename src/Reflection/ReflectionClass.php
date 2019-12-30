@@ -802,7 +802,7 @@ class ReflectionClass implements Reflection, CoreReflector
 
         if ($this->cachedParentClass === null) {
             /** @var self $parent */
-            $parent = $this->reflector->reflect($this->node->extends->toString());
+            $parent                  = $this->reflector->reflect($this->node->extends->toString());
             $this->cachedParentClass = $parent;
         } else {
             $parent = $this->cachedParentClass;
@@ -1204,7 +1204,7 @@ class ReflectionClass implements Reflection, CoreReflector
     private function getInheritanceClassHierarchy() : array
     {
         if ($this->cachedInheritanceClassHierarchy === null) {
-            $parentClass = $this->getParentClass();
+            $parentClass                           = $this->getParentClass();
             $this->cachedInheritanceClassHierarchy = $parentClass
                 ? array_merge($parentClass->getInheritanceClassHierarchy(), [$this])
                 : [$this];
