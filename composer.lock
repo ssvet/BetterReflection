@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "837e3430a0bf9d99e6ebf4f9d71d9409",
+    "content-hash": "94aceb252f7c751981a557dfe6710cca",
     "packages": [
         {
             "name": "jetbrains/phpstorm-stubs",
