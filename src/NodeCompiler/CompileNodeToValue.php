@@ -8,6 +8,7 @@ use PhpParser\ConstExprEvaluator;
 use PhpParser\Node;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
+use Roave\BetterReflection\Reflection\ReflectionConstant;
 use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
 use Roave\BetterReflection\Util\FileHelper;
 use function assert;
@@ -79,11 +80,15 @@ class CompileNodeToValue
             case 'true':
                 return true;
             default:
-                if (! defined($firstName)) {
-                    throw Exception\UnableToCompileNode::becauseOfNotFoundConstantReference($context, $constNode);
+                if (defined($firstName)) {
+                    return constant($firstName);
                 }
 
-                return constant($firstName);
+                try {
+                    return ReflectionConstant::createFromName($firstName)->getValue();
+                } catch (IdentifierNotFound $e) {
+                    throw Exception\UnableToCompileNode::becauseOfNotFoundConstantReference($context, $constNode);
+                }
         }
     }
 
