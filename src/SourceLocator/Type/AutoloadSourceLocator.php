@@ -89,10 +89,10 @@ class AutoloadSourceLocator extends AbstractSourceLocator
      */
     private static $autoloadLocatedFile;
 
-    /** @var AstLocator */
+    /** @var AstLocator|null */
     private static $currentAstLocator;
 
-    /** @var Parser */
+    /** @var Parser|null */
     private static $currentPhpParser;
 
     /**
