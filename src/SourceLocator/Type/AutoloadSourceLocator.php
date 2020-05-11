@@ -73,7 +73,7 @@ class AutoloadSourceLocator extends AbstractSourceLocator
         parent::__construct($validLocator);
 
         $this->astLocator      = $validLocator;
-        $this->phpParser       = $phpParser ?? $betterReflection->phpParser();
+        $this->phpParser       = $phpParser ?? self::$currentPhpParser ?? $betterReflection->phpParser();
         $this->constantVisitor = $this->createConstantVisitor();
 
         $this->nodeTraverser = new NodeTraverser();
@@ -91,6 +91,9 @@ class AutoloadSourceLocator extends AbstractSourceLocator
 
     /** @var AstLocator */
     private static $currentAstLocator;
+
+    /** @var Parser */
+    private static $currentPhpParser;
 
     /**
      * {@inheritDoc}
@@ -163,6 +166,7 @@ class AutoloadSourceLocator extends AbstractSourceLocator
 
         self::$autoloadLocatedFile = null;
         self::$currentAstLocator   = $this->astLocator; // passing the locator on to the implicitly instantiated `self`
+        self::$currentPhpParser    = $this->phpParser; // passing the parser on to the implicitly instantiated `self`
         $previousErrorHandler      = set_error_handler(static function (int $errno, string $errstr) : bool {
             return true;
         });
