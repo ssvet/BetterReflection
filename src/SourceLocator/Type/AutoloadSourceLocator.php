@@ -167,9 +167,12 @@ class AutoloadSourceLocator extends AbstractSourceLocator
             return true;
         });
         stream_wrapper_unregister('file');
+        stream_wrapper_unregister('phar');
         stream_wrapper_register('file', self::class);
+        stream_wrapper_register('phar', self::class);
         class_exists($className);
         stream_wrapper_restore('file');
+        stream_wrapper_restore('phar');
         set_error_handler($previousErrorHandler);
 
         return self::$autoloadLocatedFile;
@@ -276,6 +279,7 @@ class AutoloadSourceLocator extends AbstractSourceLocator
     public function url_stat($path, $flags)
     {
         stream_wrapper_restore('file');
+        stream_wrapper_restore('phar');
 
         if ($flags & STREAM_URL_STAT_QUIET) {
             set_error_handler(static function () {
@@ -289,7 +293,9 @@ class AutoloadSourceLocator extends AbstractSourceLocator
         }
 
         stream_wrapper_unregister('file');
+        stream_wrapper_unregister('phar');
         stream_wrapper_register('file', self::class);
+        stream_wrapper_register('phar', self::class);
 
         return $result;
     }
