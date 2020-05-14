@@ -35,14 +35,15 @@ class ClassReflector implements Reflector
      */
     public function reflect(string $className) : Reflection
     {
-        if (array_key_exists($className, $this->cachedReflections)) {
-            $classInfo = $this->cachedReflections[$className];
+        $lowerClassName = strtolower($className);
+        if (array_key_exists($lowerClassName, $this->cachedReflections)) {
+            $classInfo = $this->cachedReflections[$lowerClassName];
         } else {
             $identifier = new Identifier($className, new IdentifierType(IdentifierType::IDENTIFIER_CLASS));
 
             $classInfo = $this->sourceLocator->locateIdentifier($this, $identifier);
             assert($classInfo instanceof ReflectionClass || $classInfo === null);
-            $this->cachedReflections[$className] = $classInfo;
+            $this->cachedReflections[$lowerClassName] = $classInfo;
         }
 
         if ($classInfo === null) {
