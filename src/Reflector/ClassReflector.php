@@ -12,6 +12,7 @@ use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
 use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
 use function array_key_exists;
 use function assert;
+use function strtolower;
 
 class ClassReflector implements Reflector
 {

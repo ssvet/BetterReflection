@@ -25,7 +25,7 @@ class ReflectionProperty extends CoreReflectionProperty
         $this->betterReflectionProperty = $betterReflectionProperty;
     }
 
-    public function getBetterReflection(): BetterReflectionProperty
+    public function getBetterReflection() : BetterReflectionProperty
     {
         return $this->betterReflectionProperty;
     }
