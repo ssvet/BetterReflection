@@ -416,6 +416,14 @@ class ReflectionObject extends ReflectionClass
     /**
      * {@inheritdoc}
      */
+    public function getTraitPrecedences() : array
+    {
+        return $this->reflectionClass->getTraitPrecedences();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getInterfaces() : array
     {
         return $this->reflectionClass->getInterfaces();
