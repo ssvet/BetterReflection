@@ -269,7 +269,7 @@ final class ReflectionSourceStubber implements SourceStubber
             $this->addPropertyModifiers($propertyNode, $propertyReflection);
             $this->addDocComment($propertyNode, $propertyReflection);
 
-            if (array_key_exists($propertyReflection->getName(), $defaultProperties)) {
+            if (! $propertyReflection->isStatic() && array_key_exists($propertyReflection->getName(), $defaultProperties)) {
                 $propertyNode->setDefault($defaultProperties[$propertyReflection->getName()]);
             }
 
