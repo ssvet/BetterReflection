@@ -280,7 +280,7 @@ class ReflectionClass implements Reflection
                         [],
                         ...array_filter(
                             array_map(
-                                function (ReflectionMethod $method) use ($trait, $traitAliases, $traitPrecedences) : ?array {
+                                function (ReflectionMethod $method) use ($traitAliases, $traitPrecedences) : ?array {
                                     $methodAst = $method->getAst();
                                     assert($methodAst instanceof ClassMethod);
 
