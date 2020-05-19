@@ -11,6 +11,7 @@ use Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
 use Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
 use Roave\BetterReflection\Reflection\Exception\NotAnObject;
 use Roave\BetterReflection\Reflection\ReflectionMethod as BetterReflectionMethod;
+use Roave\BetterReflection\Util\FileHelper;
 use Throwable;
 use function func_get_args;
 
@@ -143,7 +144,12 @@ class ReflectionMethod extends CoreReflectionMethod
      */
     public function getFileName()
     {
-        return $this->betterReflectionMethod->getFileName() ?? false;
+        $fileName = $this->betterReflectionMethod->getFileName();
+        if ($fileName === null) {
+            return false;
+        }
+
+        return FileHelper::normalizePath($fileName);
     }
 
     /**
