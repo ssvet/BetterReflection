@@ -216,7 +216,7 @@ class ReflectionConstant implements Reflection
     public function populateValue($value) : void
     {
         $this->valueWasCached = true;
-        $this->value = $value;
+        $this->value          = $value;
     }
 
     /**
