@@ -184,9 +184,15 @@ class ReflectionClass extends CoreReflectionClass
 
     private function getMethodRealName(string $name) : string
     {
-        $realMethodNames = array_map(static function (BetterReflectionMethod $method) : string {
-            return $method->getName();
-        }, $this->betterReflectionClass->getMethods());
+        $realMethodNames = [];
+        foreach ($this->betterReflectionClass->getMethods() as $method) {
+            $methodName = $method->getName();
+            if ($methodName === $name) {
+                return $name;
+            }
+
+            $realMethodNames[] = $methodName;
+        }
 
         $methodNames = array_combine(array_map(static function (string $methodName) : string {
             return strtolower($methodName);
