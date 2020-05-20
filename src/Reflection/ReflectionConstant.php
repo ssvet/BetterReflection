@@ -211,6 +211,15 @@ class ReflectionConstant implements Reflection
     }
 
     /**
+     * @param mixed $value
+     */
+    public function populateValue($value) : void
+    {
+        $this->valueWasCached = true;
+        $this->value = $value;
+    }
+
+    /**
      * Returns constant value
      *
      * @return bool|int|float|string|array|null
