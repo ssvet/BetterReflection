@@ -262,7 +262,7 @@ final class PhpStormStubsSourceStubber implements SourceStubber
 
         $since      = $matches[1];
         $sinceParts = explode('.', $since);
-        $sinceId    = $sinceParts[0] * 10000 + $sinceParts[1] * 100 + ($sinceParts[2] ?? 0);
+        $sinceId    = ((int) $sinceParts[0]) * 10000 + ((int) $sinceParts[1]) * 100 + ($sinceParts[2] ?? 0);
 
         return $sinceId > $this->phpVersionId;
     }
