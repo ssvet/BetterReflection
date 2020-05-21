@@ -30,6 +30,7 @@ use function is_string;
 use function preg_match;
 use function sprintf;
 use function str_replace;
+use function strpos;
 use function strtolower;
 use const PHP_VERSION_ID;
 
@@ -62,13 +63,13 @@ final class PhpStormStubsSourceStubber implements SourceStubber
     /** @var NodeVisitorAbstract */
     private $cachingVisitor;
 
-    /** @var array<string, Node\Stmt\ClassLike> */
+    /** @var array<string, Node\Stmt\ClassLike|null> */
     private $classNodes = [];
 
-    /** @var array<string, Node\Stmt\Function_> */
+    /** @var array<string, Node\Stmt\Function_|null> */
     private $functionNodes = [];
 
-    /** @var array<string, Node\Stmt\Const_|Node\Expr\FuncCall> */
+    /** @var array<string, Node\Stmt\Const_|Node\Expr\FuncCall|null> */
     private $constantNodes = [];
 
     public function __construct(Parser $phpParser, ?int $phpVersionId = null)
@@ -94,14 +95,19 @@ final class PhpStormStubsSourceStubber implements SourceStubber
 
         if (! array_key_exists($className, $this->classNodes)) {
             $this->parseFile($filePath);
+
+            if (! array_key_exists($className, $this->classNodes)) {
+                $this->classNodes[$className] = null;
+
+                return null;
+            }
         }
 
-        $classNode = $this->classNodes[$className];
-        if ($this->hasLaterSinceVersion($classNode)) {
+        if ($this->classNodes[$className] === null) {
             return null;
         }
 
-        $stub = $this->createStub($classNode);
+        $stub = $this->createStub($this->classNodes[$className]);
 
         if ($className === Traversable::class) {
             // See https://github.com/JetBrains/phpstorm-stubs/commit/0778a26992c47d7dbee4d0b0bfb7fad4344371b1#diff-575bacb45377d474336c71cbf53c1729
@@ -121,14 +127,19 @@ final class PhpStormStubsSourceStubber implements SourceStubber
 
         if (! array_key_exists($functionName, $this->functionNodes)) {
             $this->parseFile($filePath);
+
+            if (! array_key_exists($functionName, $this->functionNodes)) {
+                $this->functionNodes[$functionName] = null;
+
+                return null;
+            }
         }
 
-        $functionNode = $this->functionNodes[$functionName];
-        if ($this->hasLaterSinceVersion($functionNode)) {
+        if ($this->functionNodes[$functionName] === null) {
             return null;
         }
 
-        return new StubData($this->createStub($functionNode), $this->getExtensionFromFilePath($filePath));
+        return new StubData($this->createStub($this->functionNodes[$functionName]), $this->getExtensionFromFilePath($filePath));
     }
 
     public function generateConstantStub(string $constantName) : ?StubData
@@ -146,14 +157,19 @@ final class PhpStormStubsSourceStubber implements SourceStubber
 
         if (! array_key_exists($constantName, $this->constantNodes)) {
             $this->parseFile($filePath);
+
+            if (! array_key_exists($constantName, $this->constantNodes)) {
+                $this->constantNodes[$constantName] = null;
+
+                return null;
+            }
         }
 
-        $constantNode = $this->constantNodes[$constantName];
-        if ($this->hasLaterSinceVersion($constantNode)) {
+        if ($this->constantNodes[$constantName] === null) {
             return null;
         }
 
-        return new StubData($this->createStub($constantNode), $this->getExtensionFromFilePath($filePath));
+        return new StubData($this->createStub($this->constantNodes[$constantName]), $this->getExtensionFromFilePath($filePath));
     }
 
     private function parseFile(string $filePath) : void
@@ -174,6 +190,10 @@ final class PhpStormStubsSourceStubber implements SourceStubber
         foreach ($this->cachingVisitor->getClassNodes() as $className => $classNode) {
             assert(is_string($className));
             assert($classNode instanceof Node\Stmt\ClassLike);
+            if ($this->hasLaterSinceVersion($classNode)) {
+                continue;
+            }
+
             $classNode->stmts             = $this->filterStmts($classNode->stmts);
             $this->classNodes[$className] = $classNode;
         }
@@ -184,6 +204,14 @@ final class PhpStormStubsSourceStubber implements SourceStubber
         foreach ($this->cachingVisitor->getFunctionNodes() as $functionName => $functionNode) {
             assert(is_string($functionName));
             assert($functionNode instanceof Node\Stmt\Function_);
+            if (strpos($functionName, '-')) {
+                [$functionName] = explode('--', $functionName);
+            }
+
+            if ($functionName !== 'array_push' && $this->hasLaterSinceVersion($functionNode)) {
+                continue;
+            }
+
             $this->functionNodes[$functionName] = $functionNode;
         }
 
@@ -193,6 +221,10 @@ final class PhpStormStubsSourceStubber implements SourceStubber
         foreach ($this->cachingVisitor->getConstantNodes() as $constantName => $constantNode) {
             assert(is_string($constantName));
             assert($constantNode instanceof Node\Stmt\Const_ || $constantNode instanceof Node\Expr\FuncCall);
+            if ($this->hasLaterSinceVersion($constantNode)) {
+                continue;
+            }
+
             $this->constantNodes[$constantName] = $constantNode;
         }
     }
@@ -264,8 +296,16 @@ final class PhpStormStubsSourceStubber implements SourceStubber
 
                 if ($node instanceof Node\Stmt\Function_) {
                     /** @psalm-suppress UndefinedPropertyFetch */
-                    $nodeName                       = (string) $node->namespacedName->toString();
-                    $this->functionNodes[$nodeName] = $node;
+                    $nodeName        = (string) $node->namespacedName->toString();
+                    $i               = 1;
+                    $variantNodeName = $nodeName;
+                    while (array_key_exists($variantNodeName, $this->functionNodes)) {
+                        $variantNodeName = sprintf('%s--%d', $nodeName, $i);
+                        $i++;
+                        continue;
+                    }
+
+                    $this->functionNodes[$variantNodeName] = $node;
 
                     return NodeTraverser::DONT_TRAVERSE_CHILDREN;
                 }

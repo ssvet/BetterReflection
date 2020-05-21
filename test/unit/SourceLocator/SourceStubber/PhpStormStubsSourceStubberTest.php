@@ -652,6 +652,16 @@ class PhpStormStubsSourceStubberTest extends TestCase
                 70300,
                 false,
             ],
+            [
+                'setcookie',
+                70100,
+                true,
+            ],
+            [
+                'array_push',
+                70100,
+                true,
+            ],
         ];
     }
 
