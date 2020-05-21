@@ -610,6 +610,16 @@ class PhpStormStubsSourceStubberTest extends TestCase
                 70200,
                 true,
             ],
+            [
+                'CompileError',
+                70300,
+                true,
+            ],
+            [
+                'CompileError',
+                70000,
+                true,
+            ],
         ];
     }
 
