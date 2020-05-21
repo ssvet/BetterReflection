@@ -128,7 +128,7 @@ final class PhpStormStubsSourceStubber implements SourceStubber
             return null;
         }
 
-        return new StubData($this->createStub($this->functionNodes[$functionName]), $this->getExtensionFromFilePath($filePath));
+        return new StubData($this->createStub($functionNode), $this->getExtensionFromFilePath($filePath));
     }
 
     public function generateConstantStub(string $constantName) : ?StubData
@@ -148,7 +148,12 @@ final class PhpStormStubsSourceStubber implements SourceStubber
             $this->parseFile($filePath);
         }
 
-        return new StubData($this->createStub($this->constantNodes[$constantName]), $this->getExtensionFromFilePath($filePath));
+        $constantNode = $this->constantNodes[$constantName];
+        if ($this->hasLaterSinceVersion($constantNode)) {
+            return null;
+        }
+
+        return new StubData($this->createStub($constantNode), $this->getExtensionFromFilePath($filePath));
     }
 
     private function parseFile(string $filePath) : void
@@ -211,9 +216,9 @@ final class PhpStormStubsSourceStubber implements SourceStubber
         return $newStmts;
     }
 
-    private function hasLaterSinceVersion(Node\Stmt $stmt) : bool
+    private function hasLaterSinceVersion(Node $node) : bool
     {
-        $docComment = $stmt->getDocComment();
+        $docComment = $node->getDocComment();
         if ($docComment === null) {
             return false;
         }

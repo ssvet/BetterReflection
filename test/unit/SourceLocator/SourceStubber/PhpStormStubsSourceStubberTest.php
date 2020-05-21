@@ -683,7 +683,18 @@ class PhpStormStubsSourceStubberTest extends TestCase
 
     public function dataConstantSinceVersion() : array
     {
-        return []; // PhpStorm stubs do not have the @since annotations
+        return [
+            [
+                'PHP_OS_FAMILY',
+                70200,
+                true,
+            ],
+            [
+                'PHP_OS_FAMILY',
+                70100,
+                false,
+            ],
+        ];
     }
 
     /**
