@@ -27,9 +27,11 @@ use function file_get_contents;
 use function in_array;
 use function is_dir;
 use function is_string;
+use function preg_match;
 use function sprintf;
 use function str_replace;
 use function strtolower;
+use const PHP_VERSION_ID;
 
 /**
  * @internal
@@ -44,6 +46,9 @@ final class PhpStormStubsSourceStubber implements SourceStubber
 
     /** @var Parser */
     private $phpParser;
+
+    /** @var int */
+    private $phpVersionId;
 
     /** @var Standard */
     private $prettyPrinter;
@@ -66,9 +71,10 @@ final class PhpStormStubsSourceStubber implements SourceStubber
     /** @var array<string, Node\Stmt\Const_|Node\Expr\FuncCall> */
     private $constantNodes = [];
 
-    public function __construct(Parser $phpParser)
+    public function __construct(Parser $phpParser, ?int $phpVersionId = null)
     {
         $this->phpParser     = $phpParser;
+        $this->phpVersionId  = $phpVersionId ?? PHP_VERSION_ID;
         $this->prettyPrinter = new Standard(self::BUILDER_OPTIONS);
 
         $this->cachingVisitor = $this->createCachingVisitor();
@@ -90,7 +96,12 @@ final class PhpStormStubsSourceStubber implements SourceStubber
             $this->parseFile($filePath);
         }
 
-        $stub = $this->createStub($this->classNodes[$className]);
+        $classNode = $this->classNodes[$className];
+        if ($this->hasLaterSinceVersion($classNode)) {
+            return null;
+        }
+
+        $stub = $this->createStub($classNode);
 
         if ($className === Traversable::class) {
             // See https://github.com/JetBrains/phpstorm-stubs/commit/0778a26992c47d7dbee4d0b0bfb7fad4344371b1#diff-575bacb45377d474336c71cbf53c1729
@@ -110,6 +121,11 @@ final class PhpStormStubsSourceStubber implements SourceStubber
 
         if (! array_key_exists($functionName, $this->functionNodes)) {
             $this->parseFile($filePath);
+        }
+
+        $functionNode = $this->functionNodes[$functionName];
+        if ($this->hasLaterSinceVersion($functionNode)) {
+            return null;
         }
 
         return new StubData($this->createStub($this->functionNodes[$functionName]), $this->getExtensionFromFilePath($filePath));
@@ -153,6 +169,7 @@ final class PhpStormStubsSourceStubber implements SourceStubber
         foreach ($this->cachingVisitor->getClassNodes() as $className => $classNode) {
             assert(is_string($className));
             assert($classNode instanceof Node\Stmt\ClassLike);
+            $classNode->stmts             = $this->filterStmts($classNode->stmts);
             $this->classNodes[$className] = $classNode;
         }
 
@@ -173,6 +190,44 @@ final class PhpStormStubsSourceStubber implements SourceStubber
             assert($constantNode instanceof Node\Stmt\Const_ || $constantNode instanceof Node\Expr\FuncCall);
             $this->constantNodes[$constantName] = $constantNode;
         }
+    }
+
+    /**
+     * @param Node\Stmt[] $stmts
+     *
+     * @return Node\Stmt[]
+     */
+    private function filterStmts(array $stmts) : array
+    {
+        $newStmts = [];
+        foreach ($stmts as $stmt) {
+            if ($this->hasLaterSinceVersion($stmt)) {
+                continue;
+            }
+
+            $newStmts[] = $stmt;
+        }
+
+        return $newStmts;
+    }
+
+    private function hasLaterSinceVersion(Node\Stmt $stmt) : bool
+    {
+        $docComment = $stmt->getDocComment();
+        if ($docComment === null) {
+            return false;
+        }
+
+        $result = preg_match('#@since\s+(\d+\.\d+(?:\.\d+)?)#', $docComment->getText(), $matches);
+        if (! $result) {
+            return false;
+        }
+
+        $since      = $matches[1];
+        $sinceParts = explode('.', $since);
+        $sinceId    = $sinceParts[0] * 10000 + $sinceParts[1] * 100 + ($sinceParts[2] ?? 0);
+
+        return $sinceId > $this->phpVersionId;
     }
 
     private function createStub(Node $node) : string
