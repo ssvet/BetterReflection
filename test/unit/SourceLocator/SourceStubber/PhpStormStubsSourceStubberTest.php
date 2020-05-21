@@ -662,6 +662,16 @@ class PhpStormStubsSourceStubberTest extends TestCase
                 70100,
                 true,
             ],
+            [
+                'array_key_first',
+                70300,
+                true,
+            ],
+            [
+                'array_key_first',
+                70200,
+                false,
+            ],
         ];
     }
 
