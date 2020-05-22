@@ -33,6 +33,7 @@ use function get_declared_traits;
 use function get_defined_constants;
 use function get_defined_functions;
 use function in_array;
+use function realpath;
 use function sort;
 use function sprintf;
 use const PHP_VERSION_ID;
@@ -776,5 +777,11 @@ class PhpStormStubsSourceStubberTest extends TestCase
         $constantReflector        = new ConstantReflector($phpInternalSourceLocator, $classReflector);
 
         return [$classReflector, $functionReflector, $constantReflector];
+    }
+
+    public function testFilename() : void
+    {
+        $reflection = $this->classReflector->reflect('XMLReader');
+        $this->assertSame(realpath(__DIR__ . '/../../../../vendor/jetbrains/phpstorm-stubs/xmlreader/xmlreader.php'), realpath($reflection->getFileName()));
     }
 }
