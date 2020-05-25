@@ -754,6 +754,58 @@ class PhpStormStubsSourceStubberTest extends TestCase
         }
     }
 
+    public function dataCaseInsensitiveClass() : array
+    {
+        return [
+            [
+                'SoapFault',
+                'SoapFault',
+            ],
+            [
+                'SOAPFault',
+                'SoapFault',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataCaseInsensitiveClass
+     */
+    public function testCaseInsensitiveClass(
+        string $className,
+        string $expectedClassName
+    ) : void {
+        [$classReflector] = $this->getReflectors(PHP_VERSION_ID);
+        $classReflection  = $classReflector->reflect($className);
+        $this->assertSame($expectedClassName, $classReflection->getName());
+    }
+
+    public function dataCaseInsensitiveFunction() : array
+    {
+        return [
+            [
+                'htmlspecialchars',
+                'htmlspecialchars',
+            ],
+            [
+                'htmlSpecialChars',
+                'htmlspecialchars',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataCaseInsensitiveFunction
+     */
+    public function testCaseInsensitiveFunction(
+        string $functionName,
+        string $expectedFunctionName
+    ) : void {
+        [,$functionReflector] = $this->getReflectors(PHP_VERSION_ID);
+        $functionReflection   = $functionReflector->reflect($functionName);
+        $this->assertSame($expectedFunctionName, $functionReflection->getName());
+    }
+
     /**
      * @return array{ClassReflector, FunctionReflector, ConstantReflector}
      */
