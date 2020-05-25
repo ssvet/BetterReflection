@@ -279,11 +279,18 @@ final class PhpStormStubsSourceStubber implements SourceStubber
         return $sinceId > $this->phpVersionId;
     }
 
+    /**
+     * @param Node\Expr|Node\Stmt $node
+     */
     private function createStub(Node $node) : string
     {
         if (isset($node->namespacedName)) {
             $nameParts = $node->namespacedName->parts;
             if (count($nameParts) > 1) {
+                if (! $node instanceof Node\Stmt) {
+                    $node = new Node\Stmt\Expression($node);
+                }
+
                 $node = new Node\Stmt\Namespace_(new Node\Name(array_slice($nameParts, 0, count($nameParts) - 1)), [$node]);
             }
         }
