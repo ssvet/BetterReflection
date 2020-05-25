@@ -806,6 +806,24 @@ class PhpStormStubsSourceStubberTest extends TestCase
         $this->assertSame($expectedFunctionName, $functionReflection->getName());
     }
 
+    public function dataClassFromNamespace() : array
+    {
+        return [
+            ['Parle\\Stack'],
+            ['MongoDB\\Driver\\Manager'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataClassFromNamespace
+     */
+    public function testClassFromNamespace(string $className) : void
+    {
+        [$classReflector] = $this->getReflectors(PHP_VERSION_ID);
+        $classReflection  = $classReflector->reflect($className);
+        $this->assertSame($className, $classReflection->getName());
+    }
+
     /**
      * @return array{ClassReflector, FunctionReflector, ConstantReflector}
      */

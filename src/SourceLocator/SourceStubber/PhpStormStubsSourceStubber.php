@@ -19,6 +19,7 @@ use Roave\BetterReflection\Util\ConstantNodeChecker;
 use Traversable;
 use function array_change_key_case;
 use function array_key_exists;
+use function array_slice;
 use function assert;
 use function constant;
 use function count;
@@ -280,6 +281,13 @@ final class PhpStormStubsSourceStubber implements SourceStubber
 
     private function createStub(Node $node) : string
     {
+        if (isset($node->namespacedName)) {
+            $nameParts = $node->namespacedName->parts;
+            if (count($nameParts) > 1) {
+                $node = new Node\Stmt\Namespace_(new Node\Name(array_slice($nameParts, 0, count($nameParts) - 1)), [$node]);
+            }
+        }
+
         return "<?php\n\n" . $this->prettyPrinter->prettyPrint([$node]) . ($node instanceof Node\Expr\FuncCall ? ';' : '') . "\n";
     }
 
