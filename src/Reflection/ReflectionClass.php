@@ -355,17 +355,19 @@ class ReflectionClass implements Reflection
             return $this->cachedMethods;
         }
 
-        $this->cachedMethods = [];
+        $cachedMethods = [];
 
         foreach ($this->getAllMethods() as $method) {
             $methodName = $method->getName();
 
-            if (isset($this->cachedMethods[$methodName])) {
+            if (isset($cachedMethods[$methodName])) {
                 continue;
             }
 
-            $this->cachedMethods[$methodName] = $method;
+            $cachedMethods[$methodName] = $method;
         }
+
+        $this->cachedMethods = $cachedMethods;
 
         return $this->cachedMethods;
     }
