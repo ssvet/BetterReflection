@@ -809,7 +809,7 @@ class PhpStormStubsSourceStubberTest extends TestCase
     public function dataClassFromNamespace() : array
     {
         return [
-			['http\\Client'],
+            ['http\\Client'],
             ['Parle\\Stack'],
             ['MongoDB\\Driver\\Manager'],
         ];
@@ -825,24 +825,43 @@ class PhpStormStubsSourceStubberTest extends TestCase
         $this->assertSame($className, $classReflection->getName());
     }
 
-	public function dataFunctionFromNamespace() : array
-	{
-		return [
-			['Couchbase\\basicDecoderV1'],
-			['MongoDB\\BSON\\fromJSON'],
-			['Sodium\\add'],
-		];
-	}
+    public function dataFunctionFromNamespace() : array
+    {
+        return [
+            ['Couchbase\\basicDecoderV1'],
+            ['MongoDB\\BSON\\fromJSON'],
+            ['Sodium\\add'],
+        ];
+    }
 
-	/**
-	 * @dataProvider dataFunctionFromNamespace
-	 */
-	public function testFunctionFromNamespace(string $functionName) : void
-	{
-		[,$functionReflector] = $this->getReflectors(PHP_VERSION_ID);
-		$functionReflection  = $functionReflector->reflect($functionName);
-		$this->assertSame($functionName, $functionReflection->getName());
-	}
+    /**
+     * @dataProvider dataFunctionFromNamespace
+     */
+    public function testFunctionFromNamespace(string $functionName) : void
+    {
+        [,$functionReflector] = $this->getReflectors(PHP_VERSION_ID);
+        $functionReflection   = $functionReflector->reflect($functionName);
+        $this->assertSame($functionName, $functionReflection->getName());
+    }
+
+    public function dataConstantFromNamespace() : array
+    {
+        return [
+            ['http\\Client\\Curl\\AUTH_ANY'],
+            ['pcov\\all'],
+            ['YAF\\ENVIRON'],
+        ];
+    }
+
+    /**
+     * @dataProvider dataConstantFromNamespace
+     */
+    public function testConstantFromNamespace(string $constantName) : void
+    {
+        [,,$constantReflector] = $this->getReflectors(PHP_VERSION_ID);
+        $constantReflection    = $constantReflector->reflect($constantName);
+        $this->assertSame($constantName, $constantReflection->getName());
+    }
 
     /**
      * @return array{ClassReflector, FunctionReflector, ConstantReflector}
