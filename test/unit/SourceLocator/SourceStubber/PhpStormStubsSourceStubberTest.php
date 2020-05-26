@@ -809,6 +809,7 @@ class PhpStormStubsSourceStubberTest extends TestCase
     public function dataClassFromNamespace() : array
     {
         return [
+			['http\\Client'],
             ['Parle\\Stack'],
             ['MongoDB\\Driver\\Manager'],
         ];
@@ -823,6 +824,25 @@ class PhpStormStubsSourceStubberTest extends TestCase
         $classReflection  = $classReflector->reflect($className);
         $this->assertSame($className, $classReflection->getName());
     }
+
+	public function dataFunctionFromNamespace() : array
+	{
+		return [
+			['Couchbase\\basicDecoderV1'],
+			['MongoDB\\BSON\\fromJSON'],
+			['Sodium\\add'],
+		];
+	}
+
+	/**
+	 * @dataProvider dataFunctionFromNamespace
+	 */
+	public function testFunctionFromNamespace(string $functionName) : void
+	{
+		[,$functionReflector] = $this->getReflectors(PHP_VERSION_ID);
+		$functionReflection  = $functionReflector->reflect($functionName);
+		$this->assertSame($functionName, $functionReflection->getName());
+	}
 
     /**
      * @return array{ClassReflector, FunctionReflector, ConstantReflector}
