@@ -440,7 +440,7 @@ class Foo
     protected $c = 'c',
               $d = 'd';
     private $e = bool,
-            $f = false;                
+            $f = false;
 }
 PHP;
 
@@ -1896,5 +1896,31 @@ PHP;
 
         self::assertCount(2, $constants);
         self::assertSame($expectedConstants, $constants);
+    }
+
+    public function testPromotedProperties() : void
+    {
+        $php        = <<<'PHP'
+<?php
+class Foo
+{
+    public function __construct(/** @var foo */ public $foo, protected int $bar, private string $baz)
+    {
+    }
+}
+PHP;
+        $classInfo  = (new ClassReflector(new StringSourceLocator($php, $this->astLocator)))->reflect('Foo');
+        $properties = $classInfo->getProperties();
+        $this->assertSame('foo', $properties['foo']->getName());
+        $this->assertNull($properties['foo']->getType());
+        $this->assertSame('/** @var foo */', $properties['foo']->getDocComment());
+
+        $this->assertSame('bar', $properties['bar']->getName());
+        $this->assertSame('int', (string) $properties['bar']->getType());
+        $this->assertSame('', $properties['bar']->getDocComment());
+
+        $this->assertSame('baz', $properties['baz']->getName());
+        $this->assertSame('string', (string) $properties['baz']->getType());
+        $this->assertSame('', $properties['baz']->getDocComment());
     }
 }

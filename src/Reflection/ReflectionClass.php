@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflection\Reflection;
 
+use LogicException;
 use OutOfBoundsException;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_ as ClassNode;
@@ -47,6 +48,7 @@ use function assert;
 use function implode;
 use function in_array;
 use function is_object;
+use function is_string;
 use function ltrim;
 use function sha1;
 use function sprintf;
@@ -671,6 +673,38 @@ class ReflectionClass implements Reflection
         if ($this->cachedImmediateProperties === null) {
             $properties = [];
             foreach ($this->node->stmts as $stmt) {
+                if ($stmt instanceof ClassMethod && $stmt->name->toLowerString() === '__construct') {
+                    foreach ($stmt->params as $param) {
+                        if ($param->flags === 0) {
+                            continue;
+                        }
+
+                        if (! $param->var instanceof Node\Expr\Variable || ! is_string($param->var->name)) {
+                            throw new LogicException('Param should have a name.');
+                        }
+
+                        $prop                         = ReflectionProperty::createFromNode(
+                            $this->reflector,
+                            new Node\Stmt\Property(
+                                $param->flags,
+                                [
+                                    new Node\Stmt\PropertyProperty(
+                                        new Node\VarLikeIdentifier($param->var->name)
+                                    ),
+                                ],
+                                $param->getAttributes(),
+                                $param->type,
+                                $param->attrGroups
+                            ),
+                            0,
+                            $this->declaringNamespace,
+                            $this,
+                            $this
+                        );
+                        $properties[$prop->getName()] = $prop;
+                    }
+                }
+
                 if (! ($stmt instanceof PropertyNode)) {
                     continue;
                 }
