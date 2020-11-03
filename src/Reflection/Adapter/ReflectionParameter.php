@@ -177,6 +177,11 @@ class ReflectionParameter extends CoreReflectionParameter
         return $this->betterReflectionParameter->isDefaultValueConstant();
     }
 
+    public function isPromoted() : bool
+    {
+        return $this->betterReflectionParameter->isPromoted();
+    }
+
     /**
      * {@inheritDoc}
      */

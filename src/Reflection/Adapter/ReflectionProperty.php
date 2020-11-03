@@ -148,6 +148,11 @@ class ReflectionProperty extends CoreReflectionProperty
         return $this->betterReflectionProperty->isDefault();
     }
 
+    public function isPromoted() : bool
+    {
+        return $this->betterReflectionProperty->isPromoted();
+    }
+
     /**
      * {@inheritDoc}
      */

@@ -476,6 +476,11 @@ class ReflectionParameter
         return $this->isDefaultValueConstant;
     }
 
+    public function isPromoted() : bool
+    {
+        return $this->node->flags !== 0;
+    }
+
     /**
      * @throws LogicException
      */

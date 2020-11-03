@@ -1904,6 +1904,8 @@ PHP;
 <?php
 class Foo
 {
+    private $lorem;
+
     public function __construct(/** @var foo */ public $foo, protected int $bar, private string $baz, $lorem)
     {
     }
@@ -1916,17 +1918,28 @@ PHP;
         $this->assertSame('/** @var foo */', $properties['foo']->getDocComment());
         $this->assertTrue($properties['foo']->isPublic());
         $this->assertFalse($properties['foo']->isPrivate());
+        $this->assertTrue($properties['foo']->isPromoted());
 
         $this->assertSame('bar', $properties['bar']->getName());
         $this->assertSame('int', (string) $properties['bar']->getType());
         $this->assertSame('', $properties['bar']->getDocComment());
         $this->assertTrue($properties['bar']->isProtected());
         $this->assertFalse($properties['bar']->isPrivate());
+        $this->assertTrue($properties['bar']->isPromoted());
 
         $this->assertSame('baz', $properties['baz']->getName());
         $this->assertSame('string', (string) $properties['baz']->getType());
         $this->assertSame('', $properties['baz']->getDocComment());
         $this->assertTrue($properties['baz']->isPrivate());
         $this->assertFalse($properties['baz']->isPublic());
+        $this->assertTrue($properties['baz']->isPromoted());
+
+        $this->assertFalse($properties['lorem']->isPromoted());
+
+        $constructor = $classInfo->getConstructor();
+        $this->assertTrue($constructor->getParameter('foo')->isPromoted());
+        $this->assertTrue($constructor->getParameter('bar')->isPromoted());
+        $this->assertTrue($constructor->getParameter('baz')->isPromoted());
+        $this->assertFalse($constructor->getParameter('lorem')->isPromoted());
     }
 }

@@ -699,7 +699,9 @@ class ReflectionClass implements Reflection
                             0,
                             $this->declaringNamespace,
                             $this,
-                            $this
+                            $this,
+                            true,
+                            true
                         );
                         $properties[$prop->getName()] = $prop;
                     }
@@ -778,7 +780,9 @@ class ReflectionClass implements Reflection
                                     $property->getPositionInAst(),
                                     $trait->declaringNamespace,
                                     $property->getDeclaringClass(),
-                                    $this
+                                    $this,
+                                    $property->isDefault(),
+                                    $property->isPromoted()
                                 );
                             }, $trait->getProperties($filter));
                         },

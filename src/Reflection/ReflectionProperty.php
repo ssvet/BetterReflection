@@ -52,6 +52,9 @@ class ReflectionProperty
     /** @var bool */
     private $declaredAtCompileTime = true;
 
+    /** @var bool */
+    private $promoted;
+
     /** @var Reflector */
     private $reflector;
 
@@ -98,7 +101,8 @@ class ReflectionProperty
         ?Namespace_ $declaringNamespace,
         ReflectionClass $declaringClass,
         ReflectionClass $implementingClass,
-        bool $declaredAtCompileTime = true
+        bool $declaredAtCompileTime = true,
+        bool $promoted = false
     ) : self {
         $prop                        = new self();
         $prop->reflector             = $reflector;
@@ -108,6 +112,7 @@ class ReflectionProperty
         $prop->declaringClass        = $declaringClass;
         $prop->implementingClass     = $implementingClass;
         $prop->declaredAtCompileTime = $declaredAtCompileTime;
+        $prop->promoted              = $promoted;
 
         return $prop;
     }
@@ -200,6 +205,11 @@ class ReflectionProperty
     public function isStatic() : bool
     {
         return $this->node->isStatic();
+    }
+
+    public function isPromoted() : bool
+    {
+        return $this->promoted;
     }
 
     /**
