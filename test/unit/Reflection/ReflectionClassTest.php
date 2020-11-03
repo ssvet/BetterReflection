@@ -1904,7 +1904,7 @@ PHP;
 <?php
 class Foo
 {
-    public function __construct(/** @var foo */ public $foo, protected int $bar, private string $baz)
+    public function __construct(/** @var foo */ public $foo, protected int $bar, private string $baz, $lorem)
     {
     }
 }
@@ -1914,13 +1914,19 @@ PHP;
         $this->assertSame('foo', $properties['foo']->getName());
         $this->assertNull($properties['foo']->getType());
         $this->assertSame('/** @var foo */', $properties['foo']->getDocComment());
+        $this->assertTrue($properties['foo']->isPublic());
+        $this->assertFalse($properties['foo']->isPrivate());
 
         $this->assertSame('bar', $properties['bar']->getName());
         $this->assertSame('int', (string) $properties['bar']->getType());
         $this->assertSame('', $properties['bar']->getDocComment());
+        $this->assertTrue($properties['bar']->isProtected());
+        $this->assertFalse($properties['bar']->isPrivate());
 
         $this->assertSame('baz', $properties['baz']->getName());
         $this->assertSame('string', (string) $properties['baz']->getType());
         $this->assertSame('', $properties['baz']->getDocComment());
+        $this->assertTrue($properties['baz']->isPrivate());
+        $this->assertFalse($properties['baz']->isPublic());
     }
 }
