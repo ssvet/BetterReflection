@@ -1942,4 +1942,22 @@ PHP;
         $this->assertTrue($constructor->getParameter('baz')->isPromoted());
         $this->assertFalse($constructor->getParameter('lorem')->isPromoted());
     }
+
+    public function testAttributes() : void
+    {
+        $php        = <<<'PHP'
+<?php
+#[MyAttr(1, 2, a: 'foo')]
+class Foo
+{
+
+}
+PHP;
+        $classInfo  = (new ClassReflector(new StringSourceLocator($php, $this->astLocator)))->reflect('Foo');
+        $attributes = $classInfo->getAttributes();
+        $this->assertCount(1, $attributes);
+        $attribute = $attributes[0];
+        $this->assertSame('MyAttr', $attribute->getName());
+        $this->assertSame([1, 2, 'a' => 'foo'], $attribute->getArguments());
+    }
 }

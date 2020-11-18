@@ -21,6 +21,8 @@ use ReflectionClass as CoreReflectionClass;
 use ReflectionException;
 use ReflectionProperty as CoreReflectionProperty;
 use Roave\BetterReflection\BetterReflection;
+use Roave\BetterReflection\NodeCompiler\CompileNodeToValue;
+use Roave\BetterReflection\NodeCompiler\CompilerContext;
 use Roave\BetterReflection\Reflection\Exception\ClassDoesNotExist;
 use Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
 use Roave\BetterReflection\Reflection\Exception\NotAClassReflection;
@@ -1630,5 +1632,34 @@ class ReflectionClass implements Reflection
         }
 
         return false;
+    }
+
+    /**
+     * @return ReflectionAttribute[]
+     */
+    public function getAttributes() : array
+    {
+        $attributes         = [];
+        $compileNodeToValue = new CompileNodeToValue();
+        foreach ($this->node->attrGroups as $attrGroup) {
+            foreach ($attrGroup->attrs as $attr) {
+                $arguments = [];
+                foreach ($attr->args as $i => $arg) {
+                    $key = $i;
+                    if ($arg->name !== null) {
+                        $key = $arg->name->toString();
+                    }
+
+                    $arguments[$key] = $compileNodeToValue->__invoke($arg->value, new CompilerContext($this->reflector, $this->getFileName(), $this, $this->declaringNamespace !== null && $this->declaringNamespace->name !== null ? $this->declaringNamespace->name->toString() : null, null));
+                }
+
+                $attributes[] = new ReflectionAttribute(
+                    $attr->name->toString(),
+                    $arguments
+                );
+            }
+        }
+
+        return $attributes;
     }
 }
