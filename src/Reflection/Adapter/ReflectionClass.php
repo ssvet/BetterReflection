@@ -38,6 +38,11 @@ class ReflectionClass extends CoreReflectionClass
         unset($this->name);
     }
 
+    public function getBetterReflection() : BetterReflectionClass
+    {
+        return $this->betterReflectionClass;
+    }
+
     /**
      * {@inheritDoc}
      *

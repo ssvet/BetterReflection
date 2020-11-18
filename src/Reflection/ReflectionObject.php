@@ -530,6 +530,9 @@ class ReflectionObject extends ReflectionClass
         $this->reflectionClass->addProperty($methodName, $visibility, $static);
     }
 
+    /**
+     * @return ReflectionAttribute[]
+     */
     public function getAttributes() : array
     {
         return $this->reflectionClass->getAttributes();
