@@ -892,7 +892,7 @@ class PhpStormStubsSourceStubberTest extends TestCase
                 'newrelic_record_datastore_segment',
                 70100,
                 true,
-            ]
+            ],
         ];
     }
 
