@@ -6,7 +6,7 @@
         "php": ">=7.1.0",
         "ext-json": "*",
         "jetbrains/phpstorm-stubs": "dev-master#b2402e4a525593f68ff46303dcc6bc625437276a",
-        "nikic/php-parser": "4.10.3",
+        "nikic/php-parser": "4.10.4",
         "phpdocumentor/reflection-docblock": "^4.3.4 || ^5.2.0",
         "phpdocumentor/type-resolver": "^1.0.0",
         "roave/signature": "1.1.0"
