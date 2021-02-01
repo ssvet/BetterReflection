@@ -99,6 +99,9 @@ class ReflectionClass implements Reflection
     /** @var string|null */
     private $cachedName;
 
+    /** @var ReflectionMethod|null */
+    private $cachedConstructor;
+
     private function __construct()
     {
     }
@@ -651,6 +654,10 @@ class ReflectionClass implements Reflection
      */
     public function getConstructor() : ReflectionMethod
     {
+        if ($this->cachedConstructor !== null) {
+            return $this->cachedConstructor;
+        }
+
         $constructors = array_values(array_filter($this->getMethods(), static function (ReflectionMethod $method) : bool {
             return $method->isConstructor();
         }));
@@ -659,7 +666,7 @@ class ReflectionClass implements Reflection
             throw new OutOfBoundsException('Could not find method: __construct');
         }
 
-        return $constructors[0];
+        return $this->cachedConstructor = $constructors[0];
     }
 
     /**
