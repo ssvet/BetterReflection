@@ -26,7 +26,7 @@ final class GetLastDocComment
         }
 
         if ($doc !== null) {
-            $text = $doc->getReformattedText();
+            $text = $doc->getText();
 
             assert(is_string($text));
 
