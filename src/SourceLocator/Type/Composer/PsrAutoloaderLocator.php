@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\SourceLocator\Type\Composer;
+namespace PHPStan\BetterReflection\SourceLocator\Type\Composer;
 
-use Roave\BetterReflection\Identifier\Identifier;
-use Roave\BetterReflection\Identifier\IdentifierType;
-use Roave\BetterReflection\Reflection\Reflection;
-use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use Roave\BetterReflection\Reflector\Reflector;
-use Roave\BetterReflection\SourceLocator\Ast\Locator;
-use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-use Roave\BetterReflection\SourceLocator\Type\Composer\Psr\PsrAutoloaderMapping;
-use Roave\BetterReflection\SourceLocator\Type\DirectoriesSourceLocator;
-use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
+use PHPStan\BetterReflection\Identifier\Identifier;
+use PHPStan\BetterReflection\Identifier\IdentifierType;
+use PHPStan\BetterReflection\Reflection\Reflection;
+use PHPStan\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use PHPStan\BetterReflection\Reflector\Reflector;
+use PHPStan\BetterReflection\SourceLocator\Ast\Locator;
+use PHPStan\BetterReflection\SourceLocator\Located\LocatedSource;
+use PHPStan\BetterReflection\SourceLocator\Type\Composer\Psr\PsrAutoloaderMapping;
+use PHPStan\BetterReflection\SourceLocator\Type\DirectoriesSourceLocator;
+use PHPStan\BetterReflection\SourceLocator\Type\SourceLocator;
 use function file_exists;
 use function file_get_contents;
 

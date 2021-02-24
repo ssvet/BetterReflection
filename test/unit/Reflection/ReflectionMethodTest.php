@@ -15,21 +15,21 @@ use PHPUnit\Framework\TestCase;
 use Reflection;
 use ReflectionClass;
 use ReflectionMethod as CoreReflectionMethod;
-use Roave\BetterReflection\Reflection\Exception\ClassDoesNotExist;
-use Roave\BetterReflection\Reflection\Exception\MethodPrototypeNotFound;
-use Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
-use Roave\BetterReflection\Reflection\Exception\NotAnObject;
-use Roave\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass;
-use Roave\BetterReflection\Reflection\ReflectionMethod;
-use Roave\BetterReflection\Reflection\ReflectionParameter;
-use Roave\BetterReflection\Reflection\ReflectionType;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\SourceLocator\Ast\Locator;
-use Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
-use Roave\BetterReflection\SourceLocator\Type\ComposerSourceLocator;
-use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
-use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
-use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use PHPStan\BetterReflection\Reflection\Exception\ClassDoesNotExist;
+use PHPStan\BetterReflection\Reflection\Exception\MethodPrototypeNotFound;
+use PHPStan\BetterReflection\Reflection\Exception\NoObjectProvided;
+use PHPStan\BetterReflection\Reflection\Exception\NotAnObject;
+use PHPStan\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass;
+use PHPStan\BetterReflection\Reflection\ReflectionMethod;
+use PHPStan\BetterReflection\Reflection\ReflectionParameter;
+use PHPStan\BetterReflection\Reflection\ReflectionType;
+use PHPStan\BetterReflection\Reflector\ClassReflector;
+use PHPStan\BetterReflection\SourceLocator\Ast\Locator;
+use PHPStan\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
+use PHPStan\BetterReflection\SourceLocator\Type\ComposerSourceLocator;
+use PHPStan\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
+use PHPStan\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
+use PHPStan\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 use Roave\BetterReflectionTest\Fixture\ClassWithNonStaticMethod;
 use Roave\BetterReflectionTest\Fixture\ClassWithStaticMethod;
@@ -44,7 +44,7 @@ use TraitWithMethod;
 use function basename;
 
 /**
- * @covers \Roave\BetterReflection\Reflection\ReflectionMethod
+ * @covers \PHPStan\BetterReflection\Reflection\ReflectionMethod
  */
 class ReflectionMethodTest extends TestCase
 {

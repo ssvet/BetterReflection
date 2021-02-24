@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Reflector;
+namespace PHPStan\BetterReflection\Reflector;
 
-use Roave\BetterReflection\Reflection\Reflection;
-use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use PHPStan\BetterReflection\Reflection\Reflection;
+use PHPStan\BetterReflection\Reflector\Exception\IdentifierNotFound;
 
 /**
  * This interface is used to ensure a reflector implements these basic methods.

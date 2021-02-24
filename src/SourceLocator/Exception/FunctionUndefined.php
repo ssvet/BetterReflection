@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\SourceLocator\Exception;
+namespace PHPStan\BetterReflection\SourceLocator\Exception;
 
 use RuntimeException;
 
@@ -14,7 +14,7 @@ use RuntimeException;
  *
  * @deprecated You're probably looking for `IdentifierNotFound`
  *
- * @see \Roave\BetterReflection\Reflector\Exception\IdentifierNotFound
+ * @see \PHPStan\BetterReflection\Reflector\Exception\IdentifierNotFound
  */
 class FunctionUndefined extends RuntimeException
 {

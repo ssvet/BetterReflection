@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Roave\BetterReflectionTest\Reflection\Exception;
 
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\Reflection\Exception\ReflectionTypeDoesNotPointToAClassAlikeType;
-use Roave\BetterReflection\Reflection\ReflectionType;
+use PHPStan\BetterReflection\Reflection\Exception\ReflectionTypeDoesNotPointToAClassAlikeType;
+use PHPStan\BetterReflection\Reflection\ReflectionType;
 
 /**
- * @covers \Roave\BetterReflection\Reflection\Exception\ReflectionTypeDoesNotPointToAClassAlikeType
+ * @covers \PHPStan\BetterReflection\Reflection\Exception\ReflectionTypeDoesNotPointToAClassAlikeType
  */
 class ReflectionTypeDoesNotPointToAClassAlikeTypeTest extends TestCase
 {

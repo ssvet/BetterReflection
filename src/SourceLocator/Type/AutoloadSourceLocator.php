@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\SourceLocator\Type;
+namespace PHPStan\BetterReflection\SourceLocator\Type;
 
 use InvalidArgumentException;
 use PhpParser\Node;
@@ -13,14 +13,14 @@ use PhpParser\Parser;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionFunction;
-use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Identifier\Identifier;
-use Roave\BetterReflection\Reflection\Exception\InvalidConstantNode;
-use Roave\BetterReflection\SourceLocator\Ast\Locator as AstLocator;
-use Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation;
-use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-use Roave\BetterReflection\SourceLocator\Type\AutoloadSourceLocator\FileReadTrapStreamWrapper;
-use Roave\BetterReflection\Util\ConstantNodeChecker;
+use PHPStan\BetterReflection\BetterReflection;
+use PHPStan\BetterReflection\Identifier\Identifier;
+use PHPStan\BetterReflection\Reflection\Exception\InvalidConstantNode;
+use PHPStan\BetterReflection\SourceLocator\Ast\Locator as AstLocator;
+use PHPStan\BetterReflection\SourceLocator\Exception\InvalidFileLocation;
+use PHPStan\BetterReflection\SourceLocator\Located\LocatedSource;
+use PHPStan\BetterReflection\SourceLocator\Type\AutoloadSourceLocator\FileReadTrapStreamWrapper;
+use PHPStan\BetterReflection\Util\ConstantNodeChecker;
 use function array_key_exists;
 use function array_reverse;
 use function assert;

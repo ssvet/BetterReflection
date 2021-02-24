@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Util\Autoload\Exception;
+namespace PHPStan\BetterReflection\Util\Autoload\Exception;
 
 use LogicException;
 use function sprintf;

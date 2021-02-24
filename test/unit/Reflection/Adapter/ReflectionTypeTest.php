@@ -9,18 +9,18 @@ use PHPUnit\Framework\TestCase;
 use ReflectionClass as CoreReflectionClass;
 use ReflectionType as CoreReflectionType;
 use ReflectionUnionType;
-use Roave\BetterReflection\Reflection\Adapter\ReflectionNamedType as ReflectionNamedTypeAdapter;
-use Roave\BetterReflection\Reflection\Adapter\ReflectionType as ReflectionTypeAdapter;
-use Roave\BetterReflection\Reflection\Adapter\ReflectionUnionType as ReflectionUnionTypeAdapter;
-use Roave\BetterReflection\Reflection\ReflectionNamedType as BetterReflectionNamedType;
-use Roave\BetterReflection\Reflection\ReflectionType as BetterReflectionType;
+use PHPStan\BetterReflection\Reflection\Adapter\ReflectionNamedType as ReflectionNamedTypeAdapter;
+use PHPStan\BetterReflection\Reflection\Adapter\ReflectionType as ReflectionTypeAdapter;
+use PHPStan\BetterReflection\Reflection\Adapter\ReflectionUnionType as ReflectionUnionTypeAdapter;
+use PHPStan\BetterReflection\Reflection\ReflectionNamedType as BetterReflectionNamedType;
+use PHPStan\BetterReflection\Reflection\ReflectionType as BetterReflectionType;
 use function array_combine;
 use function array_map;
 use function class_exists;
 use function get_class_methods;
 
 /**
- * @covers \Roave\BetterReflection\Reflection\Adapter\ReflectionType
+ * @covers \PHPStan\BetterReflection\Reflection\Adapter\ReflectionType
  */
 class ReflectionTypeTest extends TestCase
 {

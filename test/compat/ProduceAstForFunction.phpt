@@ -13,14 +13,14 @@ function adder($a, $b)
 }
 EOF;
 
-$sourceLocator = new Roave\BetterReflection\SourceLocator\Type\StringSourceLocator(
+$sourceLocator = new PHPStan\BetterReflection\SourceLocator\Type\StringSourceLocator(
     $source,
-    (new Roave\BetterReflection\BetterReflection())->astLocator()
+    (new PHPStan\BetterReflection\BetterReflection())->astLocator()
 );
 
-$reflector = new \Roave\BetterReflection\Reflector\FunctionReflector(
+$reflector = new \PHPStan\BetterReflection\Reflector\FunctionReflector(
     $sourceLocator,
-    new \Roave\BetterReflection\Reflector\ClassReflector($sourceLocator)
+    new \PHPStan\BetterReflection\Reflector\ClassReflector($sourceLocator)
 );
 
 $functionInfo = $reflector->reflect('adder');

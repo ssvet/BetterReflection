@@ -6,16 +6,16 @@ namespace Roave\BetterReflectionTest\Reflection\StringCast;
 
 use Exception;
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\SourceLocator\Ast\Locator;
-use Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
-use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
-use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
+use PHPStan\BetterReflection\Reflector\ClassReflector;
+use PHPStan\BetterReflection\SourceLocator\Ast\Locator;
+use PHPStan\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
+use PHPStan\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
+use PHPStan\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 use Roave\BetterReflectionTest\Fixture\StringCastMethods;
 
 /**
- * @covers \Roave\BetterReflection\Reflection\StringCast\ReflectionMethodStringCast
+ * @covers \PHPStan\BetterReflection\Reflection\StringCast\ReflectionMethodStringCast
  */
 class ReflectionMethodStringCastTest extends TestCase
 {

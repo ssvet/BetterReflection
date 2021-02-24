@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Reflection\Adapter;
+namespace PHPStan\BetterReflection\Reflection\Adapter;
 
 use ReflectionUnionType as CoreReflectionUnionType;
-use Roave\BetterReflection\Reflection\ReflectionUnionType as BetterReflectionType;
+use PHPStan\BetterReflection\Reflection\ReflectionUnionType as BetterReflectionType;
 use function array_map;
 
 class ReflectionUnionType extends CoreReflectionUnionType
@@ -33,7 +33,7 @@ class ReflectionUnionType extends CoreReflectionUnionType
      */
     public function getTypes() : array
     {
-        return array_map(static function (\Roave\BetterReflection\Reflection\ReflectionType $type) : \ReflectionType {
+        return array_map(static function (\PHPStan\BetterReflection\Reflection\ReflectionType $type) : \ReflectionType {
             return ReflectionType::fromReturnTypeOrNull($type);
         }, $this->betterReflectionType->getTypes());
     }

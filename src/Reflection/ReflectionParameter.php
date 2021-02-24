@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Reflection;
+namespace PHPStan\BetterReflection\Reflection;
 
 use Closure;
 use Exception;
@@ -14,15 +14,15 @@ use PhpParser\Node;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\Param as ParamNode;
 use PhpParser\Node\Stmt\Namespace_;
-use Roave\BetterReflection\NodeCompiler\CompileNodeToValue;
-use Roave\BetterReflection\NodeCompiler\CompilerContext;
-use Roave\BetterReflection\Reflection\Exception\Uncloneable;
-use Roave\BetterReflection\Reflection\StringCast\ReflectionParameterStringCast;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use Roave\BetterReflection\Reflector\Reflector;
-use Roave\BetterReflection\TypesFinder\FindParameterType;
-use Roave\BetterReflection\Util\CalculateReflectionColum;
+use PHPStan\BetterReflection\NodeCompiler\CompileNodeToValue;
+use PHPStan\BetterReflection\NodeCompiler\CompilerContext;
+use PHPStan\BetterReflection\Reflection\Exception\Uncloneable;
+use PHPStan\BetterReflection\Reflection\StringCast\ReflectionParameterStringCast;
+use PHPStan\BetterReflection\Reflector\ClassReflector;
+use PHPStan\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use PHPStan\BetterReflection\Reflector\Reflector;
+use PHPStan\BetterReflection\TypesFinder\FindParameterType;
+use PHPStan\BetterReflection\Util\CalculateReflectionColum;
 use RuntimeException;
 use function assert;
 use function count;

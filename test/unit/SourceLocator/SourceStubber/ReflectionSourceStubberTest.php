@@ -14,16 +14,16 @@ use ReflectionMethod as CoreReflectionMethod;
 use ReflectionNamedType;
 use ReflectionParameter as CoreReflectionParameter;
 use ReflectionUnionType;
-use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Reflection\ReflectionMethod;
-use Roave\BetterReflection\Reflection\ReflectionParameter;
-use Roave\BetterReflection\Reflection\ReflectionType;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\Reflector\ConstantReflector;
-use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use Roave\BetterReflection\Reflector\FunctionReflector;
-use Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber;
-use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
+use PHPStan\BetterReflection\Reflection\ReflectionClass;
+use PHPStan\BetterReflection\Reflection\ReflectionMethod;
+use PHPStan\BetterReflection\Reflection\ReflectionParameter;
+use PHPStan\BetterReflection\Reflection\ReflectionType;
+use PHPStan\BetterReflection\Reflector\ClassReflector;
+use PHPStan\BetterReflection\Reflector\ConstantReflector;
+use PHPStan\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use PHPStan\BetterReflection\Reflector\FunctionReflector;
+use PHPStan\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber;
+use PHPStan\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 use Roave\BetterReflectionTest\Fixture\ClassForSourceStubber;
 use Roave\BetterReflectionTest\Fixture\ClassForSourceStubberWithDefaultStaticProperty;
@@ -45,7 +45,7 @@ use function sprintf;
 use const PHP_VERSION_ID;
 
 /**
- * @covers \Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber
+ * @covers \PHPStan\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber
  */
 class ReflectionSourceStubberTest extends TestCase
 {
@@ -73,10 +73,10 @@ class ReflectionSourceStubberTest extends TestCase
     private function assertType(?\ReflectionType $originalType, ?ReflectionType $stubbedType, string $message) : void
     {
         if ($originalType instanceof ReflectionNamedType) {
-            self::assertInstanceOf(\Roave\BetterReflection\Reflection\ReflectionNamedType::class, $stubbedType, $message);
+            self::assertInstanceOf(\PHPStan\BetterReflection\Reflection\ReflectionNamedType::class, $stubbedType, $message);
             self::assertSame($originalType->getName(), $stubbedType->getName(), $message);
         } elseif ($originalType instanceof ReflectionUnionType) {
-            self::assertInstanceOf(\Roave\BetterReflection\Reflection\ReflectionUnionType::class, $stubbedType);
+            self::assertInstanceOf(\PHPStan\BetterReflection\Reflection\ReflectionUnionType::class, $stubbedType);
             self::assertSame((string) $originalType, (string) $stubbedType, $message);
         } else {
             self::assertNull($originalType, $message);

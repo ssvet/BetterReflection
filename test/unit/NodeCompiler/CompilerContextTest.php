@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Roave\BetterReflectionTest\NodeCompiler;
 
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\NodeCompiler\CompilerContext;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\Reflector\FunctionReflector;
-use Roave\BetterReflection\SourceLocator\Ast\Locator;
-use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
-use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
-use Roave\BetterReflection\Util\FileHelper;
+use PHPStan\BetterReflection\NodeCompiler\CompilerContext;
+use PHPStan\BetterReflection\Reflector\ClassReflector;
+use PHPStan\BetterReflection\Reflector\FunctionReflector;
+use PHPStan\BetterReflection\SourceLocator\Ast\Locator;
+use PHPStan\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
+use PHPStan\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use PHPStan\BetterReflection\Util\FileHelper;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 use RuntimeException;
 
 /**
- * @covers \Roave\BetterReflection\NodeCompiler\CompilerContext
+ * @covers \PHPStan\BetterReflection\NodeCompiler\CompilerContext
  */
 class CompilerContextTest extends TestCase
 {
@@ -83,7 +83,7 @@ class CompilerContextTest extends TestCase
     {
         $phpCode = '<?php
         namespace Foo;
-        
+
         class Bar {
             public $property = __CLASS__;
         }
@@ -98,7 +98,7 @@ class CompilerContextTest extends TestCase
     {
         $phpCode = '<?php
         namespace Foo;
-        
+
         function baz($parameter = __CLASS__)
         {
         }

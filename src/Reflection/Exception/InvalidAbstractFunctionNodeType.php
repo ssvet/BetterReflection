@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Reflection\Exception;
+namespace PHPStan\BetterReflection\Reflection\Exception;
 
 use InvalidArgumentException;
 use PhpParser\Node;
-use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use PHPStan\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use function get_class;
 use function sprintf;
 

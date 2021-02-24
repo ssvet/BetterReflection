@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\SourceLocator\Type;
+namespace PHPStan\BetterReflection\SourceLocator\Type;
 
 use Iterator;
-use Roave\BetterReflection\Identifier\Identifier;
-use Roave\BetterReflection\Identifier\IdentifierType;
-use Roave\BetterReflection\Reflection\Reflection;
-use Roave\BetterReflection\Reflector\Reflector;
-use Roave\BetterReflection\SourceLocator\Ast\Locator;
-use Roave\BetterReflection\SourceLocator\Exception\InvalidFileInfo;
-use Roave\BetterReflection\SourceLocator\Exception\InvalidFileLocation;
+use PHPStan\BetterReflection\Identifier\Identifier;
+use PHPStan\BetterReflection\Identifier\IdentifierType;
+use PHPStan\BetterReflection\Reflection\Reflection;
+use PHPStan\BetterReflection\Reflector\Reflector;
+use PHPStan\BetterReflection\SourceLocator\Ast\Locator;
+use PHPStan\BetterReflection\SourceLocator\Exception\InvalidFileInfo;
+use PHPStan\BetterReflection\SourceLocator\Exception\InvalidFileLocation;
 use SplFileInfo;
 use function array_filter;
 use function array_map;

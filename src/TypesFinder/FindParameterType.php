@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\TypesFinder;
+namespace PHPStan\BetterReflection\TypesFinder;
 
 use LogicException;
 use phpDocumentor\Reflection\DocBlock\Tags\Param;
@@ -11,8 +11,8 @@ use phpDocumentor\Reflection\Type;
 use PhpParser\Node\Expr\Error;
 use PhpParser\Node\Param as ParamNode;
 use PhpParser\Node\Stmt\Namespace_;
-use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-use Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext;
+use PHPStan\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use PHPStan\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext;
 use function explode;
 
 class FindParameterType

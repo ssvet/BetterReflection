@@ -8,19 +8,19 @@ use PHPUnit\Framework\TestCase;
 use ReflectionClass as CoreReflectionClass;
 use ReflectionException as CoreReflectionException;
 use ReflectionMethod as CoreReflectionMethod;
-use Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
-use Roave\BetterReflection\Reflection\Adapter\ReflectionClass as ReflectionClassAdapter;
-use Roave\BetterReflection\Reflection\Adapter\ReflectionMethod as ReflectionMethodAdapter;
-use Roave\BetterReflection\Reflection\Adapter\ReflectionNamedType as ReflectionNamedTypeAdapter;
-use Roave\BetterReflection\Reflection\Adapter\ReflectionParameter as ReflectionParameterAdapter;
-use Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
-use Roave\BetterReflection\Reflection\Exception\NotAnObject;
-use Roave\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass;
-use Roave\BetterReflection\Reflection\ReflectionClass as BetterReflectionClass;
-use Roave\BetterReflection\Reflection\ReflectionMethod as BetterReflectionMethod;
-use Roave\BetterReflection\Reflection\ReflectionNamedType as BetterReflectionNamedType;
-use Roave\BetterReflection\Reflection\ReflectionParameter as BetterReflectionParameter;
-use Roave\BetterReflection\Util\FileHelper;
+use PHPStan\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
+use PHPStan\BetterReflection\Reflection\Adapter\ReflectionClass as ReflectionClassAdapter;
+use PHPStan\BetterReflection\Reflection\Adapter\ReflectionMethod as ReflectionMethodAdapter;
+use PHPStan\BetterReflection\Reflection\Adapter\ReflectionNamedType as ReflectionNamedTypeAdapter;
+use PHPStan\BetterReflection\Reflection\Adapter\ReflectionParameter as ReflectionParameterAdapter;
+use PHPStan\BetterReflection\Reflection\Exception\NoObjectProvided;
+use PHPStan\BetterReflection\Reflection\Exception\NotAnObject;
+use PHPStan\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass;
+use PHPStan\BetterReflection\Reflection\ReflectionClass as BetterReflectionClass;
+use PHPStan\BetterReflection\Reflection\ReflectionMethod as BetterReflectionMethod;
+use PHPStan\BetterReflection\Reflection\ReflectionNamedType as BetterReflectionNamedType;
+use PHPStan\BetterReflection\Reflection\ReflectionParameter as BetterReflectionParameter;
+use PHPStan\BetterReflection\Util\FileHelper;
 use stdClass;
 use Throwable;
 use function array_combine;
@@ -28,7 +28,7 @@ use function array_map;
 use function get_class_methods;
 
 /**
- * @covers \Roave\BetterReflection\Reflection\Adapter\ReflectionMethod
+ * @covers \PHPStan\BetterReflection\Reflection\Adapter\ReflectionMethod
  */
 class ReflectionMethodTest extends TestCase
 {

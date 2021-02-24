@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Reflection\Adapter;
+namespace PHPStan\BetterReflection\Reflection\Adapter;
 
 use LogicException;
 use ReflectionType as CoreReflectionType;
-use Roave\BetterReflection\Reflection\ReflectionNamedType as BetterReflectionNamedType;
-use Roave\BetterReflection\Reflection\ReflectionType as BetterReflectionType;
-use Roave\BetterReflection\Reflection\ReflectionUnionType as BetterReflectionUnionType;
+use PHPStan\BetterReflection\Reflection\ReflectionNamedType as BetterReflectionNamedType;
+use PHPStan\BetterReflection\Reflection\ReflectionType as BetterReflectionType;
+use PHPStan\BetterReflection\Reflection\ReflectionUnionType as BetterReflectionUnionType;
 use function get_class;
 use function sprintf;
 

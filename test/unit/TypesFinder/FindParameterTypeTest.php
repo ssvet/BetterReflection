@@ -14,17 +14,17 @@ use PhpParser\Node\Param as ParamNode;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Use_ as UseStatement;
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\Reflection\ReflectionFunction;
-use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
-use Roave\BetterReflection\TypesFinder\FindParameterType;
+use PHPStan\BetterReflection\Reflection\ReflectionFunction;
+use PHPStan\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use PHPStan\BetterReflection\Reflector\ClassReflector;
+use PHPStan\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use PHPStan\BetterReflection\TypesFinder\FindParameterType;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 use function count;
 use function sprintf;
 
 /**
- * @covers \Roave\BetterReflection\TypesFinder\FindParameterType
+ * @covers \PHPStan\BetterReflection\TypesFinder\FindParameterType
  */
 class FindParameterTypeTest extends TestCase
 {

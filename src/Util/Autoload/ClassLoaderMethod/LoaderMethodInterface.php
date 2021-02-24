@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Util\Autoload\ClassLoaderMethod;
+namespace PHPStan\BetterReflection\Util\Autoload\ClassLoaderMethod;
 
-use Roave\BetterReflection\Reflection\ReflectionClass;
+use PHPStan\BetterReflection\Reflection\ReflectionClass;
 
 interface LoaderMethodInterface
 {

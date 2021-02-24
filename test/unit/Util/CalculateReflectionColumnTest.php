@@ -6,12 +6,12 @@ namespace Roave\BetterReflectionTest\Util;
 
 use PhpParser\Node;
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\Util\CalculateReflectionColum;
-use Roave\BetterReflection\Util\Exception\InvalidNodePosition;
-use Roave\BetterReflection\Util\Exception\NoNodePosition;
+use PHPStan\BetterReflection\Util\CalculateReflectionColum;
+use PHPStan\BetterReflection\Util\Exception\InvalidNodePosition;
+use PHPStan\BetterReflection\Util\Exception\NoNodePosition;
 
 /**
- * @covers \Roave\BetterReflection\Util\CalculateReflectionColum
+ * @covers \PHPStan\BetterReflection\Util\CalculateReflectionColum
  */
 class CalculateReflectionColumnTest extends TestCase
 {

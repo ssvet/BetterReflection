@@ -10,21 +10,21 @@ use ReflectionClass as CoreReflectionClass;
 use ReflectionException as CoreReflectionException;
 use ReflectionMethod as CoreReflectionMethod;
 use ReflectionProperty as CoreReflectionProperty;
-use Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
-use Roave\BetterReflection\Reflection\Adapter\ReflectionClass as ReflectionClassAdapter;
-use Roave\BetterReflection\Reflection\Exception\NotAnObject;
-use Roave\BetterReflection\Reflection\ReflectionClass as BetterReflectionClass;
-use Roave\BetterReflection\Reflection\ReflectionClassConstant as BetterReflectionClassConstant;
-use Roave\BetterReflection\Reflection\ReflectionMethod as BetterReflectionMethod;
-use Roave\BetterReflection\Reflection\ReflectionProperty as BetterReflectionProperty;
-use Roave\BetterReflection\Util\FileHelper;
+use PHPStan\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
+use PHPStan\BetterReflection\Reflection\Adapter\ReflectionClass as ReflectionClassAdapter;
+use PHPStan\BetterReflection\Reflection\Exception\NotAnObject;
+use PHPStan\BetterReflection\Reflection\ReflectionClass as BetterReflectionClass;
+use PHPStan\BetterReflection\Reflection\ReflectionClassConstant as BetterReflectionClassConstant;
+use PHPStan\BetterReflection\Reflection\ReflectionMethod as BetterReflectionMethod;
+use PHPStan\BetterReflection\Reflection\ReflectionProperty as BetterReflectionProperty;
+use PHPStan\BetterReflection\Util\FileHelper;
 use stdClass;
 use function array_combine;
 use function array_map;
 use function get_class_methods;
 
 /**
- * @covers \Roave\BetterReflection\Reflection\Adapter\ReflectionClass
+ * @covers \PHPStan\BetterReflection\Reflection\Adapter\ReflectionClass
  */
 class ReflectionClassTest extends TestCase
 {

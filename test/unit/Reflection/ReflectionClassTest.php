@@ -18,21 +18,21 @@ use Reflection as CoreReflection;
 use ReflectionClass as CoreReflectionClass;
 use ReflectionMethod as CoreReflectionMethod;
 use ReflectionProperty as CoreReflectionProperty;
-use Roave\BetterReflection\Reflection\Exception\NotAClassReflection;
-use Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection;
-use Roave\BetterReflection\Reflection\Exception\NotAnObject;
-use Roave\BetterReflection\Reflection\Exception\PropertyDoesNotExist;
-use Roave\BetterReflection\Reflection\Exception\Uncloneable;
-use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Reflection\ReflectionClassConstant;
-use Roave\BetterReflection\Reflection\ReflectionMethod;
-use Roave\BetterReflection\Reflection\ReflectionProperty;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use Roave\BetterReflection\SourceLocator\Ast\Locator;
-use Roave\BetterReflection\SourceLocator\Type\ComposerSourceLocator;
-use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
-use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use PHPStan\BetterReflection\Reflection\Exception\NotAClassReflection;
+use PHPStan\BetterReflection\Reflection\Exception\NotAnInterfaceReflection;
+use PHPStan\BetterReflection\Reflection\Exception\NotAnObject;
+use PHPStan\BetterReflection\Reflection\Exception\PropertyDoesNotExist;
+use PHPStan\BetterReflection\Reflection\Exception\Uncloneable;
+use PHPStan\BetterReflection\Reflection\ReflectionClass;
+use PHPStan\BetterReflection\Reflection\ReflectionClassConstant;
+use PHPStan\BetterReflection\Reflection\ReflectionMethod;
+use PHPStan\BetterReflection\Reflection\ReflectionProperty;
+use PHPStan\BetterReflection\Reflector\ClassReflector;
+use PHPStan\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use PHPStan\BetterReflection\SourceLocator\Ast\Locator;
+use PHPStan\BetterReflection\SourceLocator\Type\ComposerSourceLocator;
+use PHPStan\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
+use PHPStan\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 use Roave\BetterReflectionTest\ClassesImplementingIterators;
 use Roave\BetterReflectionTest\ClassesWithCloneMethod;
@@ -75,7 +75,7 @@ use function sort;
 use function uniqid;
 
 /**
- * @covers \Roave\BetterReflection\Reflection\ReflectionClass
+ * @covers \PHPStan\BetterReflection\Reflection\ReflectionClass
  */
 class ReflectionClassTest extends TestCase
 {

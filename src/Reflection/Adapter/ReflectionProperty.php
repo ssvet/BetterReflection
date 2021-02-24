@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Reflection\Adapter;
+namespace PHPStan\BetterReflection\Reflection\Adapter;
 
 use Exception;
 use ReflectionException as CoreReflectionException;
 use ReflectionProperty as CoreReflectionProperty;
-use Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
-use Roave\BetterReflection\Reflection\Exception\NotAnObject;
-use Roave\BetterReflection\Reflection\ReflectionProperty as BetterReflectionProperty;
+use PHPStan\BetterReflection\Reflection\Exception\NoObjectProvided;
+use PHPStan\BetterReflection\Reflection\Exception\NotAnObject;
+use PHPStan\BetterReflection\Reflection\ReflectionProperty as BetterReflectionProperty;
 use Throwable;
 
 class ReflectionProperty extends CoreReflectionProperty

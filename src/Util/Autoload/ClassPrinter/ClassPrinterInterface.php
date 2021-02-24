@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Util\Autoload\ClassPrinter;
+namespace PHPStan\BetterReflection\Util\Autoload\ClassPrinter;
 
-use Roave\BetterReflection\Reflection\ReflectionClass;
+use PHPStan\BetterReflection\Reflection\ReflectionClass;
 
 interface ClassPrinterInterface
 {

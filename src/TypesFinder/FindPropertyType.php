@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\TypesFinder;
+namespace PHPStan\BetterReflection\TypesFinder;
 
 use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 use phpDocumentor\Reflection\DocBlockFactory;
 use phpDocumentor\Reflection\Type;
 use PhpParser\Node\Stmt\Namespace_;
-use Roave\BetterReflection\Reflection\ReflectionProperty;
-use Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext;
+use PHPStan\BetterReflection\Reflection\ReflectionProperty;
+use PHPStan\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext;
 use function array_map;
 use function array_merge;
 use function explode;

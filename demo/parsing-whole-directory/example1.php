@@ -4,9 +4,9 @@
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\SourceLocator\Type\DirectoriesSourceLocator;
+use PHPStan\BetterReflection\BetterReflection;
+use PHPStan\BetterReflection\Reflector\ClassReflector;
+use PHPStan\BetterReflection\SourceLocator\Type\DirectoriesSourceLocator;
 
 $directories = [__DIR__ . '/../../src'];
 

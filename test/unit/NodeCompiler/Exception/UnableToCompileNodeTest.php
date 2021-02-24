@@ -11,16 +11,16 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\String_;
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\NodeCompiler\CompilerContext;
-use Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode;
-use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use PHPStan\BetterReflection\NodeCompiler\CompilerContext;
+use PHPStan\BetterReflection\NodeCompiler\Exception\UnableToCompileNode;
+use PHPStan\BetterReflection\Reflection\ReflectionClass;
+use PHPStan\BetterReflection\Reflector\ClassReflector;
+use PHPStan\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 use function sprintf;
 
 /**
- * @covers \Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode
+ * @covers \PHPStan\BetterReflection\NodeCompiler\Exception\UnableToCompileNode
  */
 final class UnableToCompileNodeTest extends TestCase
 {

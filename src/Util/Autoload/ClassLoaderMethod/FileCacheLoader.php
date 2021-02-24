@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Util\Autoload\ClassLoaderMethod;
+namespace PHPStan\BetterReflection\Util\Autoload\ClassLoaderMethod;
 
-use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Util\Autoload\ClassLoaderMethod\Exception\SignatureCheckFailed;
-use Roave\BetterReflection\Util\Autoload\ClassPrinter\ClassPrinterInterface;
-use Roave\BetterReflection\Util\Autoload\ClassPrinter\PhpParserPrinter;
+use PHPStan\BetterReflection\Reflection\ReflectionClass;
+use PHPStan\BetterReflection\Util\Autoload\ClassLoaderMethod\Exception\SignatureCheckFailed;
+use PHPStan\BetterReflection\Util\Autoload\ClassPrinter\ClassPrinterInterface;
+use PHPStan\BetterReflection\Util\Autoload\ClassPrinter\PhpParserPrinter;
 use Roave\Signature\CheckerInterface;
 use Roave\Signature\Encoder\Sha1SumEncoder;
 use Roave\Signature\FileContentChecker;

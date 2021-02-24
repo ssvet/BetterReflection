@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Reflection;
+namespace PHPStan\BetterReflection\Reflection;
 
 use PhpParser\Node\Stmt\ClassConst;
 use ReflectionProperty;
-use Roave\BetterReflection\NodeCompiler\CompileNodeToValue;
-use Roave\BetterReflection\NodeCompiler\CompilerContext;
-use Roave\BetterReflection\Reflection\StringCast\ReflectionClassConstantStringCast;
-use Roave\BetterReflection\Reflector\Reflector;
-use Roave\BetterReflection\Util\CalculateReflectionColum;
-use Roave\BetterReflection\Util\GetLastDocComment;
+use PHPStan\BetterReflection\NodeCompiler\CompileNodeToValue;
+use PHPStan\BetterReflection\NodeCompiler\CompilerContext;
+use PHPStan\BetterReflection\Reflection\StringCast\ReflectionClassConstantStringCast;
+use PHPStan\BetterReflection\Reflector\Reflector;
+use PHPStan\BetterReflection\Util\CalculateReflectionColum;
+use PHPStan\BetterReflection\Util\GetLastDocComment;
 
 class ReflectionClassConstant
 {

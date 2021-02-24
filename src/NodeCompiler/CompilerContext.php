@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\NodeCompiler;
+namespace PHPStan\BetterReflection\NodeCompiler;
 
-use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Reflector\Reflector;
+use PHPStan\BetterReflection\Reflection\ReflectionClass;
+use PHPStan\BetterReflection\Reflector\Reflector;
 use RuntimeException;
 
 class CompilerContext

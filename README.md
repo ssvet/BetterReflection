@@ -2,14 +2,11 @@ Better Reflection
 =================
 
 [![Build status](https://github.com/ondrejmirtes/BetterReflection/workflows/Build/badge.svg?branch=master)](https://github.com/ondrejmirtes/BetterReflection/actions?query=workflow%3ABuild+branch%3Amaster)
-[![Type Coverage](https://shepherd.dev/github/ondrejmirtes/BetterReflection/coverage.svg)](https://shepherd.dev/github/ondrejmirtes/BetterReflection)
-[![Latest Stable Version](https://poser.pugx.org/roave/better-reflection/v/stable)](https://packagist.org/packages/roave/better-reflection)
-[![License](https://poser.pugx.org/roave/better-reflection/license)](https://packagist.org/packages/roave/better-reflection)
 
 Better Reflection is a reflection API that aims to improve and provide more features than PHP's built-in
 [reflection API](https://php.net/manual/en/book.reflection.php).
 
-**This fork brings back support for PHP 7.1**
+**This fork brings back support for PHP 7.1 and changes the main namespace to PHPStan.**
 
 ## Why is it better?
 
@@ -39,7 +36,7 @@ $ composer require ondrejmirtes/better-reflection
 ```php
 <?php
 
-use Roave\BetterReflection\BetterReflection;
+use PHPStan\BetterReflection\BetterReflection;
 
 $classInfo = (new BetterReflection())
     ->classReflector()

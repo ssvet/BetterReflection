@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Reflection;
+namespace PHPStan\BetterReflection\Reflection;
 
 use Closure;
 use InvalidArgumentException;
@@ -14,19 +14,19 @@ use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Property as PropertyNode;
 use ReflectionException;
 use ReflectionProperty as CoreReflectionProperty;
-use Roave\BetterReflection\NodeCompiler\CompileNodeToValue;
-use Roave\BetterReflection\NodeCompiler\CompilerContext;
-use Roave\BetterReflection\Reflection\Exception\ClassDoesNotExist;
-use Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
-use Roave\BetterReflection\Reflection\Exception\NotAnObject;
-use Roave\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass;
-use Roave\BetterReflection\Reflection\Exception\Uncloneable;
-use Roave\BetterReflection\Reflection\StringCast\ReflectionPropertyStringCast;
-use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use Roave\BetterReflection\Reflector\Reflector;
-use Roave\BetterReflection\TypesFinder\FindPropertyType;
-use Roave\BetterReflection\Util\CalculateReflectionColum;
-use Roave\BetterReflection\Util\GetLastDocComment;
+use PHPStan\BetterReflection\NodeCompiler\CompileNodeToValue;
+use PHPStan\BetterReflection\NodeCompiler\CompilerContext;
+use PHPStan\BetterReflection\Reflection\Exception\ClassDoesNotExist;
+use PHPStan\BetterReflection\Reflection\Exception\NoObjectProvided;
+use PHPStan\BetterReflection\Reflection\Exception\NotAnObject;
+use PHPStan\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass;
+use PHPStan\BetterReflection\Reflection\Exception\Uncloneable;
+use PHPStan\BetterReflection\Reflection\StringCast\ReflectionPropertyStringCast;
+use PHPStan\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use PHPStan\BetterReflection\Reflector\Reflector;
+use PHPStan\BetterReflection\TypesFinder\FindPropertyType;
+use PHPStan\BetterReflection\Util\CalculateReflectionColum;
+use PHPStan\BetterReflection\Util\GetLastDocComment;
 use function class_exists;
 use function func_num_args;
 use function get_class;

@@ -17,14 +17,14 @@ EOF;
 
 var_dump(function_exists('increment'));
 
-$sourceLocator = new Roave\BetterReflection\SourceLocator\Type\StringSourceLocator(
+$sourceLocator = new PHPStan\BetterReflection\SourceLocator\Type\StringSourceLocator(
     $source,
-    (new Roave\BetterReflection\BetterReflection())->astLocator()
+    (new PHPStan\BetterReflection\BetterReflection())->astLocator()
 );
 
-$reflector = new \Roave\BetterReflection\Reflector\FunctionReflector(
+$reflector = new \PHPStan\BetterReflection\Reflector\FunctionReflector(
     $sourceLocator,
-    new \Roave\BetterReflection\Reflector\ClassReflector($sourceLocator)
+    new \PHPStan\BetterReflection\Reflector\ClassReflector($sourceLocator)
 );
 
 $functionInfo = $reflector->reflect('increment');

@@ -6,12 +6,12 @@ namespace Roave\BetterReflectionTest\Reflection\Exception;
 
 use PhpParser\Node;
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\Reflection\Exception\InvalidAbstractFunctionNodeType;
-use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use PHPStan\BetterReflection\Reflection\Exception\InvalidAbstractFunctionNodeType;
+use PHPStan\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use function sprintf;
 
 /**
- * @covers \Roave\BetterReflection\Reflection\Exception\InvalidAbstractFunctionNodeType
+ * @covers \PHPStan\BetterReflection\Reflection\Exception\InvalidAbstractFunctionNodeType
  */
 class InvalidAbstractFunctionNodeTypeTest extends TestCase
 {

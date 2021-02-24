@@ -9,19 +9,19 @@ use PHPUnit\Framework\TestCase;
 use ReflectionClass as CoreReflectionClass;
 use ReflectionException as CoreReflectionException;
 use ReflectionFunction as CoreReflectionFunction;
-use Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
-use Roave\BetterReflection\Reflection\Adapter\ReflectionFunction as ReflectionFunctionAdapter;
-use Roave\BetterReflection\Reflection\ReflectionFunction as BetterReflectionFunction;
-use Roave\BetterReflection\Reflection\ReflectionNamedType as BetterReflectionNamedType;
-use Roave\BetterReflection\Reflection\ReflectionParameter as BetterReflectionParameter;
-use Roave\BetterReflection\Util\FileHelper;
+use PHPStan\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
+use PHPStan\BetterReflection\Reflection\Adapter\ReflectionFunction as ReflectionFunctionAdapter;
+use PHPStan\BetterReflection\Reflection\ReflectionFunction as BetterReflectionFunction;
+use PHPStan\BetterReflection\Reflection\ReflectionNamedType as BetterReflectionNamedType;
+use PHPStan\BetterReflection\Reflection\ReflectionParameter as BetterReflectionParameter;
+use PHPStan\BetterReflection\Util\FileHelper;
 use Throwable;
 use function array_combine;
 use function array_map;
 use function get_class_methods;
 
 /**
- * @covers \Roave\BetterReflection\Reflection\Adapter\ReflectionFunction
+ * @covers \PHPStan\BetterReflection\Reflection\Adapter\ReflectionFunction
  */
 class ReflectionFunctionTest extends TestCase
 {

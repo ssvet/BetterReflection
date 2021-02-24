@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Util\Autoload\Exception;
+namespace PHPStan\BetterReflection\Util\Autoload\Exception;
 
 use LogicException;
-use Roave\BetterReflection\Reflection\ReflectionClass;
+use PHPStan\BetterReflection\Reflection\ReflectionClass;
 use function sprintf;
 
 final class ClassAlreadyLoaded extends LogicException

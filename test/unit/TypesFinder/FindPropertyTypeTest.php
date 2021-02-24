@@ -12,16 +12,16 @@ use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Use_ as UseStatement;
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\Reflection\ReflectionProperty;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
-use Roave\BetterReflection\TypesFinder\FindPropertyType;
+use PHPStan\BetterReflection\Reflection\ReflectionProperty;
+use PHPStan\BetterReflection\Reflector\ClassReflector;
+use PHPStan\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use PHPStan\BetterReflection\TypesFinder\FindPropertyType;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 use function count;
 use function sprintf;
 
 /**
- * @covers \Roave\BetterReflection\TypesFinder\FindPropertyType
+ * @covers \PHPStan\BetterReflection\TypesFinder\FindPropertyType
  */
 class FindPropertyTypeTest extends TestCase
 {

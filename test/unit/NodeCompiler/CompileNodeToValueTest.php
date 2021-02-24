@@ -10,12 +10,12 @@ use PhpParser\Node\Expr\Yield_;
 use PhpParser\Node\Name;
 use PhpParser\Parser;
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\NodeCompiler\CompileNodeToValue;
-use Roave\BetterReflection\NodeCompiler\CompilerContext;
-use Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\SourceLocator\Ast\Locator;
-use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use PHPStan\BetterReflection\NodeCompiler\CompileNodeToValue;
+use PHPStan\BetterReflection\NodeCompiler\CompilerContext;
+use PHPStan\BetterReflection\NodeCompiler\Exception\UnableToCompileNode;
+use PHPStan\BetterReflection\Reflector\ClassReflector;
+use PHPStan\BetterReflection\SourceLocator\Ast\Locator;
+use PHPStan\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 use function define;
 use function sprintf;
@@ -24,7 +24,7 @@ use const PHP_EOL;
 use const PHP_INT_MAX;
 
 /**
- * @covers \Roave\BetterReflection\NodeCompiler\CompileNodeToValue
+ * @covers \PHPStan\BetterReflection\NodeCompiler\CompileNodeToValue
  */
 class CompileNodeToValueTest extends TestCase
 {
@@ -449,11 +449,11 @@ PHP;
     {
         $phpCode = <<<'PHP'
         <?php
-        
+
         class Baz {
             const PARENT_CONSTANT = 'parentConstant';
         }
-        
+
         class Foo extends Baz {
             const SELF_CONSTANT = 'selfConstant';
             const STATIC_CONSTANT = 'staticConstant';
@@ -462,7 +462,7 @@ PHP;
             public $selfClass = self::class;
             public $staticClass = static::class;
             public $parentClass = parent::class;
-            
+
             public $selfConstant = self::SELF_CONSTANT;
             public $staticConstant = self::STATIC_CONSTANT;
             public $parentConstant = parent::PARENT_CONSTANT;

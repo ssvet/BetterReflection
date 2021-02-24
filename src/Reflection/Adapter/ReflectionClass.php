@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Reflection\Adapter;
+namespace PHPStan\BetterReflection\Reflection\Adapter;
 
 use InvalidArgumentException;
 use OutOfBoundsException;
 use ReflectionClass as CoreReflectionClass;
 use ReflectionException as CoreReflectionException;
-use Roave\BetterReflection\Reflection\Exception\NotAnObject;
-use Roave\BetterReflection\Reflection\ReflectionClass as BetterReflectionClass;
-use Roave\BetterReflection\Reflection\ReflectionClassConstant as BetterReflectionClassConstant;
-use Roave\BetterReflection\Reflection\ReflectionMethod as BetterReflectionMethod;
-use Roave\BetterReflection\Reflection\ReflectionObject as BetterReflectionObject;
-use Roave\BetterReflection\Reflection\ReflectionProperty as BetterReflectionProperty;
-use Roave\BetterReflection\Util\FileHelper;
+use PHPStan\BetterReflection\Reflection\Exception\NotAnObject;
+use PHPStan\BetterReflection\Reflection\ReflectionClass as BetterReflectionClass;
+use PHPStan\BetterReflection\Reflection\ReflectionClassConstant as BetterReflectionClassConstant;
+use PHPStan\BetterReflection\Reflection\ReflectionMethod as BetterReflectionMethod;
+use PHPStan\BetterReflection\Reflection\ReflectionObject as BetterReflectionObject;
+use PHPStan\BetterReflection\Reflection\ReflectionProperty as BetterReflectionProperty;
+use PHPStan\BetterReflection\Util\FileHelper;
 use function array_combine;
 use function array_map;
 use function array_values;

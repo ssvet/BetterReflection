@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Roave\BetterReflectionTest\SourceLocator\Type;
 
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\Identifier\Identifier;
-use Roave\BetterReflection\Identifier\IdentifierType;
-use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\SourceLocator\Exception\InvalidDirectory;
-use Roave\BetterReflection\SourceLocator\Type\DirectoriesSourceLocator;
+use PHPStan\BetterReflection\Identifier\Identifier;
+use PHPStan\BetterReflection\Identifier\IdentifierType;
+use PHPStan\BetterReflection\Reflection\ReflectionClass;
+use PHPStan\BetterReflection\Reflector\ClassReflector;
+use PHPStan\BetterReflection\SourceLocator\Exception\InvalidDirectory;
+use PHPStan\BetterReflection\SourceLocator\Type\DirectoriesSourceLocator;
 use Roave\BetterReflectionTest\Assets\DirectoryScannerAssets;
 use Roave\BetterReflectionTest\Assets\DirectoryScannerAssetsFoo;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
@@ -20,7 +20,7 @@ use function sort;
 use function uniqid;
 
 /**
- * @covers \Roave\BetterReflection\SourceLocator\Type\DirectoriesSourceLocator
+ * @covers \PHPStan\BetterReflection\SourceLocator\Type\DirectoriesSourceLocator
  */
 class DirectoriesSourceLocatorTest extends TestCase
 {

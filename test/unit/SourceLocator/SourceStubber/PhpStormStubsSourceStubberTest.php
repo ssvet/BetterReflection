@@ -16,21 +16,21 @@ use ReflectionMethod as CoreReflectionMethod;
 use ReflectionNamedType;
 use ReflectionParameter as CoreReflectionParameter;
 use ReflectionUnionType;
-use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Reflection\ReflectionConstant;
-use Roave\BetterReflection\Reflection\ReflectionMethod;
-use Roave\BetterReflection\Reflection\ReflectionParameter;
-use Roave\BetterReflection\Reflection\ReflectionType;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\Reflector\ConstantReflector;
-use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use Roave\BetterReflection\Reflector\FunctionReflector;
-use Roave\BetterReflection\SourceLocator\Ast\Locator;
-use Roave\BetterReflection\SourceLocator\SourceStubber\AggregateSourceStubber;
-use Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
-use Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber;
-use Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
-use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
+use PHPStan\BetterReflection\Reflection\ReflectionClass;
+use PHPStan\BetterReflection\Reflection\ReflectionConstant;
+use PHPStan\BetterReflection\Reflection\ReflectionMethod;
+use PHPStan\BetterReflection\Reflection\ReflectionParameter;
+use PHPStan\BetterReflection\Reflection\ReflectionType;
+use PHPStan\BetterReflection\Reflector\ClassReflector;
+use PHPStan\BetterReflection\Reflector\ConstantReflector;
+use PHPStan\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use PHPStan\BetterReflection\Reflector\FunctionReflector;
+use PHPStan\BetterReflection\SourceLocator\Ast\Locator;
+use PHPStan\BetterReflection\SourceLocator\SourceStubber\AggregateSourceStubber;
+use PHPStan\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
+use PHPStan\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber;
+use PHPStan\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
+use PHPStan\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 use function array_filter;
 use function array_keys;
@@ -49,7 +49,7 @@ use function sprintf;
 use const PHP_VERSION_ID;
 
 /**
- * @covers \Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber
+ * @covers \PHPStan\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber
  */
 class PhpStormStubsSourceStubberTest extends TestCase
 {
@@ -430,10 +430,10 @@ class PhpStormStubsSourceStubberTest extends TestCase
         }
 
         if ($originalType instanceof ReflectionNamedType) {
-            self::assertInstanceOf(\Roave\BetterReflection\Reflection\ReflectionNamedType::class, $stubbedType, $message);
+            self::assertInstanceOf(\PHPStan\BetterReflection\Reflection\ReflectionNamedType::class, $stubbedType, $message);
             self::assertSame($originalType->getName(), $stubbedType->getName(), $message);
         } elseif ($originalType instanceof ReflectionUnionType) {
-            self::assertInstanceOf(\Roave\BetterReflection\Reflection\ReflectionUnionType::class, $stubbedType);
+            self::assertInstanceOf(\PHPStan\BetterReflection\Reflection\ReflectionUnionType::class, $stubbedType);
             self::assertSame((string) $originalType, (string) $stubbedType, $message);
         } else {
             self::assertNull($originalType, $message);

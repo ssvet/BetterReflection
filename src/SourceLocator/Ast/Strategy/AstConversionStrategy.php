@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\SourceLocator\Ast\Strategy;
+namespace PHPStan\BetterReflection\SourceLocator\Ast\Strategy;
 
 use PhpParser\Node;
-use Roave\BetterReflection\Reflection\Reflection;
-use Roave\BetterReflection\Reflector\Reflector;
-use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use PHPStan\BetterReflection\Reflection\Reflection;
+use PHPStan\BetterReflection\Reflector\Reflector;
+use PHPStan\BetterReflection\SourceLocator\Located\LocatedSource;
 
 /**
  * @internal

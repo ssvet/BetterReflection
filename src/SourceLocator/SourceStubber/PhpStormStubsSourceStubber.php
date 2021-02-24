@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\SourceLocator\SourceStubber;
+namespace PHPStan\BetterReflection\SourceLocator\SourceStubber;
 
 use Error;
 use JetBrains\PHPStormStub\PhpStormStubsMap;
@@ -15,10 +15,10 @@ use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\NodeVisitorAbstract;
 use PhpParser\Parser;
 use PhpParser\PrettyPrinter\Standard;
-use Roave\BetterReflection\Reflection\Exception\InvalidConstantNode;
-use Roave\BetterReflection\SourceLocator\FileChecker;
-use Roave\BetterReflection\SourceLocator\SourceStubber\Exception\CouldNotFindPhpStormStubs;
-use Roave\BetterReflection\Util\ConstantNodeChecker;
+use PHPStan\BetterReflection\Reflection\Exception\InvalidConstantNode;
+use PHPStan\BetterReflection\SourceLocator\FileChecker;
+use PHPStan\BetterReflection\SourceLocator\SourceStubber\Exception\CouldNotFindPhpStormStubs;
+use PHPStan\BetterReflection\Util\ConstantNodeChecker;
 use Traversable;
 use function array_change_key_case;
 use function array_key_exists;

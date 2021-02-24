@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Identifier;
+namespace PHPStan\BetterReflection\Identifier;
 
 use InvalidArgumentException;
-use Roave\BetterReflection\Reflection\Reflection;
-use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Reflection\ReflectionConstant;
-use Roave\BetterReflection\Reflection\ReflectionFunction;
+use PHPStan\BetterReflection\Reflection\Reflection;
+use PHPStan\BetterReflection\Reflection\ReflectionClass;
+use PHPStan\BetterReflection\Reflection\ReflectionConstant;
+use PHPStan\BetterReflection\Reflection\ReflectionFunction;
 use function array_key_exists;
 use function sprintf;
 

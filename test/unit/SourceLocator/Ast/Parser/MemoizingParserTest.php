@@ -7,7 +7,7 @@ namespace Roave\BetterReflectionTest\Reflector;
 use PhpParser\Node;
 use PhpParser\Parser;
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\SourceLocator\Ast\Parser\MemoizingParser;
+use PHPStan\BetterReflection\SourceLocator\Ast\Parser\MemoizingParser;
 use function array_map;
 use function array_unique;
 use function count;
@@ -16,7 +16,7 @@ use function spl_object_hash;
 use function uniqid;
 
 /**
- * @covers \Roave\BetterReflection\SourceLocator\Ast\Parser\MemoizingParser
+ * @covers \PHPStan\BetterReflection\SourceLocator\Ast\Parser\MemoizingParser
  */
 class MemoizingParserTest extends TestCase
 {

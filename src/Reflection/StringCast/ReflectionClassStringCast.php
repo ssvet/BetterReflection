@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Reflection\StringCast;
+namespace PHPStan\BetterReflection\Reflection\StringCast;
 
-use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Reflection\ReflectionClassConstant;
-use Roave\BetterReflection\Reflection\ReflectionMethod;
-use Roave\BetterReflection\Reflection\ReflectionObject;
-use Roave\BetterReflection\Reflection\ReflectionProperty;
+use PHPStan\BetterReflection\Reflection\ReflectionClass;
+use PHPStan\BetterReflection\Reflection\ReflectionClassConstant;
+use PHPStan\BetterReflection\Reflection\ReflectionMethod;
+use PHPStan\BetterReflection\Reflection\ReflectionObject;
+use PHPStan\BetterReflection\Reflection\ReflectionProperty;
 use function array_filter;
 use function array_map;
 use function count;

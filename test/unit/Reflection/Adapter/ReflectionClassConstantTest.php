@@ -7,15 +7,15 @@ namespace Roave\BetterReflectionTest\Reflection\Adapter;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass as CoreReflectionClass;
 use ReflectionClassConstant as CoreReflectionClassConstant;
-use Roave\BetterReflection\Reflection\Adapter\ReflectionClassConstant as ReflectionClassConstantAdapter;
-use Roave\BetterReflection\Reflection\ReflectionClass as BetterReflectionClass;
-use Roave\BetterReflection\Reflection\ReflectionClassConstant as BetterReflectionClassConstant;
+use PHPStan\BetterReflection\Reflection\Adapter\ReflectionClassConstant as ReflectionClassConstantAdapter;
+use PHPStan\BetterReflection\Reflection\ReflectionClass as BetterReflectionClass;
+use PHPStan\BetterReflection\Reflection\ReflectionClassConstant as BetterReflectionClassConstant;
 use function array_combine;
 use function array_map;
 use function get_class_methods;
 
 /**
- * @covers \Roave\BetterReflection\Reflection\Adapter\ReflectionClassConstant
+ * @covers \PHPStan\BetterReflection\Reflection\Adapter\ReflectionClassConstant
  */
 class ReflectionClassConstantTest extends TestCase
 {

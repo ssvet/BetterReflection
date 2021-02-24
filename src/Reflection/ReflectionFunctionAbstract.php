@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Reflection;
+namespace PHPStan\BetterReflection\Reflection;
 
 use Closure;
 use LogicException;
@@ -16,20 +16,20 @@ use PhpParser\NodeTraverser;
 use PhpParser\Parser;
 use PhpParser\PrettyPrinter\Standard as StandardPrettyPrinter;
 use PhpParser\PrettyPrinterAbstract;
-use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Identifier\Exception\InvalidIdentifierName;
-use Roave\BetterReflection\Identifier\Identifier;
-use Roave\BetterReflection\Identifier\IdentifierType;
-use Roave\BetterReflection\Reflection\Exception\InvalidAbstractFunctionNodeType;
-use Roave\BetterReflection\Reflection\Exception\Uncloneable;
-use Roave\BetterReflection\Reflector\Reflector;
-use Roave\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure;
-use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-use Roave\BetterReflection\SourceLocator\Type\ClosureSourceLocator;
-use Roave\BetterReflection\TypesFinder\FindReturnType;
-use Roave\BetterReflection\Util\CalculateReflectionColum;
-use Roave\BetterReflection\Util\GetLastDocComment;
-use Roave\BetterReflection\Util\Visitor\ReturnNodeVisitor;
+use PHPStan\BetterReflection\BetterReflection;
+use PHPStan\BetterReflection\Identifier\Exception\InvalidIdentifierName;
+use PHPStan\BetterReflection\Identifier\Identifier;
+use PHPStan\BetterReflection\Identifier\IdentifierType;
+use PHPStan\BetterReflection\Reflection\Exception\InvalidAbstractFunctionNodeType;
+use PHPStan\BetterReflection\Reflection\Exception\Uncloneable;
+use PHPStan\BetterReflection\Reflector\Reflector;
+use PHPStan\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure;
+use PHPStan\BetterReflection\SourceLocator\Located\LocatedSource;
+use PHPStan\BetterReflection\SourceLocator\Type\ClosureSourceLocator;
+use PHPStan\BetterReflection\TypesFinder\FindReturnType;
+use PHPStan\BetterReflection\Util\CalculateReflectionColum;
+use PHPStan\BetterReflection\Util\GetLastDocComment;
+use PHPStan\BetterReflection\Util\Visitor\ReturnNodeVisitor;
 use function array_filter;
 use function assert;
 use function count;

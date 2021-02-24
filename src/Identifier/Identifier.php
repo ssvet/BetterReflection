@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Identifier;
+namespace PHPStan\BetterReflection\Identifier;
 
-use Roave\BetterReflection\Identifier\Exception\InvalidIdentifierName;
-use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use PHPStan\BetterReflection\Identifier\Exception\InvalidIdentifierName;
+use PHPStan\BetterReflection\Reflection\ReflectionClass;
+use PHPStan\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use function ltrim;
 use function preg_match;
 use function strpos;

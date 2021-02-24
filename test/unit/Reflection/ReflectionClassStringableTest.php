@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Roave\BetterReflectionTest\Reflection;
 
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Reflection\ReflectionClass;
+use PHPStan\BetterReflection\BetterReflection;
+use PHPStan\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflectionTest\Fixture\ClassWithToString;
 use Roave\BetterReflectionTest\Fixture\ClassWithToStringAndStringable;
 use Roave\BetterReflectionTest\Fixture\InterfaceWithToString;

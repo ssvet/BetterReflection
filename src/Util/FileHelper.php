@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Util;
+namespace PHPStan\BetterReflection\Util;
 
 use function preg_match;
 use function str_replace;

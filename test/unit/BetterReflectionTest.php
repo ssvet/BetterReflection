@@ -6,17 +6,17 @@ namespace Roave\BetterReflectionTest;
 
 use PhpParser\Parser;
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\Reflector\ConstantReflector;
-use Roave\BetterReflection\Reflector\FunctionReflector;
-use Roave\BetterReflection\SourceLocator\Ast\Locator;
-use Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
-use Roave\BetterReflection\SourceLocator\Type\SourceLocator;
-use Roave\BetterReflection\Util\FindReflectionOnLine;
+use PHPStan\BetterReflection\BetterReflection;
+use PHPStan\BetterReflection\Reflector\ClassReflector;
+use PHPStan\BetterReflection\Reflector\ConstantReflector;
+use PHPStan\BetterReflection\Reflector\FunctionReflector;
+use PHPStan\BetterReflection\SourceLocator\Ast\Locator;
+use PHPStan\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
+use PHPStan\BetterReflection\SourceLocator\Type\SourceLocator;
+use PHPStan\BetterReflection\Util\FindReflectionOnLine;
 
 /**
- * @covers \Roave\BetterReflection\BetterReflection
+ * @covers \PHPStan\BetterReflection\BetterReflection
  */
 final class BetterReflectionTest extends TestCase
 {

@@ -7,13 +7,13 @@ namespace Roave\BetterReflectionTest\TypesFinder;
 use phpDocumentor\Reflection\Types;
 use phpDocumentor\Reflection\Types\Context;
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\TypesFinder\ResolveTypes;
+use PHPStan\BetterReflection\TypesFinder\ResolveTypes;
 use function assert;
 use function count;
 use function reset;
 
 /**
- * @covers \Roave\BetterReflection\TypesFinder\ResolveTypes
+ * @covers \PHPStan\BetterReflection\TypesFinder\ResolveTypes
  */
 class ResolveTypesTest extends TestCase
 {

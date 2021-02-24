@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Roave\BetterReflectionTest\Reflection\StringCast;
 
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\SourceLocator\Ast\Locator;
-use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
+use PHPStan\BetterReflection\Reflector\ClassReflector;
+use PHPStan\BetterReflection\SourceLocator\Ast\Locator;
+use PHPStan\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 use Roave\BetterReflectionTest\Fixture\StringCastProperties;
 
 /**
- * @covers \Roave\BetterReflection\Reflection\StringCast\ReflectionPropertyStringCast
+ * @covers \PHPStan\BetterReflection\Reflection\StringCast\ReflectionPropertyStringCast
  */
 class ReflectionPropertyStringCastTest extends TestCase
 {

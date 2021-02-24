@@ -13,10 +13,10 @@ use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Use_ as UseStatement;
 use PhpParser\Node\Stmt\UseUse;
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext;
+use PHPStan\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext;
 
 /**
- * @covers \Roave\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext
+ * @covers \PHPStan\BetterReflection\TypesFinder\PhpDocumentor\NamespaceNodeToReflectionTypeContext
  */
 class NamespaceNodeToReflectionTypeContextTest extends TestCase
 {

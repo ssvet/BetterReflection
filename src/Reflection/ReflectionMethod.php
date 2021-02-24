@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Reflection;
+namespace PHPStan\BetterReflection\Reflection;
 
 use Closure;
 use InvalidArgumentException;
@@ -11,14 +11,14 @@ use PhpParser\Node\Stmt\ClassMethod as MethodNode;
 use PhpParser\Node\Stmt\Namespace_;
 use ReflectionException;
 use ReflectionMethod as CoreReflectionMethod;
-use Roave\BetterReflection\Reflection\Exception\ClassDoesNotExist;
-use Roave\BetterReflection\Reflection\Exception\InvalidAbstractFunctionNodeType;
-use Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
-use Roave\BetterReflection\Reflection\Exception\NotAnObject;
-use Roave\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass;
-use Roave\BetterReflection\Reflection\StringCast\ReflectionMethodStringCast;
-use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use Roave\BetterReflection\Reflector\Reflector;
+use PHPStan\BetterReflection\Reflection\Exception\ClassDoesNotExist;
+use PHPStan\BetterReflection\Reflection\Exception\InvalidAbstractFunctionNodeType;
+use PHPStan\BetterReflection\Reflection\Exception\NoObjectProvided;
+use PHPStan\BetterReflection\Reflection\Exception\NotAnObject;
+use PHPStan\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass;
+use PHPStan\BetterReflection\Reflection\StringCast\ReflectionMethodStringCast;
+use PHPStan\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use PHPStan\BetterReflection\Reflector\Reflector;
 use function class_exists;
 use function get_class;
 use function is_object;

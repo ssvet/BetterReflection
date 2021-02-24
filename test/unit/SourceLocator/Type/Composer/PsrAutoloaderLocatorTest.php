@@ -6,13 +6,13 @@ namespace Roave\BetterReflectionTest\SourceLocator\Type\Composer;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\Identifier\Identifier;
-use Roave\BetterReflection\Identifier\IdentifierType;
-use Roave\BetterReflection\Reflection\Reflection;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\SourceLocator\Type\Composer\Psr\Psr4Mapping;
-use Roave\BetterReflection\SourceLocator\Type\Composer\Psr\PsrAutoloaderMapping;
-use Roave\BetterReflection\SourceLocator\Type\Composer\PsrAutoloaderLocator;
+use PHPStan\BetterReflection\Identifier\Identifier;
+use PHPStan\BetterReflection\Identifier\IdentifierType;
+use PHPStan\BetterReflection\Reflection\Reflection;
+use PHPStan\BetterReflection\Reflector\ClassReflector;
+use PHPStan\BetterReflection\SourceLocator\Type\Composer\Psr\Psr4Mapping;
+use PHPStan\BetterReflection\SourceLocator\Type\Composer\Psr\PsrAutoloaderMapping;
+use PHPStan\BetterReflection\SourceLocator\Type\Composer\PsrAutoloaderLocator;
 use Roave\BetterReflectionTest\Assets\DirectoryScannerAssets\Bar\FooBar;
 use Roave\BetterReflectionTest\Assets\DirectoryScannerAssets\Foo;
 use Roave\BetterReflectionTest\Assets\DirectoryScannerAssetsFoo\Bar\FooBar as FooBar1;
@@ -22,7 +22,7 @@ use function array_map;
 use function sort;
 
 /**
- * @covers \Roave\BetterReflection\SourceLocator\Type\Composer\PsrAutoloaderLocator
+ * @covers \PHPStan\BetterReflection\SourceLocator\Type\Composer\PsrAutoloaderLocator
  */
 class PsrAutoloaderLocatorTest extends TestCase
 {

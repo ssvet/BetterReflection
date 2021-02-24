@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Reflection\Adapter;
+namespace PHPStan\BetterReflection\Reflection\Adapter;
 
 use Exception;
 use ReflectionParameter as CoreReflectionParameter;
-use Roave\BetterReflection\Reflection\ReflectionMethod as BetterReflectionMethod;
-use Roave\BetterReflection\Reflection\ReflectionParameter as BetterReflectionParameter;
+use PHPStan\BetterReflection\Reflection\ReflectionMethod as BetterReflectionMethod;
+use PHPStan\BetterReflection\Reflection\ReflectionParameter as BetterReflectionParameter;
 use function assert;
 
 class ReflectionParameter extends CoreReflectionParameter
@@ -68,7 +68,7 @@ class ReflectionParameter extends CoreReflectionParameter
     public function getDeclaringFunction()
     {
         $function = $this->betterReflectionParameter->getDeclaringFunction();
-        assert($function instanceof BetterReflectionMethod || $function instanceof \Roave\BetterReflection\Reflection\ReflectionFunction);
+        assert($function instanceof BetterReflectionMethod || $function instanceof \PHPStan\BetterReflection\Reflection\ReflectionFunction);
 
         if ($function instanceof BetterReflectionMethod) {
             return new ReflectionMethod($function);

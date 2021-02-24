@@ -2,11 +2,11 @@
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Reflector\ClassReflector;
-use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
-use Roave\BetterReflection\Util\Autoload\ClassLoader;
-use Roave\BetterReflection\Util\Autoload\ClassLoaderMethod\FileCacheLoader;
+use PHPStan\BetterReflection\BetterReflection;
+use PHPStan\BetterReflection\Reflector\ClassReflector;
+use PHPStan\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
+use PHPStan\BetterReflection\Util\Autoload\ClassLoader;
+use PHPStan\BetterReflection\Util\Autoload\ClassLoaderMethod\FileCacheLoader;
 
 $loader = new ClassLoader(FileCacheLoader::defaultFileCacheLoader(__DIR__));
 

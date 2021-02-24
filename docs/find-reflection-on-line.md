@@ -1,12 +1,12 @@
 # Find a reflection on specified line
 
-Purely an ease-of-use API, the `FindReflectionOnLine` helper simplifies usage when you want to find a reflection on a 
+Purely an ease-of-use API, the `FindReflectionOnLine` helper simplifies usage when you want to find a reflection on a
 specific line. Usage is clean, as the class is an invokable class:
 
 ```php
 <?php
 
-$finder = (new \Roave\BetterReflection\BetterReflection())->findReflectionsOnLine();
+$finder = (new \PHPStan\BetterReflection\BetterReflection())->findReflectionsOnLine();
 $reflection = $finder('path/to/my/file.php', 10);
 ```
 

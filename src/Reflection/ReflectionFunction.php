@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Reflection;
+namespace PHPStan\BetterReflection\Reflection;
 
 use Closure;
 use PhpParser\Node;
 use PhpParser\Node\FunctionLike as FunctionNode;
 use PhpParser\Node\Stmt\Namespace_ as NamespaceNode;
-use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
-use Roave\BetterReflection\Reflection\Exception\FunctionDoesNotExist;
-use Roave\BetterReflection\Reflection\StringCast\ReflectionFunctionStringCast;
-use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use Roave\BetterReflection\Reflector\FunctionReflector;
-use Roave\BetterReflection\Reflector\Reflector;
-use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-use Roave\BetterReflection\SourceLocator\Type\ClosureSourceLocator;
+use PHPStan\BetterReflection\BetterReflection;
+use PHPStan\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
+use PHPStan\BetterReflection\Reflection\Exception\FunctionDoesNotExist;
+use PHPStan\BetterReflection\Reflection\StringCast\ReflectionFunctionStringCast;
+use PHPStan\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use PHPStan\BetterReflection\Reflector\FunctionReflector;
+use PHPStan\BetterReflection\Reflector\Reflector;
+use PHPStan\BetterReflection\SourceLocator\Located\LocatedSource;
+use PHPStan\BetterReflection\SourceLocator\Type\ClosureSourceLocator;
 use function function_exists;
 
 class ReflectionFunction extends ReflectionFunctionAbstract implements Reflection

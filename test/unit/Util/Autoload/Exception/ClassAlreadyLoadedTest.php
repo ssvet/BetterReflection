@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Roave\BetterReflectionTest\Util\Autoload\Exception;
 
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Util\Autoload\Exception\ClassAlreadyLoaded;
+use PHPStan\BetterReflection\Reflection\ReflectionClass;
+use PHPStan\BetterReflection\Util\Autoload\Exception\ClassAlreadyLoaded;
 use function sprintf;
 use function uniqid;
 
 /**
- * @covers \Roave\BetterReflection\Util\Autoload\Exception\ClassAlreadyLoaded
+ * @covers \PHPStan\BetterReflection\Util\Autoload\Exception\ClassAlreadyLoaded
  */
 final class ClassAlreadyLoadedTest extends TestCase
 {

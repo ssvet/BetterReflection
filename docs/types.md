@@ -18,7 +18,7 @@ class MyClass
 ```php
 <?php
 
-use Roave\BetterReflection\BetterReflection;
+use PHPStan\BetterReflection\BetterReflection;
 
 $classInfo     = (new BetterReflection())->classReflector()->reflect('MyClass');
 $methodInfo    = $classInfo->getMethod('myMethod');
@@ -36,17 +36,17 @@ var_dump($parameterInfo->getDocBlockTypeStrings());
 
 ## `ReflectionParameter->getType()`
 
-This is compatible with the PHP 7 reflection API, and will return a `\Roave\BetterReflection\Reflection\ReflectionType` 
+This is compatible with the PHP 7 reflection API, and will return a `\Roave\BetterReflection\Reflection\ReflectionType`
 instance.
 
 ## `ReflectionFunction->getReturnType()` and `ReflectionMethod->getReturnType()`
 
-This is compatible with the PHP 7 reflection API, and will return a `\Roave\BetterReflection\Reflection\ReflectionType` 
+This is compatible with the PHP 7 reflection API, and will return a `\Roave\BetterReflection\Reflection\ReflectionType`
 instance.
 
 ## `getDocBlockTypes`
 
-The `getDocBlockTypes()` method will return an array of type hints that are extracted from the DocBlock. These are read 
+The `getDocBlockTypes()` method will return an array of type hints that are extracted from the DocBlock. These are read
 by a phpDocumentor component, and so this returns an array of `Type` objects (see below).
 
 ## `getDocBlockTypeStrings`
@@ -55,6 +55,6 @@ This is a convenience wrapper to fetch the types named as strings.
 
 ## The `Type` object
 
-The `Type` objects are actually types provided by the `phpdocumentor/type-resolver` library, which provides different 
+The `Type` objects are actually types provided by the `phpdocumentor/type-resolver` library, which provides different
 types for describing PHP's internal types as well as classes, callables and so on. For more information, head over to
 [phpDocumentor/TypeResolver](https://github.com/phpDocumentor/TypeResolver) for this excellent library!

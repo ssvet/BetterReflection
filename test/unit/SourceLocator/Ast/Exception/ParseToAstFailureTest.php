@@ -7,11 +7,11 @@ namespace Roave\BetterReflectionTest\Reflector\Exception;
 use Exception;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
-use Roave\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure;
-use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use PHPStan\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure;
+use PHPStan\BetterReflection\SourceLocator\Located\LocatedSource;
 
 /**
- * @covers \Roave\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure
+ * @covers \PHPStan\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure
  */
 class ParseToAstFailureTest extends TestCase
 {

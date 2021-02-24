@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Roave\BetterReflectionTest\Util\Autoload\ClassLoaderMethod\Exception;
 
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Util\Autoload\ClassLoaderMethod\Exception\SignatureCheckFailed;
+use PHPStan\BetterReflection\Reflection\ReflectionClass;
+use PHPStan\BetterReflection\Util\Autoload\ClassLoaderMethod\Exception\SignatureCheckFailed;
 use function sprintf;
 use function uniqid;
 
 /**
- * @covers \Roave\BetterReflection\Util\Autoload\ClassLoaderMethod\Exception\SignatureCheckFailed
+ * @covers \PHPStan\BetterReflection\Util\Autoload\ClassLoaderMethod\Exception\SignatureCheckFailed
  */
 final class SignatureCheckFailedTest extends TestCase
 {

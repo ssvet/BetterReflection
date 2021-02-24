@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Util\Autoload;
+namespace PHPStan\BetterReflection\Util\Autoload;
 
-use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Util\Autoload\ClassLoaderMethod\LoaderMethodInterface;
-use Roave\BetterReflection\Util\Autoload\Exception\ClassAlreadyLoaded;
-use Roave\BetterReflection\Util\Autoload\Exception\ClassAlreadyRegistered;
-use Roave\BetterReflection\Util\Autoload\Exception\FailedToLoadClass;
+use PHPStan\BetterReflection\Reflection\ReflectionClass;
+use PHPStan\BetterReflection\Util\Autoload\ClassLoaderMethod\LoaderMethodInterface;
+use PHPStan\BetterReflection\Util\Autoload\Exception\ClassAlreadyLoaded;
+use PHPStan\BetterReflection\Util\Autoload\Exception\ClassAlreadyRegistered;
+use PHPStan\BetterReflection\Util\Autoload\Exception\FailedToLoadClass;
 use function array_key_exists;
 use function class_exists;
 use function interface_exists;

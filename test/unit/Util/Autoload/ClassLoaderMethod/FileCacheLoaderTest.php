@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Roave\BetterReflectionTest\Util\Autoload\ClassLoaderMethod;
 
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Util\Autoload\ClassLoaderMethod\Exception\SignatureCheckFailed;
-use Roave\BetterReflection\Util\Autoload\ClassLoaderMethod\FileCacheLoader;
-use Roave\BetterReflection\Util\Autoload\ClassPrinter\ClassPrinterInterface;
+use PHPStan\BetterReflection\Reflection\ReflectionClass;
+use PHPStan\BetterReflection\Util\Autoload\ClassLoaderMethod\Exception\SignatureCheckFailed;
+use PHPStan\BetterReflection\Util\Autoload\ClassLoaderMethod\FileCacheLoader;
+use PHPStan\BetterReflection\Util\Autoload\ClassPrinter\ClassPrinterInterface;
 use Roave\Signature\CheckerInterface;
 use Roave\Signature\SignerInterface;
 use function file_exists;
@@ -17,7 +17,7 @@ use function uniqid;
 use function unlink;
 
 /**
- * @covers \Roave\BetterReflection\Util\Autoload\ClassLoaderMethod\FileCacheLoader
+ * @covers \PHPStan\BetterReflection\Util\Autoload\ClassLoaderMethod\FileCacheLoader
  */
 final class FileCacheLoaderTest extends TestCase
 {

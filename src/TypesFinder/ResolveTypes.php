@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\TypesFinder;
+namespace PHPStan\BetterReflection\TypesFinder;
 
 use phpDocumentor\Reflection\Type;
 use phpDocumentor\Reflection\TypeResolver;

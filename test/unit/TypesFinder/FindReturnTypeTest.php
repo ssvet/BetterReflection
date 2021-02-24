@@ -12,15 +12,15 @@ use PhpParser\Node\Name;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Namespace_;
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\Reflection\ReflectionFunction;
-use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
-use Roave\BetterReflection\Reflection\ReflectionMethod;
-use Roave\BetterReflection\TypesFinder\FindReturnType;
+use PHPStan\BetterReflection\Reflection\ReflectionFunction;
+use PHPStan\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use PHPStan\BetterReflection\Reflection\ReflectionMethod;
+use PHPStan\BetterReflection\TypesFinder\FindReturnType;
 use function count;
 use function sprintf;
 
 /**
- * @covers \Roave\BetterReflection\TypesFinder\FindReturnType
+ * @covers \PHPStan\BetterReflection\TypesFinder\FindReturnType
  */
 class FindReturnTypeTest extends TestCase
 {

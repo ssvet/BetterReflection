@@ -7,14 +7,14 @@ namespace Roave\BetterReflectionTest\SourceLocator\Type;
 use InvalidArgumentException;
 use PhpParser\Parser;
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\Identifier\Identifier;
-use Roave\BetterReflection\Identifier\IdentifierType;
-use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Reflector\Reflector;
-use Roave\BetterReflection\SourceLocator\Exception\EvaledAnonymousClassCannotBeLocated;
-use Roave\BetterReflection\SourceLocator\Exception\TwoAnonymousClassesOnSameLine;
-use Roave\BetterReflection\SourceLocator\Type\AnonymousClassObjectSourceLocator;
-use Roave\BetterReflection\Util\FileHelper;
+use PHPStan\BetterReflection\Identifier\Identifier;
+use PHPStan\BetterReflection\Identifier\IdentifierType;
+use PHPStan\BetterReflection\Reflection\ReflectionClass;
+use PHPStan\BetterReflection\Reflector\Reflector;
+use PHPStan\BetterReflection\SourceLocator\Exception\EvaledAnonymousClassCannotBeLocated;
+use PHPStan\BetterReflection\SourceLocator\Exception\TwoAnonymousClassesOnSameLine;
+use PHPStan\BetterReflection\SourceLocator\Type\AnonymousClassObjectSourceLocator;
+use PHPStan\BetterReflection\Util\FileHelper;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 use function assert;
 use function get_class;
@@ -22,7 +22,7 @@ use function realpath;
 use function sprintf;
 
 /**
- * @covers \Roave\BetterReflection\SourceLocator\Type\AnonymousClassObjectSourceLocator
+ * @covers \PHPStan\BetterReflection\SourceLocator\Type\AnonymousClassObjectSourceLocator
  */
 class AnonymousClassObjectSourceLocatorTest extends TestCase
 {

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Reflection\Adapter;
+namespace PHPStan\BetterReflection\Reflection\Adapter;
 
 use Exception;
 use ReflectionException as CoreReflectionException;
 use ReflectionFunction as CoreReflectionFunction;
-use Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
-use Roave\BetterReflection\Reflection\ReflectionFunction as BetterReflectionFunction;
-use Roave\BetterReflection\Util\FileHelper;
+use PHPStan\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
+use PHPStan\BetterReflection\Reflection\ReflectionFunction as BetterReflectionFunction;
+use PHPStan\BetterReflection\Util\FileHelper;
 use Throwable;
 use function func_get_args;
 

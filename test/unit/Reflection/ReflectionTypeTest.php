@@ -8,10 +8,10 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\NullableType;
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\Reflection\ReflectionType;
+use PHPStan\BetterReflection\Reflection\ReflectionType;
 
 /**
- * @covers \Roave\BetterReflection\Reflection\ReflectionType
+ * @covers \PHPStan\BetterReflection\Reflection\ReflectionType
  */
 class ReflectionTypeTest extends TestCase
 {

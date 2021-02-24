@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Roave\BetterReflectionTest\Util\Autoload\ClassPrinter;
 
 use PHPUnit\Framework\TestCase;
-use Roave\BetterReflection\Reflection\ReflectionClass;
-use Roave\BetterReflection\Util\Autoload\ClassPrinter\PhpParserPrinter;
+use PHPStan\BetterReflection\Reflection\ReflectionClass;
+use PHPStan\BetterReflection\Util\Autoload\ClassPrinter\PhpParserPrinter;
 use Roave\BetterReflectionTest\Fixture\TestClassForPhpParserPrinterTest;
 
 /**
- * @covers \Roave\BetterReflection\Util\Autoload\ClassPrinter\PhpParserPrinter
+ * @covers \PHPStan\BetterReflection\Util\Autoload\ClassPrinter\PhpParserPrinter
  */
 final class PhpParserPrinterTest extends TestCase
 {
@@ -22,9 +22,9 @@ namespace Roave\BetterReflectionTest\Fixture;
 
 class TestClassForPhpParserPrinterTest
 {
-    public function foo() : \Roave\BetterReflection\TypesFinder\FindReturnType
+    public function foo() : \PHPStan\BetterReflection\TypesFinder\FindReturnType
     {
-        return new \Roave\BetterReflection\TypesFinder\FindReturnType();
+        return new \PHPStan\BetterReflection\TypesFinder\FindReturnType();
     }
 }
 PHP
