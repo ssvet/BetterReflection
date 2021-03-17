@@ -190,10 +190,7 @@ class ReflectionProperty extends CoreReflectionProperty
         return $this->accessible || $this->isPublic();
     }
 
-    /**
-     * @return bool
-     */
-    public function hasDefaultValue()
+    public function hasDefaultValue(): bool
     {
         return $this->getDefaultValue() !== null;
     }
