@@ -181,15 +181,17 @@ class ReflectionParameter
             assert($defaultValueNode->class instanceof Node\Name);
             $className = $defaultValueNode->class->toString();
 
-            if ($className === 'self' || $className === 'static') {
-                assert($defaultValueNode->name instanceof Node\Identifier);
-                $constantName = $defaultValueNode->name->name;
-                $className    = $this->findParentClassDeclaringConstant($constantName);
-            }
-
-            $this->isDefaultValueConstant = true;
             assert($defaultValueNode->name instanceof Node\Identifier);
-            $this->defaultValueConstantName = $className . '::' . $defaultValueNode->name->name;
+            $constantName = $defaultValueNode->name->name;
+            if (strtolower($constantName) !== 'class') {
+                if ($className === 'self' || $className === 'static') {
+                    $className    = $this->findParentClassDeclaringConstant($constantName);
+                }
+
+                $this->isDefaultValueConstant = true;
+                assert($defaultValueNode->name instanceof Node\Identifier);
+                $this->defaultValueConstantName = $className . '::' . $defaultValueNode->name->name;
+            }
         }
 
         $namespace = null;
