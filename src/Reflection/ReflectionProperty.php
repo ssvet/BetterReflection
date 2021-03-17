@@ -272,7 +272,7 @@ class ReflectionProperty
 
         return (new CompileNodeToValue())->__invoke(
             $defaultValueNode,
-            new CompilerContext($this->reflector, $this->getDeclaringClass()->getFileName(), $this->getDeclaringClass(), $this->getDeclaringClass()->getNamespaceName(), null)
+            new CompilerContext($this->reflector, $this->getDeclaringClass()->getFileName(), $this->getImplementingClass(), $this->getDeclaringClass()->getNamespaceName(), null)
         );
     }
 
