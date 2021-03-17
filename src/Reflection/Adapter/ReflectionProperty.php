@@ -189,4 +189,20 @@ class ReflectionProperty extends CoreReflectionProperty
     {
         return $this->accessible || $this->isPublic();
     }
+
+    /**
+     * @return bool
+     */
+    public function hasDefaultValue()
+    {
+        return $this->getDefaultValue() !== null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDefaultValue()
+    {
+        return $this->betterReflectionProperty->getDefaultValue();
+    }
 }
