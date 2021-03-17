@@ -224,7 +224,7 @@ class ReflectionParameter
 
         $this->defaultValue = (new CompileNodeToValue())->__invoke(
             $defaultValueNode,
-            new CompilerContext($this->reflector, $this->function->getFileName(), $this->getDeclaringClass(), $namespace, $this->function->getName())
+            new CompilerContext($this->reflector, $this->function->getFileName(), $this->getImplementingClass(), $namespace, $this->function->getName())
         );
     }
 
@@ -235,7 +235,7 @@ class ReflectionParameter
     {
         $method = $this->function;
         assert($method instanceof ReflectionMethod);
-        $class = $method->getDeclaringClass();
+        $class = $method->getImplementingClass();
 
         do {
             if ($class->hasConstant($constantName)) {
@@ -277,6 +277,15 @@ class ReflectionParameter
     {
         if ($this->function instanceof ReflectionMethod) {
             return $this->function->getDeclaringClass();
+        }
+
+        return null;
+    }
+
+    public function getImplementingClass() : ?ReflectionClass
+    {
+        if ($this->function instanceof ReflectionMethod) {
+            return $this->function->getImplementingClass();
         }
 
         return null;
