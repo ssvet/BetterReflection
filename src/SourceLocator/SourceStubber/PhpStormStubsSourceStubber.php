@@ -257,7 +257,7 @@ final class PhpStormStubsSourceStubber implements SourceStubber
             return null;
         }
 
-        return new StubData($this->createStub($functionNode), $this->getExtensionFromFilePath($filePath));
+        return new StubData($this->createStub($functionNode), $this->getExtensionFromFilePath($filePath), $this->getAbsoluteFilePath($filePath));
     }
 
     private function findFunctionNode(string $filePath, string $lowercaseFunctionName) : ?Node\Stmt\Function_
