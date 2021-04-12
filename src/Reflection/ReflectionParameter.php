@@ -9,7 +9,6 @@ use Exception;
 use InvalidArgumentException;
 use LogicException;
 use OutOfBoundsException;
-use phpDocumentor\Reflection\Type;
 use PhpParser\Node;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\Param as ParamNode;
@@ -21,7 +20,6 @@ use PHPStan\BetterReflection\Reflection\StringCast\ReflectionParameterStringCast
 use PHPStan\BetterReflection\Reflector\ClassReflector;
 use PHPStan\BetterReflection\Reflector\Exception\IdentifierNotFound;
 use PHPStan\BetterReflection\Reflector\Reflector;
-use PHPStan\BetterReflection\TypesFinder\FindParameterType;
 use PHPStan\BetterReflection\Util\CalculateReflectionColum;
 use RuntimeException;
 use function assert;
@@ -351,37 +349,6 @@ class ReflectionParameter
         }
 
         return $this->getDefaultValue() === null;
-    }
-
-    /**
-     * Get the DocBlock type hints as an array of strings.
-     *
-     * @return string[]
-     */
-    public function getDocBlockTypeStrings() : array
-    {
-        $stringTypes = [];
-
-        foreach ($this->getDocBlockTypes() as $type) {
-            $stringTypes[] = (string) $type;
-        }
-
-        return $stringTypes;
-    }
-
-    /**
-     * Get the types defined in the DocBlocks. This returns an array because
-     * the parameter may have multiple (compound) types specified (for example
-     * when you type hint pipe-separated "string|null", in which case this
-     * would return an array of Type objects, one for string, one for null.
-     *
-     * @see getTypeHint()
-     *
-     * @return Type[]
-     */
-    public function getDocBlockTypes() : array
-    {
-        return (new FindParameterType())->__invoke($this->function, $this->declaringNamespace, $this->node);
     }
 
     /**

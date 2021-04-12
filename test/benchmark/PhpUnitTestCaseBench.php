@@ -48,13 +48,6 @@ class PhpUnitTestCaseBench
         $this->reflector->reflect(TestCase::class);
     }
 
-    public function benchReflectPropertiesDocTypes() : void
-    {
-        foreach ($this->properties as $property) {
-            $property->getDocBlockTypes();
-        }
-    }
-
     public function benchReflectMethodParameters() : void
     {
         foreach ($this->parameters as $parameter) {
@@ -62,17 +55,4 @@ class PhpUnitTestCaseBench
         }
     }
 
-    public function benchReflectMethodsParameterDocTypes() : void
-    {
-        foreach ($this->parameters as $parameter) {
-            $parameter->getDocBlockTypes();
-        }
-    }
-
-    public function benchReflectMethodsDocReturnTypes() : void
-    {
-        foreach ($this->methods as $method) {
-            $method->getDocBlockReturnTypes();
-        }
-    }
 }

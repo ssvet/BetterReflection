@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Roave\BetterReflectionTest\Reflection;
 
 use Closure;
-use phpDocumentor\Reflection\Types\Boolean;
 use PHPStan\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
 use PHPStan\BetterReflection\Reflection\Exception\FunctionDoesNotExist;
 use PHPStan\BetterReflection\Reflection\ReflectionFunction;
@@ -146,24 +145,6 @@ class ReflectionFunctionTest extends TestCase
         $functionInfo = ReflectionFunction::createFromName('Roave\BetterReflectionTest\Fixture\myFunction');
 
         self::assertStringMatchesFormat("Function [ <user> function Roave\BetterReflectionTest\Fixture\myFunction ] {\n  @@ %s/test/unit/Fixture/Functions.php 5 - 6\n}", (string) $functionInfo);
-    }
-
-    public function testGetDocBlockReturnTypes() : void
-    {
-        $php = '<?php
-            /**
-             * @return bool
-             */
-            function foo() {}';
-
-        $reflector = new FunctionReflector(new StringSourceLocator($php, $this->astLocator), $this->classReflector);
-        $function  = $reflector->reflect('foo');
-
-        $types = $function->getDocBlockReturnTypes();
-
-        self::assertIsArray($types);
-        self::assertCount(1, $types);
-        self::assertInstanceOf(Boolean::class, $types[0]);
     }
 
     public function testGetClosure() : void

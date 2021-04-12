@@ -8,7 +8,6 @@ use ClassWithPropertiesAndTraitProperties;
 use DOMNode;
 use ExtendedClassWithPropertiesAndTraitProperties;
 use InvalidArgumentException;
-use phpDocumentor\Reflection\Types;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\PropertyProperty;
@@ -97,62 +96,6 @@ class ReflectionPropertyTest extends TestCase
         self::assertTrue($staticProp->isStatic());
     }
 
-    /**
-     * @return array
-     */
-    public function stringTypesDataProvider() : array
-    {
-        return [
-            ['privateProperty', ['int', 'float', '\stdClass']],
-            ['protectedProperty', ['bool', 'bool[]', 'bool[][]']],
-            ['publicProperty', ['string']],
-        ];
-    }
-
-    /**
-     * @param string[] $expectedTypes
-     *
-     * @dataProvider stringTypesDataProvider
-     */
-    public function testGetDocBlockTypeStrings(string $propertyName, array $expectedTypes) : void
-    {
-        $classInfo = $this->reflector->reflect(ExampleClass::class);
-
-        $property = $classInfo->getProperty($propertyName);
-
-        self::assertSame($expectedTypes, $property->getDocBlockTypeStrings());
-    }
-
-    /**
-     * @return array
-     */
-    public function typesDataProvider() : array
-    {
-        return [
-            ['privateProperty', [Types\Integer::class, Types\Float_::class, Types\Object_::class]],
-            ['protectedProperty', [Types\Boolean::class, Types\Array_::class, Types\Array_::class]],
-            ['publicProperty', [Types\String_::class]],
-        ];
-    }
-
-    /**
-     * @param string[] $expectedTypes
-     *
-     * @dataProvider typesDataProvider
-     */
-    public function testGetDocBlockTypes(string $propertyName, array $expectedTypes) : void
-    {
-        $classInfo = $this->reflector->reflect(ExampleClass::class);
-
-        $foundTypes = $classInfo->getProperty($propertyName)->getDocBlockTypes();
-
-        self::assertCount(count($expectedTypes), $foundTypes);
-
-        foreach ($expectedTypes as $i => $expectedType) {
-            self::assertInstanceOf($expectedType, $foundTypes[$i]);
-        }
-    }
-
     public function testGetDocComment() : void
     {
         $expectedDoc = "/**\n * @var string\n */";
@@ -231,7 +174,6 @@ class ReflectionPropertyTest extends TestCase
                 $this->reflector,
                 new Property(Class_::MODIFIER_PUBLIC, [new PropertyProperty('foo')]),
                 0,
-                null,
                 $classInfo,
                 $classInfo,
                 false

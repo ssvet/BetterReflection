@@ -220,35 +220,6 @@ jobs:
       - name: "PHPStan"
         run: "vendor/bin/phpstan analyse --memory-limit=-1"
 
-  static-analysis-psalm:
-    name: "Static Analysis by Psalm"
-
-    runs-on: "ubuntu-latest"
-
-    steps:
-      - name: "Checkout"
-        uses: "actions/checkout@v2"
-
-      - name: "Install PHP"
-        uses: "shivammathur/setup-php@v2"
-        with:
-          coverage: "none"
-          php-version: "7.4"
-          tools: composer:v1
-
-      - name: "Cache dependencies"
-        uses: "actions/cache@v2"
-        with:
-          path: "~/.composer/cache"
-          key: "php-7.4"
-          restore-keys: "php-7.4"
-
-      - name: "Install dependencies"
-        run: "composer install"
-
-      - name: "Psalm"
-        run: "vendor/bin/psalm --shepherd --stats"
-
   benchmarks:
     name: "Run benchmarks"
 

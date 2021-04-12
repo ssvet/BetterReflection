@@ -7,8 +7,6 @@
         "ext-json": "*",
         "jetbrains/phpstorm-stubs": "dev-master#0a73df114cdea7f30c8b5f6fbfbf8e6839a89e88",
         "nikic/php-parser": "4.10.4",
-        "phpdocumentor/reflection-docblock": "^4.3.4 || ^5.2.0",
-        "phpdocumentor/type-resolver": "^1.0.0",
         "roave/signature": "1.1.0"
     },
     "authors": [
@@ -36,8 +34,7 @@
     ],
     "require-dev": {
         "phpstan/phpstan": "^0.12.49",
-        "phpunit/phpunit": "^7.5.18",
-        "vimeo/psalm": "3.11.2"
+        "phpunit/phpunit": "^7.5.18"
     },
     "autoload": {
         "psr-4": {

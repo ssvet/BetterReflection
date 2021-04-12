@@ -6,11 +6,9 @@ namespace PHPStan\BetterReflection\Reflection;
 
 use Closure;
 use InvalidArgumentException;
-use phpDocumentor\Reflection\Type;
 use PhpParser\Node;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Property as PropertyNode;
 use PHPStan\BetterReflection\NodeCompiler\CompileNodeToValue;
 use PHPStan\BetterReflection\NodeCompiler\CompilerContext;
@@ -22,7 +20,6 @@ use PHPStan\BetterReflection\Reflection\Exception\Uncloneable;
 use PHPStan\BetterReflection\Reflection\StringCast\ReflectionPropertyStringCast;
 use PHPStan\BetterReflection\Reflector\Exception\IdentifierNotFound;
 use PHPStan\BetterReflection\Reflector\Reflector;
-use PHPStan\BetterReflection\TypesFinder\FindPropertyType;
 use PHPStan\BetterReflection\Util\CalculateReflectionColum;
 use PHPStan\BetterReflection\Util\GetLastDocComment;
 use ReflectionException;
@@ -45,9 +42,6 @@ class ReflectionProperty
 
     /** @var int */
     private $positionInNode;
-
-    /** @var Namespace_|null */
-    private $declaringNamespace;
 
     /** @var bool */
     private $declaredAtCompileTime = true;
@@ -98,7 +92,6 @@ class ReflectionProperty
         Reflector $reflector,
         PropertyNode $node,
         int $positionInNode,
-        ?Namespace_ $declaringNamespace,
         ReflectionClass $declaringClass,
         ReflectionClass $implementingClass,
         bool $declaredAtCompileTime = true,
@@ -108,7 +101,6 @@ class ReflectionProperty
         $prop->reflector             = $reflector;
         $prop->node                  = $node;
         $prop->positionInNode        = $positionInNode;
-        $prop->declaringNamespace    = $declaringNamespace;
         $prop->declaringClass        = $declaringClass;
         $prop->implementingClass     = $implementingClass;
         $prop->declaredAtCompileTime = $declaredAtCompileTime;
@@ -210,35 +202,6 @@ class ReflectionProperty
     public function isPromoted() : bool
     {
         return $this->promoted;
-    }
-
-    /**
-     * Get the DocBlock type hints as an array of strings.
-     *
-     * @return string[]
-     */
-    public function getDocBlockTypeStrings() : array
-    {
-        $stringTypes = [];
-
-        foreach ($this->getDocBlockTypes() as $type) {
-            $stringTypes[] = (string) $type;
-        }
-
-        return $stringTypes;
-    }
-
-    /**
-     * Get the types defined in the DocBlocks. This returns an array because
-     * the parameter may have multiple (compound) types specified (for example
-     * when you type hint pipe-separated "string|null", in which case this
-     * would return an array of Type objects, one for string, one for null.
-     *
-     * @return Type[]
-     */
-    public function getDocBlockTypes() : array
-    {
-        return (new FindPropertyType())->__invoke($this, $this->declaringNamespace);
     }
 
     public function getDeclaringClass() : ReflectionClass

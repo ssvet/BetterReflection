@@ -10,7 +10,6 @@ use Closure;
 use ExtendedClassWithMethodsAndTraitMethods;
 use Php4StyleCaseInsensitiveConstruct;
 use Php4StyleConstruct;
-use phpDocumentor\Reflection\Types\Integer;
 use PHPStan\BetterReflection\Reflection\Exception\ClassDoesNotExist;
 use PHPStan\BetterReflection\Reflection\Exception\MethodPrototypeNotFound;
 use PHPStan\BetterReflection\Reflection\Exception\NoObjectProvided;
@@ -235,28 +234,6 @@ class ReflectionMethodTest extends TestCase
         self::assertSame('someMethod', $methodInfo->getName());
         self::assertSame('', $methodInfo->getNamespaceName());
         self::assertSame('someMethod', $methodInfo->getShortName());
-    }
-
-    public function testGetDocBlockReturnTypes() : void
-    {
-        $php = '<?php
-        class Foo {
-            /**
-             * @return int
-             */
-            public function someMethod() {}
-        }
-        ';
-
-        $methodInfo = (new ClassReflector(new StringSourceLocator($php, $this->astLocator)))
-            ->reflect('Foo')
-            ->getMethod('someMethod');
-
-        $types = $methodInfo->getDocBlockReturnTypes();
-
-        self::assertIsArray($types);
-        self::assertCount(1, $types);
-        self::assertInstanceOf(Integer::class, $types[0]);
     }
 
     public function testGetObjectReturnTypes() : void

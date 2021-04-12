@@ -6,7 +6,6 @@ namespace PHPStan\BetterReflection\Reflection;
 
 use Closure;
 use LogicException;
-use phpDocumentor\Reflection\Type;
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Yield_ as YieldNode;
@@ -26,7 +25,6 @@ use PHPStan\BetterReflection\Reflector\Reflector;
 use PHPStan\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure;
 use PHPStan\BetterReflection\SourceLocator\Located\LocatedSource;
 use PHPStan\BetterReflection\SourceLocator\Type\ClosureSourceLocator;
-use PHPStan\BetterReflection\TypesFinder\FindReturnType;
 use PHPStan\BetterReflection\Util\CalculateReflectionColum;
 use PHPStan\BetterReflection\Util\GetLastDocComment;
 use PHPStan\BetterReflection\Util\Visitor\ReturnNodeVisitor;
@@ -401,19 +399,6 @@ abstract class ReflectionFunctionAbstract
     public function returnsReference() : bool
     {
         return $this->getNode()->byRef;
-    }
-
-    /**
-     * Get the return types defined in the DocBlocks. This returns an array because
-     * the parameter may have multiple (compound) types specified (for example
-     * when you type hint pipe-separated "string|null", in which case this
-     * would return an array of Type objects, one for string, one for null.
-     *
-     * @return Type[]
-     */
-    public function getDocBlockReturnTypes() : array
-    {
-        return (new FindReturnType())->__invoke($this, $this->declaringNamespace);
     }
 
     /**

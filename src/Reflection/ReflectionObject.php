@@ -107,9 +107,6 @@ class ReflectionObject extends ReflectionClass
                 $this->reflector,
                 $this->createPropertyNodeFromReflection($property, $this->object),
                 0,
-                $reflectionProperty
-                    ? $reflectionProperty->getDeclaringClass()->getDeclaringNamespaceAst()
-                    : null,
                 $this,
                 $this,
                 false

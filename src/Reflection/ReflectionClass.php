@@ -706,7 +706,6 @@ class ReflectionClass implements Reflection
                                 $param->attrGroups
                             ),
                             0,
-                            $this->declaringNamespace,
                             $this,
                             $this,
                             true,
@@ -725,7 +724,6 @@ class ReflectionClass implements Reflection
                         $this->reflector,
                         $stmt,
                         $propertyPositionInNode,
-                        $this->declaringNamespace,
                         $this,
                         $this
                     );
@@ -782,12 +780,11 @@ class ReflectionClass implements Reflection
                     ),
                     ...array_map(
                         function (ReflectionClass $trait) use ($filter) {
-                            return array_map(function (ReflectionProperty $property) use ($trait) : ReflectionProperty {
+                            return array_map(function (ReflectionProperty $property) : ReflectionProperty {
                                 return ReflectionProperty::createFromNode(
                                     $this->reflector,
                                     $property->getAst(),
                                     $property->getPositionInAst(),
-                                    $trait->declaringNamespace,
                                     $property->getDeclaringClass(),
                                     $this,
                                     $property->isDefault(),
