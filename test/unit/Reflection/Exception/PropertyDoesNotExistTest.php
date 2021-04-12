@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\Reflection\Exception;
 
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Reflection\Exception\PropertyDoesNotExist;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \PHPStan\BetterReflection\Reflection\Exception\PropertyDoesNotExist

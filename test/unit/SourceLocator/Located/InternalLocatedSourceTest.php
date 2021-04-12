@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\SourceLocator\Located;
 
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\SourceLocator\Located\InternalLocatedSource;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \PHPStan\BetterReflection\SourceLocator\Located\InternalLocatedSource

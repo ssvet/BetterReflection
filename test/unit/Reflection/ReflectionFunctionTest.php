@@ -6,7 +6,6 @@ namespace Roave\BetterReflectionTest\Reflection;
 
 use Closure;
 use phpDocumentor\Reflection\Types\Boolean;
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
 use PHPStan\BetterReflection\Reflection\Exception\FunctionDoesNotExist;
 use PHPStan\BetterReflection\Reflection\ReflectionFunction;
@@ -16,6 +15,7 @@ use PHPStan\BetterReflection\SourceLocator\Ast\Locator;
 use PHPStan\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
 use PHPStan\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
 use PHPStan\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use PHPUnit\Framework\TestCase;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 
 /**

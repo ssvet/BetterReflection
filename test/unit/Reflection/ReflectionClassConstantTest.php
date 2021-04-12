@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Roave\BetterReflectionTest\Reflection;
 
 use PhpParser\Node\Stmt\ClassConst;
-use PHPUnit\Framework\TestCase;
-use ReflectionProperty;
 use PHPStan\BetterReflection\Reflection\ReflectionClassConstant;
 use PHPStan\BetterReflection\Reflector\ClassReflector;
 use PHPStan\BetterReflection\SourceLocator\Type\ComposerSourceLocator;
 use PHPStan\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use PHPUnit\Framework\TestCase;
+use ReflectionProperty;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 use Roave\BetterReflectionTest\Fixture\ExampleClass;
 

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\Reflector;
 
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Identifier\Identifier;
 use PHPStan\BetterReflection\Identifier\IdentifierType;
 use PHPStan\BetterReflection\Reflection\ReflectionClass;
@@ -18,6 +17,7 @@ use PHPStan\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure;
 use PHPStan\BetterReflection\SourceLocator\Ast\Locator;
 use PHPStan\BetterReflection\SourceLocator\Located\LocatedSource;
 use PHPStan\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use PHPUnit\Framework\TestCase;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 
 /**

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\Reflector\Exception;
 
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Identifier\Identifier;
 use PHPStan\BetterReflection\Identifier\IdentifierType;
 use PHPStan\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \PHPStan\BetterReflection\Reflector\Exception\IdentifierNotFound

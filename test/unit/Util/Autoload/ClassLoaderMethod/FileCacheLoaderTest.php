@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\Util\Autoload\ClassLoaderMethod;
 
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Reflection\ReflectionClass;
 use PHPStan\BetterReflection\Util\Autoload\ClassLoaderMethod\Exception\SignatureCheckFailed;
 use PHPStan\BetterReflection\Util\Autoload\ClassLoaderMethod\FileCacheLoader;
 use PHPStan\BetterReflection\Util\Autoload\ClassPrinter\ClassPrinterInterface;
+use PHPUnit\Framework\TestCase;
 use Roave\Signature\CheckerInterface;
 use Roave\Signature\SignerInterface;
 use function file_exists;

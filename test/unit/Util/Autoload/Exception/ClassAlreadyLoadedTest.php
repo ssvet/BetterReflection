@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\Util\Autoload\Exception;
 
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Reflection\ReflectionClass;
 use PHPStan\BetterReflection\Util\Autoload\Exception\ClassAlreadyLoaded;
+use PHPUnit\Framework\TestCase;
 use function sprintf;
 use function uniqid;
 

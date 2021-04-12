@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\Util\Autoload;
 
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Reflection\ReflectionClass;
 use PHPStan\BetterReflection\Util\Autoload\ClassLoader;
 use PHPStan\BetterReflection\Util\Autoload\ClassLoaderMethod\LoaderMethodInterface;
@@ -12,6 +11,7 @@ use PHPStan\BetterReflection\Util\Autoload\ClassPrinter\PhpParserPrinter;
 use PHPStan\BetterReflection\Util\Autoload\Exception\ClassAlreadyLoaded;
 use PHPStan\BetterReflection\Util\Autoload\Exception\ClassAlreadyRegistered;
 use PHPStan\BetterReflection\Util\Autoload\Exception\FailedToLoadClass;
+use PHPUnit\Framework\TestCase;
 use Roave\BetterReflectionTest\Fixture\AnotherTestClassForAutoloader;
 use Roave\BetterReflectionTest\Fixture\TestClassForAutoloader;
 use stdClass;

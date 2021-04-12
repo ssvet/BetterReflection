@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\SourceLocator\Type;
 
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Identifier\Identifier;
 use PHPStan\BetterReflection\Identifier\IdentifierType;
 use PHPStan\BetterReflection\Reflection\ReflectionClass;
 use PHPStan\BetterReflection\Reflector\ClassReflector;
 use PHPStan\BetterReflection\SourceLocator\Exception\InvalidDirectory;
 use PHPStan\BetterReflection\SourceLocator\Type\DirectoriesSourceLocator;
+use PHPUnit\Framework\TestCase;
 use Roave\BetterReflectionTest\Assets\DirectoryScannerAssets;
 use Roave\BetterReflectionTest\Assets\DirectoryScannerAssetsFoo;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;

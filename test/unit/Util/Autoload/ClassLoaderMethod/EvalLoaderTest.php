@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\Util\Autoload\ClassLoaderMethod;
 
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Reflection\ReflectionClass;
 use PHPStan\BetterReflection\Util\Autoload\ClassLoaderMethod\EvalLoader;
 use PHPStan\BetterReflection\Util\Autoload\ClassPrinter\ClassPrinterInterface;
+use PHPUnit\Framework\TestCase;
 use function ob_end_clean;
 use function ob_get_contents;
 use function ob_start;

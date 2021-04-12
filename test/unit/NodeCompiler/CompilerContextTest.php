@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\NodeCompiler;
 
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\NodeCompiler\CompilerContext;
 use PHPStan\BetterReflection\Reflector\ClassReflector;
 use PHPStan\BetterReflection\Reflector\FunctionReflector;
@@ -12,6 +11,7 @@ use PHPStan\BetterReflection\SourceLocator\Ast\Locator;
 use PHPStan\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
 use PHPStan\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use PHPStan\BetterReflection\Util\FileHelper;
+use PHPUnit\Framework\TestCase;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 use RuntimeException;
 

@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\Reflection\Adapter;
 
-use PHPUnit\Framework\TestCase;
-use ReflectionClass as CoreReflectionClass;
-use ReflectionException as CoreReflectionException;
-use ReflectionMethod as CoreReflectionMethod;
 use PHPStan\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
 use PHPStan\BetterReflection\Reflection\Adapter\ReflectionClass as ReflectionClassAdapter;
 use PHPStan\BetterReflection\Reflection\Adapter\ReflectionMethod as ReflectionMethodAdapter;
@@ -21,6 +17,10 @@ use PHPStan\BetterReflection\Reflection\ReflectionMethod as BetterReflectionMeth
 use PHPStan\BetterReflection\Reflection\ReflectionNamedType as BetterReflectionNamedType;
 use PHPStan\BetterReflection\Reflection\ReflectionParameter as BetterReflectionParameter;
 use PHPStan\BetterReflection\Util\FileHelper;
+use PHPUnit\Framework\TestCase;
+use ReflectionClass as CoreReflectionClass;
+use ReflectionException as CoreReflectionException;
+use ReflectionMethod as CoreReflectionMethod;
 use stdClass;
 use Throwable;
 use function array_combine;

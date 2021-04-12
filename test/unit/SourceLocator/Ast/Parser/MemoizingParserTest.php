@@ -6,8 +6,8 @@ namespace Roave\BetterReflectionTest\Reflector;
 
 use PhpParser\Node;
 use PhpParser\Parser;
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\SourceLocator\Ast\Parser\MemoizingParser;
+use PHPUnit\Framework\TestCase;
 use function array_map;
 use function array_unique;
 use function count;

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace PHPStan\BetterReflection\Reflection\Adapter;
 
 use Exception;
-use ReflectionParameter as CoreReflectionParameter;
 use PHPStan\BetterReflection\Reflection\ReflectionMethod as BetterReflectionMethod;
 use PHPStan\BetterReflection\Reflection\ReflectionParameter as BetterReflectionParameter;
+use ReflectionParameter as CoreReflectionParameter;
 use function assert;
 
 class ReflectionParameter extends CoreReflectionParameter

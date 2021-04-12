@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace PHPStan\BetterReflection\Reflection\Adapter;
 
 use Exception;
-use ReflectionException as CoreReflectionException;
-use ReflectionProperty as CoreReflectionProperty;
 use PHPStan\BetterReflection\Reflection\Exception\NoObjectProvided;
 use PHPStan\BetterReflection\Reflection\Exception\NotAnObject;
 use PHPStan\BetterReflection\Reflection\ReflectionProperty as BetterReflectionProperty;
+use ReflectionException as CoreReflectionException;
+use ReflectionProperty as CoreReflectionProperty;
 use Throwable;
 
 class ReflectionProperty extends CoreReflectionProperty
@@ -190,7 +190,7 @@ class ReflectionProperty extends CoreReflectionProperty
         return $this->accessible || $this->isPublic();
     }
 
-    public function hasDefaultValue(): bool
+    public function hasDefaultValue() : bool
     {
         return $this->getDefaultValue() !== null;
     }

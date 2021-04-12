@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace PHPStan\BetterReflection\Reflection;
 
 use PhpParser\Node\Stmt\ClassConst;
-use ReflectionProperty;
 use PHPStan\BetterReflection\NodeCompiler\CompileNodeToValue;
 use PHPStan\BetterReflection\NodeCompiler\CompilerContext;
 use PHPStan\BetterReflection\Reflection\StringCast\ReflectionClassConstantStringCast;
 use PHPStan\BetterReflection\Reflector\Reflector;
 use PHPStan\BetterReflection\Util\CalculateReflectionColum;
 use PHPStan\BetterReflection\Util\GetLastDocComment;
+use ReflectionProperty;
 
 class ReflectionClassConstant
 {

@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Roave\BetterReflectionTest\Identifier;
 
 use InvalidArgumentException;
-use PHPUnit\Framework\TestCase;
-use ReflectionObject;
 use PHPStan\BetterReflection\Identifier\IdentifierType;
 use PHPStan\BetterReflection\Reflection\ReflectionClass;
 use PHPStan\BetterReflection\Reflection\ReflectionConstant;
 use PHPStan\BetterReflection\Reflection\ReflectionFunction;
+use PHPUnit\Framework\TestCase;
+use ReflectionObject;
 
 /**
  * @covers \PHPStan\BetterReflection\Identifier\IdentifierType

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace PHPStan\BetterReflection\Reflection\Adapter;
 
 use LogicException;
-use ReflectionType as CoreReflectionType;
 use PHPStan\BetterReflection\Reflection\ReflectionNamedType as BetterReflectionNamedType;
 use PHPStan\BetterReflection\Reflection\ReflectionType as BetterReflectionType;
 use PHPStan\BetterReflection\Reflection\ReflectionUnionType as BetterReflectionUnionType;
+use ReflectionType as CoreReflectionType;
 use function get_class;
 use function sprintf;
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\Identifier\Exception;
 
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Identifier\Exception\InvalidIdentifierName;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \PHPStan\BetterReflection\Identifier\Exception\InvalidIdentifierName

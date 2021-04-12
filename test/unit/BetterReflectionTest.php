@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Roave\BetterReflectionTest;
 
 use PhpParser\Parser;
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\BetterReflection;
 use PHPStan\BetterReflection\Reflector\ClassReflector;
 use PHPStan\BetterReflection\Reflector\ConstantReflector;
@@ -14,6 +13,7 @@ use PHPStan\BetterReflection\SourceLocator\Ast\Locator;
 use PHPStan\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
 use PHPStan\BetterReflection\SourceLocator\Type\SourceLocator;
 use PHPStan\BetterReflection\Util\FindReflectionOnLine;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \PHPStan\BetterReflection\BetterReflection

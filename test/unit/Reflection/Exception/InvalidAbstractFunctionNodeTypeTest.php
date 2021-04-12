@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Roave\BetterReflectionTest\Reflection\Exception;
 
 use PhpParser\Node;
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Reflection\Exception\InvalidAbstractFunctionNodeType;
 use PHPStan\BetterReflection\Reflection\ReflectionFunctionAbstract;
+use PHPUnit\Framework\TestCase;
 use function sprintf;
 
 /**

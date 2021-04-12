@@ -11,11 +11,11 @@ use PhpParser\Builder\Use_;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Namespace_;
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Reflection\ReflectionFunction;
 use PHPStan\BetterReflection\Reflection\ReflectionFunctionAbstract;
 use PHPStan\BetterReflection\Reflection\ReflectionMethod;
 use PHPStan\BetterReflection\TypesFinder\FindReturnType;
+use PHPUnit\Framework\TestCase;
 use function count;
 use function sprintf;
 

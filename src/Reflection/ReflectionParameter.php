@@ -185,7 +185,7 @@ class ReflectionParameter
             $constantName = $defaultValueNode->name->name;
             if (strtolower($constantName) !== 'class') {
                 if ($className === 'self' || $className === 'static') {
-                    $className    = $this->findParentClassDeclaringConstant($constantName);
+                    $className = $this->findParentClassDeclaringConstant($constantName);
                 }
 
                 $this->isDefaultValueConstant = true;

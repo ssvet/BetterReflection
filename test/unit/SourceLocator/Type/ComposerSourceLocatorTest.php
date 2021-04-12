@@ -6,13 +6,13 @@ namespace Roave\BetterReflectionTest\SourceLocator\Type;
 
 use ClassWithNoNamespace;
 use Composer\Autoload\ClassLoader;
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Identifier\Identifier;
 use PHPStan\BetterReflection\Identifier\IdentifierType;
 use PHPStan\BetterReflection\Reflector\Reflector;
 use PHPStan\BetterReflection\SourceLocator\Ast\Locator;
 use PHPStan\BetterReflection\SourceLocator\Type\ComposerSourceLocator;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 use function assert;
 

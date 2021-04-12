@@ -6,7 +6,6 @@ namespace Roave\BetterReflectionTest\SourceLocator\Type;
 
 use InvalidArgumentException;
 use PhpParser\Parser;
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Identifier\Identifier;
 use PHPStan\BetterReflection\Identifier\IdentifierType;
 use PHPStan\BetterReflection\Reflection\ReflectionClass;
@@ -15,6 +14,7 @@ use PHPStan\BetterReflection\SourceLocator\Exception\EvaledAnonymousClassCannotB
 use PHPStan\BetterReflection\SourceLocator\Exception\TwoAnonymousClassesOnSameLine;
 use PHPStan\BetterReflection\SourceLocator\Type\AnonymousClassObjectSourceLocator;
 use PHPStan\BetterReflection\Util\FileHelper;
+use PHPUnit\Framework\TestCase;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 use function assert;
 use function get_class;

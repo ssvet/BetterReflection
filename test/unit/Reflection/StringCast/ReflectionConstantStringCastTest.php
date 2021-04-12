@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\Reflection\StringCast;
 
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Reflector\ClassReflector;
 use PHPStan\BetterReflection\Reflector\ConstantReflector;
 use PHPStan\BetterReflection\SourceLocator\Ast\Locator;
@@ -12,6 +11,7 @@ use PHPStan\BetterReflection\SourceLocator\SourceStubber\SourceStubber;
 use PHPStan\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use PHPStan\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
 use PHPStan\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
+use PHPUnit\Framework\TestCase;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 
 /**

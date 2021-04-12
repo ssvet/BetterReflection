@@ -6,8 +6,6 @@ namespace PHPStan\BetterReflection\Reflection\Adapter;
 
 use InvalidArgumentException;
 use OutOfBoundsException;
-use ReflectionClass as CoreReflectionClass;
-use ReflectionException as CoreReflectionException;
 use PHPStan\BetterReflection\Reflection\Exception\NotAnObject;
 use PHPStan\BetterReflection\Reflection\ReflectionClass as BetterReflectionClass;
 use PHPStan\BetterReflection\Reflection\ReflectionClassConstant as BetterReflectionClassConstant;
@@ -15,6 +13,8 @@ use PHPStan\BetterReflection\Reflection\ReflectionMethod as BetterReflectionMeth
 use PHPStan\BetterReflection\Reflection\ReflectionObject as BetterReflectionObject;
 use PHPStan\BetterReflection\Reflection\ReflectionProperty as BetterReflectionProperty;
 use PHPStan\BetterReflection\Util\FileHelper;
+use ReflectionClass as CoreReflectionClass;
+use ReflectionException as CoreReflectionException;
 use function array_combine;
 use function array_map;
 use function array_values;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\SourceLocator\SourceStubber;
 
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\SourceLocator\SourceStubber\StubData;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \PHPStan\BetterReflection\SourceLocator\SourceStubber\StubData

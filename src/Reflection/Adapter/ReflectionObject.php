@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace PHPStan\BetterReflection\Reflection\Adapter;
 
-use ReflectionException as CoreReflectionException;
-use ReflectionObject as CoreReflectionObject;
 use PHPStan\BetterReflection\Reflection\Exception\NotAnObject;
 use PHPStan\BetterReflection\Reflection\ReflectionClass as BetterReflectionClass;
 use PHPStan\BetterReflection\Reflection\ReflectionMethod as BetterReflectionMethod;
 use PHPStan\BetterReflection\Reflection\ReflectionObject as BetterReflectionObject;
 use PHPStan\BetterReflection\Reflection\ReflectionProperty as BetterReflectionProperty;
 use PHPStan\BetterReflection\Util\FileHelper;
+use ReflectionException as CoreReflectionException;
+use ReflectionObject as CoreReflectionObject;
 use function array_combine;
 use function array_map;
 use function array_values;

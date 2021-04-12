@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\SourceLocator;
 
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\SourceLocator\Exception\InvalidFileLocation;
 use PHPStan\BetterReflection\SourceLocator\FileChecker;
+use PHPUnit\Framework\TestCase;
 use function chmod;
 use function fileperms;
 use function sprintf;

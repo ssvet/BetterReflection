@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\Util;
 
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Util\FileHelper;
+use PHPUnit\Framework\TestCase;
 use function strtr;
 use const DIRECTORY_SEPARATOR;
 

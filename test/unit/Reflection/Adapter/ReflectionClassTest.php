@@ -5,11 +5,6 @@ declare(strict_types=1);
 namespace Roave\BetterReflectionTest\Reflection\Adapter;
 
 use OutOfBoundsException;
-use PHPUnit\Framework\TestCase;
-use ReflectionClass as CoreReflectionClass;
-use ReflectionException as CoreReflectionException;
-use ReflectionMethod as CoreReflectionMethod;
-use ReflectionProperty as CoreReflectionProperty;
 use PHPStan\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
 use PHPStan\BetterReflection\Reflection\Adapter\ReflectionClass as ReflectionClassAdapter;
 use PHPStan\BetterReflection\Reflection\Exception\NotAnObject;
@@ -18,6 +13,11 @@ use PHPStan\BetterReflection\Reflection\ReflectionClassConstant as BetterReflect
 use PHPStan\BetterReflection\Reflection\ReflectionMethod as BetterReflectionMethod;
 use PHPStan\BetterReflection\Reflection\ReflectionProperty as BetterReflectionProperty;
 use PHPStan\BetterReflection\Util\FileHelper;
+use PHPUnit\Framework\TestCase;
+use ReflectionClass as CoreReflectionClass;
+use ReflectionException as CoreReflectionException;
+use ReflectionMethod as CoreReflectionMethod;
+use ReflectionProperty as CoreReflectionProperty;
 use stdClass;
 use function array_combine;
 use function array_map;

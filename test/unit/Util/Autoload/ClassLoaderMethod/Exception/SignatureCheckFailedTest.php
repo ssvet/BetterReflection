@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\Util\Autoload\ClassLoaderMethod\Exception;
 
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Reflection\ReflectionClass;
 use PHPStan\BetterReflection\Util\Autoload\ClassLoaderMethod\Exception\SignatureCheckFailed;
+use PHPUnit\Framework\TestCase;
 use function sprintf;
 use function uniqid;
 

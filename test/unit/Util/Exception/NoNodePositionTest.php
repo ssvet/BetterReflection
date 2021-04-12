@@ -6,8 +6,8 @@ namespace Roave\BetterReflectionTest\Util\Exception;
 
 use PhpParser\Lexer;
 use PhpParser\Node\Scalar\LNumber;
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Util\Exception\NoNodePosition;
+use PHPUnit\Framework\TestCase;
 use function get_class;
 use function sprintf;
 

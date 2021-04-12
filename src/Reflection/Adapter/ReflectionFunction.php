@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace PHPStan\BetterReflection\Reflection\Adapter;
 
 use Exception;
-use ReflectionException as CoreReflectionException;
-use ReflectionFunction as CoreReflectionFunction;
 use PHPStan\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
 use PHPStan\BetterReflection\Reflection\ReflectionFunction as BetterReflectionFunction;
 use PHPStan\BetterReflection\Util\FileHelper;
+use ReflectionException as CoreReflectionException;
+use ReflectionFunction as CoreReflectionFunction;
 use Throwable;
 use function func_get_args;
 

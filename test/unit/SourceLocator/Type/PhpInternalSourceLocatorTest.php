@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\SourceLocator\Type;
 
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
-use ReflectionClass as CoreReflectionClass;
-use ReflectionException;
 use PHPStan\BetterReflection\Identifier\Identifier;
 use PHPStan\BetterReflection\Identifier\IdentifierType;
 use PHPStan\BetterReflection\Reflection\ReflectionClass;
@@ -16,6 +12,10 @@ use PHPStan\BetterReflection\Reflection\ReflectionFunction;
 use PHPStan\BetterReflection\Reflector\Reflector;
 use PHPStan\BetterReflection\SourceLocator\Located\InternalLocatedSource;
 use PHPStan\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
+use ReflectionClass as CoreReflectionClass;
+use ReflectionException;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 use function array_filter;
 use function array_keys;

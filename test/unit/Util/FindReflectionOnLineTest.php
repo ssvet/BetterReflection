@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\Util;
 
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Reflection\ReflectionClass;
 use PHPStan\BetterReflection\Reflection\ReflectionConstant;
 use PHPStan\BetterReflection\Reflection\ReflectionFunction;
 use PHPStan\BetterReflection\Reflection\ReflectionMethod;
 use PHPStan\BetterReflection\Util\FindReflectionOnLine;
+use PHPUnit\Framework\TestCase;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 
 /**

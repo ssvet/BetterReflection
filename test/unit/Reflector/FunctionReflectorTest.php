@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\Reflector;
 
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Reflection\ReflectionFunction;
 use PHPStan\BetterReflection\Reflector\ClassReflector;
 use PHPStan\BetterReflection\Reflector\Exception\IdentifierNotFound;
 use PHPStan\BetterReflection\Reflector\FunctionReflector;
 use PHPStan\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
 use PHPStan\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 use function assert;
 

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\Util\Autoload\ClassPrinter;
 
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Reflection\ReflectionClass;
 use PHPStan\BetterReflection\Util\Autoload\ClassPrinter\PhpParserPrinter;
+use PHPUnit\Framework\TestCase;
 use Roave\BetterReflectionTest\Fixture\TestClassForPhpParserPrinterTest;
 
 /**

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace PHPStan\BetterReflection\Reflection\Adapter;
 
-use ReflectionNamedType as CoreReflectionNamedType;
 use PHPStan\BetterReflection\Reflection\ReflectionNamedType as BetterReflectionType;
+use ReflectionNamedType as CoreReflectionNamedType;
 use function ltrim;
 
 class ReflectionNamedType extends CoreReflectionNamedType

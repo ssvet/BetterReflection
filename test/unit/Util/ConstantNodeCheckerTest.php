@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Roave\BetterReflectionTest\Util;
 
 use PhpParser\Node;
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Reflection\Exception\InvalidConstantNode;
 use PHPStan\BetterReflection\Util\ConstantNodeChecker;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \PHPStan\BetterReflection\Util\ConstantNodeChecker

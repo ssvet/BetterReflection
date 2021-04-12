@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace PHPStan\BetterReflection\Reflection\Adapter;
 
-use ReflectionUnionType as CoreReflectionUnionType;
 use PHPStan\BetterReflection\Reflection\ReflectionUnionType as BetterReflectionType;
+use ReflectionUnionType as CoreReflectionUnionType;
 use function array_map;
 
 class ReflectionUnionType extends CoreReflectionUnionType

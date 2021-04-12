@@ -7,8 +7,8 @@ namespace Roave\BetterReflectionTest\Util;
 use PhpParser\Comment;
 use PhpParser\Comment\Doc;
 use PhpParser\Node\Stmt\Function_;
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Util\GetLastDocComment;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \PHPStan\BetterReflection\Util\GetLastDocComment

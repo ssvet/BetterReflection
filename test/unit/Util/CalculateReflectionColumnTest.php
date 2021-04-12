@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Roave\BetterReflectionTest\Util;
 
 use PhpParser\Node;
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Util\CalculateReflectionColum;
 use PHPStan\BetterReflection\Util\Exception\InvalidNodePosition;
 use PHPStan\BetterReflection\Util\Exception\NoNodePosition;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \PHPStan\BetterReflection\Util\CalculateReflectionColum

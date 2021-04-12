@@ -10,8 +10,6 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitorAbstract;
 use PhpParser\Parser;
-use ReflectionClass as CoreReflectionClass;
-use ReflectionException;
 use PHPStan\BetterReflection\Identifier\Identifier;
 use PHPStan\BetterReflection\Identifier\IdentifierType;
 use PHPStan\BetterReflection\Reflection\Reflection;
@@ -24,6 +22,8 @@ use PHPStan\BetterReflection\SourceLocator\Exception\TwoAnonymousClassesOnSameLi
 use PHPStan\BetterReflection\SourceLocator\FileChecker;
 use PHPStan\BetterReflection\SourceLocator\Located\LocatedSource;
 use PHPStan\BetterReflection\Util\FileHelper;
+use ReflectionClass as CoreReflectionClass;
+use ReflectionException;
 use function array_filter;
 use function array_values;
 use function assert;

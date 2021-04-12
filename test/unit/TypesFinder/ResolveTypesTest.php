@@ -6,8 +6,8 @@ namespace Roave\BetterReflectionTest\TypesFinder;
 
 use phpDocumentor\Reflection\Types;
 use phpDocumentor\Reflection\Types\Context;
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\TypesFinder\ResolveTypes;
+use PHPUnit\Framework\TestCase;
 use function assert;
 use function count;
 use function reset;

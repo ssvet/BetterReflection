@@ -6,7 +6,6 @@ namespace Roave\BetterReflectionTest\SourceLocator\Type;
 
 use Closure;
 use PhpParser\Parser;
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Identifier\Identifier;
 use PHPStan\BetterReflection\Identifier\IdentifierType;
 use PHPStan\BetterReflection\Reflection\ReflectionFunction;
@@ -15,6 +14,7 @@ use PHPStan\BetterReflection\SourceLocator\Exception\EvaledClosureCannotBeLocate
 use PHPStan\BetterReflection\SourceLocator\Exception\TwoClosuresOnSameLine;
 use PHPStan\BetterReflection\SourceLocator\Type\ClosureSourceLocator;
 use PHPStan\BetterReflection\Util\FileHelper;
+use PHPUnit\Framework\TestCase;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 use function assert;
 use function realpath;

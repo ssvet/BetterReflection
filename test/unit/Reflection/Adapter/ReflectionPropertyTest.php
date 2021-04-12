@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\Reflection\Adapter;
 
-use PHPUnit\Framework\TestCase;
-use ReflectionClass as CoreReflectionClass;
-use ReflectionException as CoreReflectionException;
-use ReflectionProperty as CoreReflectionProperty;
 use PHPStan\BetterReflection\Reflection\Adapter\ReflectionClass as ReflectionClassAdapter;
 use PHPStan\BetterReflection\Reflection\Adapter\ReflectionProperty as ReflectionPropertyAdapter;
 use PHPStan\BetterReflection\Reflection\Exception\NoObjectProvided;
@@ -16,6 +12,10 @@ use PHPStan\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass;
 use PHPStan\BetterReflection\Reflection\ReflectionClass as BetterReflectionClass;
 use PHPStan\BetterReflection\Reflection\ReflectionNamedType as BetterReflectionNamedType;
 use PHPStan\BetterReflection\Reflection\ReflectionProperty as BetterReflectionProperty;
+use PHPUnit\Framework\TestCase;
+use ReflectionClass as CoreReflectionClass;
+use ReflectionException as CoreReflectionException;
+use ReflectionProperty as CoreReflectionProperty;
 use stdClass;
 use Throwable;
 use function array_combine;

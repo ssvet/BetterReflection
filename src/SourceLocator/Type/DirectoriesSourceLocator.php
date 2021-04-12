@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace PHPStan\BetterReflection\SourceLocator\Type;
 
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
 use PHPStan\BetterReflection\Identifier\Identifier;
 use PHPStan\BetterReflection\Identifier\IdentifierType;
 use PHPStan\BetterReflection\Reflection\Reflection;
@@ -13,6 +11,8 @@ use PHPStan\BetterReflection\Reflector\Reflector;
 use PHPStan\BetterReflection\SourceLocator\Ast\Locator;
 use PHPStan\BetterReflection\SourceLocator\Exception\InvalidDirectory;
 use PHPStan\BetterReflection\SourceLocator\Exception\InvalidFileInfo;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use function array_map;
 use function array_values;
 use function is_dir;

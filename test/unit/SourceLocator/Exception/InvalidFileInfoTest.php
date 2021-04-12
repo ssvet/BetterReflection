@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\SourceLocator\Exception;
 
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\SourceLocator\Exception\InvalidFileInfo;
+use PHPUnit\Framework\TestCase;
 use stdClass;
 
 /**

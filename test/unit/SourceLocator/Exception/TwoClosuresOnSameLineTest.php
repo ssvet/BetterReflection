@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\SourceLocator\Exception;
 
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\SourceLocator\Exception\TwoClosuresOnSameLine;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \PHPStan\BetterReflection\SourceLocator\Exception\TwoClosuresOnSameLine

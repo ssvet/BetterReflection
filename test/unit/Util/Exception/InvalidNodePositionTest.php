@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\Util\Exception;
 
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Util\Exception\InvalidNodePosition;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \PHPStan\BetterReflection\Util\Exception\InvalidNodePosition

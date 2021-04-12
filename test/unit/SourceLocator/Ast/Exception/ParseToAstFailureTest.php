@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Roave\BetterReflectionTest\Reflector\Exception;
 
 use Exception;
-use PHPUnit\Framework\TestCase;
-use ReflectionProperty;
 use PHPStan\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure;
 use PHPStan\BetterReflection\SourceLocator\Located\LocatedSource;
+use PHPUnit\Framework\TestCase;
+use ReflectionProperty;
 
 /**
  * @covers \PHPStan\BetterReflection\SourceLocator\Ast\Exception\ParseToAstFailure

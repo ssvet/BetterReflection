@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace PHPStan\BetterReflection\Reflection\Adapter;
 
-use ReflectionClassConstant as CoreReflectionClassConstant;
 use PHPStan\BetterReflection\Reflection\ReflectionClassConstant as BetterReflectionClassConstant;
+use ReflectionClassConstant as CoreReflectionClassConstant;
 
 class ReflectionClassConstant extends CoreReflectionClassConstant
 {

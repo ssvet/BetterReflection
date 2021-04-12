@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\SourceLocator\Type\Composer\Factory;
 
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use PHPStan\BetterReflection\SourceLocator\Type\Composer\Factory\Exception\FailedToParseJson;
 use PHPStan\BetterReflection\SourceLocator\Type\Composer\Factory\Exception\InvalidProjectDirectory;
@@ -16,6 +15,7 @@ use PHPStan\BetterReflection\SourceLocator\Type\Composer\PsrAutoloaderLocator;
 use PHPStan\BetterReflection\SourceLocator\Type\DirectoriesSourceLocator;
 use PHPStan\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
 use PHPStan\BetterReflection\SourceLocator\Type\SourceLocator;
+use PHPUnit\Framework\TestCase;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 use function array_column;
 use function array_combine;

@@ -6,12 +6,12 @@ namespace Roave\BetterReflectionTest\SourceLocator\Type;
 
 use PhpParser\Lexer\Emulative;
 use PhpParser\ParserFactory;
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Reflector\ClassReflector;
 use PHPStan\BetterReflection\Reflector\FunctionReflector;
 use PHPStan\BetterReflection\SourceLocator\Ast\Locator;
 use PHPStan\BetterReflection\SourceLocator\Ast\Parser\MemoizingParser;
 use PHPStan\BetterReflection\SourceLocator\Type\AutoloadSourceLocator;
+use PHPUnit\Framework\TestCase;
 use Roave\BetterReflectionTest\Fixture\ExampleClass;
 use function class_exists;
 

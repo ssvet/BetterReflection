@@ -6,8 +6,8 @@ namespace Roave\BetterReflectionTest\Util\Visitor;
 
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
-use PHPUnit\Framework\TestCase;
 use PHPStan\BetterReflection\Util\Visitor\ReturnNodeVisitor;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \PHPStan\BetterReflection\Util\Visitor\ReturnNodeVisitor

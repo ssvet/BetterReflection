@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Roave\BetterReflectionTest\SourceLocator\Type\AutoloadSourceLocator;
 
 use Exception;
+use PHPStan\BetterReflection\SourceLocator\Type\AutoloadSourceLocator\FileReadTrapStreamWrapper;
 use PHPUnit\Framework\Error\Warning;
 use PHPUnit\Framework\TestCase;
-use PHPStan\BetterReflection\SourceLocator\Type\AutoloadSourceLocator\FileReadTrapStreamWrapper;
 use Throwable;
 use UnexpectedValueException;
 use function class_exists;
