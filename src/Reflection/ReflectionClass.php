@@ -102,6 +102,12 @@ class ReflectionClass implements Reflection
     /** @var ReflectionMethod|null */
     private $cachedConstructor;
 
+    /** @var array<string, ReflectionClass>|null */
+    private $cachedInterfaces;
+
+    /** @var list<string>|null */
+    private $cachedInterfaceNames;
+
     private function __construct()
     {
     }
@@ -682,7 +688,7 @@ class ReflectionClass implements Reflection
         if ($this->cachedImmediateProperties === null) {
             $properties = [];
             foreach ($this->node->stmts as $stmt) {
-                if ($stmt instanceof ClassMethod && $stmt->name->toLowerString() === '__construct') {
+                if (BetterReflection::$phpVersion >= 80000 && $stmt instanceof ClassMethod && $stmt->name->toLowerString() === '__construct') {
                     foreach ($stmt->params as $param) {
                         if ($param->flags === 0) {
                             continue;
@@ -1174,7 +1180,11 @@ class ReflectionClass implements Reflection
      */
     public function getInterfaces() : array
     {
-        return array_merge(...array_map(
+        if ($this->cachedInterfaces !== null) {
+            return $this->cachedInterfaces;
+        }
+
+        return $this->cachedInterfaces = array_merge(...array_map(
             static function (self $reflectionClass) : array {
                 return $reflectionClass->getCurrentClassImplementedInterfacesIndexedByName();
             },
@@ -1223,7 +1233,11 @@ class ReflectionClass implements Reflection
      */
     public function getInterfaceNames() : array
     {
-        return array_values(array_map(
+        if ($this->cachedInterfaceNames !== null) {
+            return $this->cachedInterfaceNames;
+        }
+
+        return $this->cachedInterfaceNames = array_values(array_map(
             static function (self $interface) : string {
                 return $interface->getName();
             },
