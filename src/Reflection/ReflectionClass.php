@@ -688,7 +688,7 @@ class ReflectionClass implements Reflection
         if ($this->cachedImmediateProperties === null) {
             $properties = [];
             foreach ($this->node->stmts as $stmt) {
-                if (BetterReflection::$phpVersion >= 80000 && $stmt instanceof ClassMethod && $stmt->name->toLowerString() === '__construct') {
+                if ($stmt instanceof ClassMethod && $stmt->name->toLowerString() === '__construct') {
                     foreach ($stmt->params as $param) {
                         if ($param->flags === 0) {
                             continue;
