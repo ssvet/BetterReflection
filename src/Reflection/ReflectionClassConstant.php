@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PHPStan\BetterReflection\Reflection;
 
 use PhpParser\Node\Stmt\ClassConst;
+use PHPStan\BetterReflection\BetterReflection;
 use PHPStan\BetterReflection\NodeCompiler\CompileNodeToValue;
 use PHPStan\BetterReflection\NodeCompiler\CompilerContext;
 use PHPStan\BetterReflection\Reflection\StringCast\ReflectionClassConstantStringCast;
@@ -117,7 +118,16 @@ class ReflectionClassConstant
      */
     public function isFinal() : bool
     {
-        return $this->node->isFinal();
+        $final = $this->node->isFinal();
+        if ($final) {
+            return true;
+        }
+
+        if (BetterReflection::$phpVersion >= 80100) {
+            return false;
+        }
+
+        return $this->getDeclaringClass()->isInterface();
     }
 
     /**
