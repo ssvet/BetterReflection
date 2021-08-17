@@ -113,6 +113,14 @@ class ReflectionClassConstant
     }
 
     /**
+     * Constant is final
+     */
+    public function isFinal() : bool
+    {
+        return $this->node->isFinal();
+    }
+
+    /**
      * Returns a bitfield of the access modifiers for this constant
      */
     public function getModifiers() : int

@@ -61,6 +61,14 @@ class ReflectionClassConstant extends CoreReflectionClassConstant
     }
 
     /**
+     * Constant is protected
+     */
+    public function isFinal() : bool
+    {
+        return $this->betterClassConstant->isFinal();
+    }
+
+    /**
      * Returns a bitfield of the access modifiers for this constant
      */
     public function getModifiers() : int
