@@ -204,6 +204,11 @@ class ReflectionProperty
         return $this->promoted;
     }
 
+    public function isReadOnly() : bool
+    {
+        return $this->node->isReadonly();
+    }
+
     public function getDeclaringClass() : ReflectionClass
     {
         return $this->declaringClass;

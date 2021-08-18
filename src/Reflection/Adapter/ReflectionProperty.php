@@ -153,6 +153,11 @@ class ReflectionProperty extends CoreReflectionProperty
         return $this->betterReflectionProperty->isPromoted();
     }
 
+    public function isReadOnly() : bool
+    {
+        return $this->betterReflectionProperty->isReadOnly();
+    }
+
     /**
      * {@inheritDoc}
      */
