@@ -9,3 +9,11 @@ class ClassWithStaticMethod
         return $a + $b;
     }
 }
+
+trait TraitWithStaticMethod
+{
+    public static function sum(int $a, int $b) : int
+    {
+        return $a + $b;
+    }
+}

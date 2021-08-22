@@ -293,7 +293,7 @@ class ReflectionMethod extends ReflectionFunctionAbstract
         $declaringClassName = $this->getDeclaringClass()->getName();
 
         if ($this->isStatic()) {
-            $this->assertClassExist($declaringClassName);
+            $this->assertClassOrTraitExist($declaringClassName);
 
             return function (...$args) {
                 return $this->callStaticMethod($args);
@@ -339,7 +339,7 @@ class ReflectionMethod extends ReflectionFunctionAbstract
         $declaringClassName = $this->getDeclaringClass()->getName();
 
         if ($this->isStatic()) {
-            $this->assertClassExist($declaringClassName);
+            $this->assertClassOrTraitExist($declaringClassName);
 
             return $this->callStaticMethod($args);
         }
@@ -377,9 +377,9 @@ class ReflectionMethod extends ReflectionFunctionAbstract
     /**
      * @throws ClassDoesNotExist
      */
-    private function assertClassExist(string $className) : void
+    private function assertClassOrTraitExist(string $className) : void
     {
-        if (! class_exists($className)) {
+        if (! class_exists($className) && ! trait_exists($className)) {
             throw new ClassDoesNotExist(sprintf('Method of class %s cannot be used as the class does not exist', $className));
         }
     }

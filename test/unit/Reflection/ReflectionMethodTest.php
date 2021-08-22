@@ -36,6 +36,7 @@ use Roave\BetterReflectionTest\Fixture\ExampleClass;
 use Roave\BetterReflectionTest\Fixture\InterfaceWithMethod;
 use Roave\BetterReflectionTest\Fixture\Methods;
 use Roave\BetterReflectionTest\Fixture\Php4StyleConstructInNamespace;
+use Roave\BetterReflectionTest\Fixture\TraitWithStaticMethod;
 use Roave\BetterReflectionTest\Fixture\UpperCaseConstructDestruct;
 use SplDoublyLinkedList;
 use stdClass;
@@ -511,6 +512,18 @@ PHP;
         require_once $classWithStaticMethodFile;
 
         $classReflection  = (new ClassReflector(new SingleFileSourceLocator($classWithStaticMethodFile, $this->astLocator)))->reflect(ClassWithStaticMethod::class);
+        $methodReflection = $classReflection->getMethod('sum');
+
+        self::assertSame(3, $methodReflection->invoke(null, 1, 2));
+        self::assertSame(7, $methodReflection->invokeArgs(null, [3, 4]));
+    }
+
+    public function testInvokeOfStaticTraiMethod() : void
+    {
+        $classWithStaticMethodFile = __DIR__ . '/../Fixture/ClassWithStaticMethod.php';
+        require_once $classWithStaticMethodFile;
+
+        $classReflection  = (new ClassReflector(new SingleFileSourceLocator($classWithStaticMethodFile, $this->astLocator)))->reflect(TraitWithStaticMethod::class);
         $methodReflection = $classReflection->getMethod('sum');
 
         self::assertSame(3, $methodReflection->invoke(null, 1, 2));
