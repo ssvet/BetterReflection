@@ -32,6 +32,7 @@ use Roave\BetterReflectionTest\Fixture\ExampleClass;
 use Roave\BetterReflectionTest\Fixture\Php74PropertyTypeDeclarations;
 use Roave\BetterReflectionTest\Fixture\PropertyGetSet;
 use Roave\BetterReflectionTest\Fixture\StaticPropertyGetSet;
+use Roave\BetterReflectionTest\Fixture\StaticPropertyTraitGetSet;
 use stdClass;
 use TraitWithProperty;
 use function count;
@@ -373,6 +374,20 @@ PHP;
         $propertyReflection->setValue('value');
 
         self::assertSame('value', StaticPropertyGetSet::$baz);
+        self::assertSame('value', $propertyReflection->getValue());
+    }
+
+    public function testSetAndGetValueOfStaticTraitProperty() : void
+    {
+        $staticPropertyGetSetFixture = __DIR__ . '/../Fixture/StaticPropertyGetSet.php';
+        require_once $staticPropertyGetSetFixture;
+
+        $classReflection    = (new ClassReflector(new SingleFileSourceLocator($staticPropertyGetSetFixture, $this->astLocator)))->reflect(StaticPropertyTraitGetSet::class);
+        $propertyReflection = $classReflection->getProperty('baz');
+
+        $propertyReflection->setValue('value');
+
+        self::assertSame('value', StaticPropertyTraitGetSet::$baz);
         self::assertSame('value', $propertyReflection->getValue());
     }
 

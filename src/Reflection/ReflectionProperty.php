@@ -305,7 +305,7 @@ class ReflectionProperty
         $declaringClassName = $this->getDeclaringClass()->getName();
 
         if ($this->isStatic()) {
-            $this->assertClassExist($declaringClassName);
+            $this->assertClassOrTraitExist($declaringClassName);
 
             return Closure::bind(function (string $declaringClassName, string $propertyName) {
                 return $declaringClassName::${$propertyName};
@@ -333,7 +333,7 @@ class ReflectionProperty
         $declaringClassName = $this->getDeclaringClass()->getName();
 
         if ($this->isStatic()) {
-            $this->assertClassExist($declaringClassName);
+            $this->assertClassOrTraitExist($declaringClassName);
 
             Closure::bind(function (string $declaringClassName, string $propertyName, $value) : void {
                 $declaringClassName::${$propertyName} = $value;
@@ -409,9 +409,9 @@ class ReflectionProperty
      *
      * @psalm-assert class-string $className
      */
-    private function assertClassExist(string $className) : void
+    private function assertClassOrTraitExist(string $className) : void
     {
-        if (! class_exists($className)) {
+        if (! class_exists($className) && ! trait_exists($className)) {
             throw new ClassDoesNotExist('Property cannot be retrieved as the class does not exist');
         }
     }

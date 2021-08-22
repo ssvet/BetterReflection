@@ -8,3 +8,10 @@ class StaticPropertyGetSet
     protected static $bat;
     private static $qux;
 }
+
+trait StaticPropertyTraitGetSet
+{
+    public static $baz;
+    protected static $bat;
+    private static $qux;
+}
