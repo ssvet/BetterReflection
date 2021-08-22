@@ -411,8 +411,8 @@ class ReflectionProperty
      */
     private function assertClassExist(string $className) : void
     {
-        if (! class_exists($className, false)) {
-            throw new ClassDoesNotExist('Property cannot be retrieved as the class is not loaded');
+        if (! class_exists($className)) {
+            throw new ClassDoesNotExist('Property cannot be retrieved as the class does not exist');
         }
     }
 

@@ -379,8 +379,8 @@ class ReflectionMethod extends ReflectionFunctionAbstract
      */
     private function assertClassExist(string $className) : void
     {
-        if (! class_exists($className, false)) {
-            throw new ClassDoesNotExist(sprintf('Method of class %s cannot be used as the class is not loaded', $className));
+        if (! class_exists($className)) {
+            throw new ClassDoesNotExist(sprintf('Method of class %s cannot be used as the class does not exist', $className));
         }
     }
 
