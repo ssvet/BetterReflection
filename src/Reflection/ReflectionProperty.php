@@ -302,7 +302,7 @@ class ReflectionProperty
      */
     public function getValue($object = null)
     {
-        $declaringClassName = $this->getDeclaringClass()->getName();
+        $declaringClassName = $this->getImplementingClass()->getName();
 
         if ($this->isStatic()) {
             $this->assertClassOrTraitExist($declaringClassName);
@@ -330,7 +330,7 @@ class ReflectionProperty
      */
     public function setValue($object, $value = null) : void
     {
-        $declaringClassName = $this->getDeclaringClass()->getName();
+        $declaringClassName = $this->getImplementingClass()->getName();
 
         if ($this->isStatic()) {
             $this->assertClassOrTraitExist($declaringClassName);
@@ -437,7 +437,7 @@ class ReflectionProperty
             throw NotAnObject::fromNonObject($object);
         }
 
-        $declaringClassName = $this->getDeclaringClass()->getName();
+        $declaringClassName = $this->getImplementingClass()->getName();
 
         if (get_class($object) !== $declaringClassName) {
             throw ObjectNotInstanceOfClass::fromClassName($declaringClassName);

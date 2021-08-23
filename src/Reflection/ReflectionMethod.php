@@ -336,7 +336,7 @@ class ReflectionMethod extends ReflectionFunctionAbstract
      */
     public function invokeArgs($object = null, array $args = [])
     {
-        $declaringClassName = $this->getDeclaringClass()->getName();
+        $declaringClassName = $this->getImplementingClass()->getName();
 
         if ($this->isStatic()) {
             $this->assertClassOrTraitExist($declaringClassName);
@@ -354,7 +354,7 @@ class ReflectionMethod extends ReflectionFunctionAbstract
      */
     private function callStaticMethod(array $args)
     {
-        $declaringClassName = $this->getDeclaringClass()->getName();
+        $declaringClassName = $this->getImplementingClass()->getName();
 
         return Closure::bind(function (string $declaringClassName, string $methodName, array $methodArgs) {
             return $declaringClassName::{$methodName}(...$methodArgs);
@@ -371,7 +371,7 @@ class ReflectionMethod extends ReflectionFunctionAbstract
     {
         return Closure::bind(function ($object, string $methodName, array $methodArgs) {
             return $object->{$methodName}(...$methodArgs);
-        }, $object, $this->getDeclaringClass()->getName())->__invoke($object, $this->getName(), $args);
+        }, $object, $this->getImplementingClass()->getName())->__invoke($object, $this->getName(), $args);
     }
 
     /**
@@ -403,7 +403,7 @@ class ReflectionMethod extends ReflectionFunctionAbstract
             throw NotAnObject::fromNonObject($object);
         }
 
-        $declaringClassName = $this->getDeclaringClass()->getName();
+        $declaringClassName = $this->getImplementingClass()->getName();
 
         if (get_class($object) !== $declaringClassName) {
             throw ObjectNotInstanceOfClass::fromClassName($declaringClassName);

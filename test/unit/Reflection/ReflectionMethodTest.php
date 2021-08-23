@@ -38,6 +38,7 @@ use Roave\BetterReflectionTest\Fixture\Methods;
 use Roave\BetterReflectionTest\Fixture\Php4StyleConstructInNamespace;
 use Roave\BetterReflectionTest\Fixture\TraitWithStaticMethod;
 use Roave\BetterReflectionTest\Fixture\UpperCaseConstructDestruct;
+use Roave\BetterReflectionTest\Fixture\UsesTraitWithStaticMethod;
 use SplDoublyLinkedList;
 use stdClass;
 use TraitWithMethod;
@@ -528,6 +529,28 @@ PHP;
 
         self::assertSame(3, $methodReflection->invoke(null, 1, 2));
         self::assertSame(7, $methodReflection->invokeArgs(null, [3, 4]));
+    }
+
+    public function testInvokeOfStaticTraiMethodStaticClass() : void
+    {
+        $classWithStaticMethodFile = __DIR__ . '/../Fixture/ClassWithStaticMethod.php';
+        require_once $classWithStaticMethodFile;
+
+        $classReflection  = (new ClassReflector(new SingleFileSourceLocator($classWithStaticMethodFile, $this->astLocator)))->reflect(TraitWithStaticMethod::class);
+        $methodReflection = $classReflection->getMethod('staticClass');
+
+        self::assertSame(TraitWithStaticMethod::class, $methodReflection->invoke(null, 1, 2));
+    }
+
+    public function testInvokeOfStaticTraiMethodStaticClassClass() : void
+    {
+        $classWithStaticMethodFile = __DIR__ . '/../Fixture/ClassWithStaticMethod.php';
+        require_once $classWithStaticMethodFile;
+
+        $classReflection  = (new ClassReflector(new SingleFileSourceLocator($classWithStaticMethodFile, $this->astLocator)))->reflect(UsesTraitWithStaticMethod::class);
+        $methodReflection = $classReflection->getMethod('staticClass');
+
+        self::assertSame(UsesTraitWithStaticMethod::class, $methodReflection->invoke(null, 1, 2));
     }
 
     public function testInvokeOfObjectMethodThrowsExceptionWhenNoObject() : void

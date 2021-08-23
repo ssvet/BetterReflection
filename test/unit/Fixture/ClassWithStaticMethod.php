@@ -16,4 +16,14 @@ trait TraitWithStaticMethod
     {
         return $a + $b;
     }
+
+    public static function staticClass(): string
+    {
+        return static::class;
+    }
+}
+
+class UsesTraitWithStaticMethod
+{
+    use TraitWithStaticMethod;
 }
