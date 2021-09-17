@@ -244,24 +244,6 @@ class ReflectionClassTest extends TestCase
         self::assertSame('Qux', $classInfo->getMethod('f')->getDeclaringClass()->getName());
     }
 
-    public function testGetMethodsWithBrokenClass() : void
-    {
-        $classInfo = (new ClassReflector(new SingleFileSourceLocator(
-            __DIR__ . '/../Fixture/ClassWithMissingParent.php',
-            $this->astLocator
-        )))->reflect(ClassWithMissingParent::class);
-
-        try {
-            $classInfo->getMethods();
-        } catch (IdentifierNotFound $e) {
-            // Ignore error for the first time
-        }
-
-        self::expectException(IdentifierNotFound::class);
-
-        $classInfo->getMethods();
-    }
-
     public function testGetMethodsOrder() : void
     {
         $classInfo = (new ClassReflector(new SingleFileSourceLocator(
