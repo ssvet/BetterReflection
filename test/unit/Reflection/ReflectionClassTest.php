@@ -1945,7 +1945,7 @@ PHP;
 
 	public function testTraitRenamingMethodWithWrongCaseShouldStillWork(): void
 	{
-		$php = <<<'PHP'
+		$php = '
             <?php
 
             trait MyTrait
@@ -1966,7 +1966,7 @@ PHP;
                     $this->myRenamedMethod();
                 }
             }
-        PHP;
+        ';
 
 		$reflection = (new ClassReflector(new StringSourceLocator($php, $this->astLocator)))->reflect('HelloWorld');
 		self::assertTrue($reflection->hasMethod('myRenamedMethod'));
@@ -1974,7 +1974,7 @@ PHP;
 
     public function testTraitSeparateUsesWithMethodRename(): void
     {
-        $php = <<<'PHP'
+        $php = '
             <?php
 
             trait HelloWorldTraitTest
@@ -1996,7 +1996,7 @@ PHP;
                    sayHello as hello;
                }
             }
-        PHP;
+        ';
 
         $reflection = (new ClassReflector(new StringSourceLocator($php, $this->astLocator)))->reflect('HelloWorld');
         self::assertTrue($reflection->hasMethod('hello'));
@@ -2004,7 +2004,7 @@ PHP;
 
     public function testTraitMultipleUsesWithMethodRename(): void
     {
-        $php = <<<'PHP'
+        $php = '
             <?php
 
             trait HelloWorldTraitTest
@@ -2025,7 +2025,7 @@ PHP;
                    sayHello as hello;
                }
             }
-        PHP;
+        ';
 
         $reflection = (new ClassReflector(new StringSourceLocator($php, $this->astLocator)))->reflect('HelloWorld');
         self::assertTrue($reflection->hasMethod('hello'));
@@ -2033,7 +2033,7 @@ PHP;
 
     public function testTraitMethodWithModifiedVisibility(): void
     {
-        $php = <<<'PHP'
+        $php = '
             <?php
 
             trait BarTrait {
@@ -2048,7 +2048,7 @@ PHP;
                     privateMethod as protected privateMethodRenamed;
                 }
             }
-        PHP;
+        ';
 
         $reflection      = (new ClassReflector(new StringSourceLocator($php, $this->astLocator)))->reflect('Foo');
         $protectedMethod = $reflection->getMethod('protectedMethod');

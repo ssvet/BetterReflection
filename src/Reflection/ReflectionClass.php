@@ -88,7 +88,7 @@ class ReflectionClass implements Reflection
     private $cachedTraitAliases;
 
     /** @var array<string, int>|null */
-    private ?array $cachedTraitModifiers = null;
+    private $cachedTraitModifiers = null;
 
     /** @var array<string, string>|null */
     private $cachedTraitPrecedences;
