@@ -1960,4 +1960,33 @@ PHP;
         $this->assertSame('MyAttr', $attribute->getName());
         $this->assertSame([1, 2, 'a' => 'foo'], $attribute->getArguments());
     }
+
+	public function testTraitRenamingMethodWithWrongCaseShouldStillWork(): void
+	{
+		$php = <<<'PHP'
+            <?php
+
+            trait MyTrait
+            {
+                protected function myMethod() : void{
+
+                }
+            }
+
+            class HelloWorld
+            {
+                use MyTrait {
+                    MyMethod as myRenamedMethod;
+                }
+
+                public function sayHello(int $date): void
+                {
+                    $this->myRenamedMethod();
+                }
+            }
+        PHP;
+
+		$reflection = (new ClassReflector(new StringSourceLocator($php, $this->astLocator)))->reflect('HelloWorld');
+		self::assertTrue($reflection->hasMethod('myRenamedMethod'));
+	}
 }
