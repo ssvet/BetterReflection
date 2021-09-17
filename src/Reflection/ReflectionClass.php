@@ -87,6 +87,9 @@ class ReflectionClass implements Reflection
     /** @var array<string, string>|null */
     private $cachedTraitAliases;
 
+    /** @var array<string, int>|null */
+    private ?array $cachedTraitModifiers = null;
+
     /** @var array<string, string>|null */
     private $cachedTraitPrecedences;
 
@@ -245,11 +248,18 @@ class ReflectionClass implements Reflection
     {
         $traitAliases     = $this->getTraitAliases();
         $traitPrecedences = $this->getTraitPrecedences();
+        $traitModifiers   = $this->getTraitModifiers();
 
         $methodAst = $method->getAst();
         assert($methodAst instanceof ClassMethod);
 
-        $methodHash   = $this->methodHash($method->getImplementingClass()->getName(), $method->getName());
+        $methodHash = $this->methodHash($method->getImplementingClass()->getName(), $method->getName());
+
+        if (isset($traitModifiers[$methodHash])) {
+            $methodAst        = clone $methodAst;
+            $methodAst->flags = ($methodAst->flags & ~ Node\Stmt\Class_::VISIBILITY_MODIFIER_MASK) | $traitModifiers[$methodHash];
+        }
+
         $createMethod = function (?string $aliasMethodName) use ($method, $methodAst) : ReflectionMethod {
             return ReflectionMethod::createFromNode(
                 $this->reflector,
@@ -1119,9 +1129,36 @@ class ReflectionClass implements Reflection
         return $this->cachedTraitPrecedences;
     }
 
+    /**
+     * Return a list of the used modifiers when importing traits for this class.
+     * The returned array is in key/value pair in this format:.
+     *
+     *   'methodName' => 'modifier'
+     *
+     * @return array<string, int>
+     *
+     * @example
+     * // When reflecting a class such as:
+     * class Foo
+     * {
+     *     use MyTrait {
+     *         myTraitMethod as public;
+     *     }
+     * }
+     * // This method would return
+     * //   ['myTraitMethod' => 1]
+     */
+    private function getTraitModifiers(): array
+    {
+        $this->parseTraitUsages();
+
+        /** @return array<string, int> */
+        return $this->cachedTraitModifiers;
+    }
+
     private function parseTraitUsages() : void
     {
-        if ($this->cachedTraitAliases !== null && $this->cachedTraitPrecedences !== null) {
+        if ($this->cachedTraitAliases !== null && $this->cachedTraitModifiers !== null && $this->cachedTraitPrecedences !== null) {
             return;
         }
 
@@ -1131,6 +1168,7 @@ class ReflectionClass implements Reflection
         });
 
         $this->cachedTraitAliases     = [];
+        $this->cachedTraitModifiers   = [];
         $this->cachedTraitPrecedences = [];
 
         foreach ($traitUsages as $traitUsage) {
@@ -1143,9 +1181,17 @@ class ReflectionClass implements Reflection
                     $usedTrait = end($traitNames);
                 }
 
-                if ($adaptation instanceof Node\Stmt\TraitUseAdaptation\Alias && $adaptation->newName) {
-                    $this->cachedTraitAliases[$adaptation->newName->name] = $this->methodHash($usedTrait->toString(), $adaptation->method->toString());
-                    continue;
+                $methodHash = $this->methodHash($usedTrait->toString(), $adaptation->method->toString());
+
+                if ($adaptation instanceof Node\Stmt\TraitUseAdaptation\Alias) {
+                    if ($adaptation->newModifier) {
+                        $this->cachedTraitModifiers[$methodHash] = $adaptation->newModifier;
+                    }
+
+                    if ($adaptation->newName) {
+                        $this->cachedTraitAliases[$adaptation->newName->name] = $methodHash;
+                        continue;
+                    }
                 }
 
                 if (! $adaptation instanceof Node\Stmt\TraitUseAdaptation\Precedence || ! $adaptation->insteadof) {
@@ -1154,7 +1200,7 @@ class ReflectionClass implements Reflection
 
                 foreach ($adaptation->insteadof as $insteadof) {
                     $adaptationNameHash = $this->methodHash($insteadof->toString(), $adaptation->method->toString());
-                    $originalNameHash   = $this->methodHash($usedTrait->toString(), $adaptation->method->toString());
+                    $originalNameHash   = $methodHash;
 
                     $this->cachedTraitPrecedences[$adaptationNameHash] = $originalNameHash;
                 }
