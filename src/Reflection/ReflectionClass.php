@@ -1140,7 +1140,7 @@ class ReflectionClass implements Reflection
             foreach ($adaptations as $adaptation) {
                 $usedTrait = $adaptation->trait;
                 if ($usedTrait === null) {
-                    $usedTrait = $traitNames[0];
+                    $usedTrait = end($traitNames);
                 }
 
                 if ($adaptation instanceof Node\Stmt\TraitUseAdaptation\Alias && $adaptation->newName) {
