@@ -6,7 +6,7 @@
         "php": ">=7.1.0",
         "ext-json": "*",
         "jetbrains/phpstorm-stubs": "dev-master#0a73df114cdea7f30c8b5f6fbfbf8e6839a89e88",
-        "nikic/php-parser": "^4.12.0"
+        "nikic/php-parser": "^4.13.0"
     },
     "authors": [
         {
