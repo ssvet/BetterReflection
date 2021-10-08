@@ -19,6 +19,8 @@ use PHPStan\BetterReflection\BetterReflection;
 use PHPStan\BetterReflection\Identifier\Exception\InvalidIdentifierName;
 use PHPStan\BetterReflection\Identifier\Identifier;
 use PHPStan\BetterReflection\Identifier\IdentifierType;
+use PHPStan\BetterReflection\NodeCompiler\CompileNodeToValue;
+use PHPStan\BetterReflection\NodeCompiler\CompilerContext;
 use PHPStan\BetterReflection\Reflection\Exception\InvalidAbstractFunctionNodeType;
 use PHPStan\BetterReflection\Reflection\Exception\Uncloneable;
 use PHPStan\BetterReflection\Reflector\Reflector;
@@ -27,6 +29,7 @@ use PHPStan\BetterReflection\SourceLocator\Located\LocatedSource;
 use PHPStan\BetterReflection\SourceLocator\Type\ClosureSourceLocator;
 use PHPStan\BetterReflection\Util\CalculateReflectionColum;
 use PHPStan\BetterReflection\Util\GetLastDocComment;
+use PHPStan\BetterReflection\Util\PhpIdParser;
 use PHPStan\BetterReflection\Util\Visitor\ReturnNodeVisitor;
 use function array_filter;
 use function assert;
@@ -270,17 +273,28 @@ abstract class ReflectionFunctionAbstract
         return $this->node instanceof Node\Expr\Closure;
     }
 
-    /**
-     * Is this function deprecated?
-     *
-     * Note - we cannot reflect on internal functions (as there is no PHP source
-     * code we can access. This means, at present, we can only EVER return false
-     * from this function.
-     *
-     * @see https://github.com/Roave/BetterReflection/issues/38
-     */
     public function isDeprecated() : bool
     {
+        $docComment = $this->getDocComment();
+        if ($docComment !== '') {
+            $deprecatedTag = preg_match('#@deprecated\s+(\d+\.\d+(?:\.\d+)?)#', $docComment, $deprecatedTagMatches);
+            if ($deprecatedTag) {
+                $sinceId = PhpIdParser::fromVersion($deprecatedTagMatches[1]);
+                return BetterReflection::$phpVersion >= $sinceId;
+            }
+        }
+
+        foreach ($this->getAttributes() as $attribute) {
+            if ($attribute->getName() === 'JetBrains\PhpStorm\Deprecated') {
+                $attributeArgs = $attribute->getArguments();
+                if (isset($attributeArgs['since'])) {
+                    $sinceId = PhpIdParser::fromVersion($attributeArgs['since']);
+                    return BetterReflection::$phpVersion >= $sinceId;
+                }
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -587,6 +601,35 @@ abstract class ReflectionFunctionAbstract
         $traverser->traverse($this->getNode()->getStmts());
 
         return $visitor->getReturnNodes();
+    }
+
+    /**
+     * @return ReflectionAttribute[]
+     */
+    public function getAttributes() : array
+    {
+        $attributes         = [];
+        $compileNodeToValue = new CompileNodeToValue();
+        foreach ($this->node->attrGroups as $attrGroup) {
+            foreach ($attrGroup->attrs as $attr) {
+                $arguments = [];
+                foreach ($attr->args as $i => $arg) {
+                    $key = $i;
+                    if ($arg->name !== null) {
+                        $key = $arg->name->toString();
+                    }
+
+                    $arguments[$key] = $compileNodeToValue->__invoke($arg->value, new CompilerContext($this->reflector, $this->getFileName(), null, $this->declaringNamespace !== null && $this->declaringNamespace->name !== null ? $this->declaringNamespace->name->toString() : null, null));
+                }
+
+                $attributes[] = new ReflectionAttribute(
+                    $attr->name->toString(),
+                    $arguments
+                );
+            }
+        }
+
+        return $attributes;
     }
 
     private function loadStaticParser() : Parser

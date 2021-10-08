@@ -13,6 +13,7 @@ use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\Parser;
 use PhpParser\PrettyPrinter\Standard as StandardPrettyPrinter;
+use PHPStan\BetterReflection\BetterReflection;
 use PHPStan\BetterReflection\Reflection\Exception\Uncloneable;
 use PHPStan\BetterReflection\Reflection\ReflectionFunction;
 use PHPStan\BetterReflection\Reflection\ReflectionFunctionAbstract;
@@ -22,7 +23,9 @@ use PHPStan\BetterReflection\Reflector\ClassReflector;
 use PHPStan\BetterReflection\Reflector\FunctionReflector;
 use PHPStan\BetterReflection\SourceLocator\Ast\Locator;
 use PHPStan\BetterReflection\SourceLocator\Located\LocatedSource;
+use PHPStan\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
 use PHPStan\BetterReflection\SourceLocator\Type\ClosureSourceLocator;
+use PHPStan\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
 use PHPStan\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
 use PHPStan\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use PHPUnit\Framework\TestCase;
@@ -57,6 +60,11 @@ class ReflectionFunctionAbstractTest extends TestCase
         $this->parser         = $configuration->phpParser();
         $this->classReflector = $configuration->classReflector();
         $this->astLocator     = $configuration->astLocator();
+    }
+
+    public function tearDown() : void
+    {
+        BetterReflection::$phpVersion = PHP_VERSION_ID;
     }
 
     public function testNameMethodsWithNamespace() : void
@@ -131,6 +139,30 @@ class ReflectionFunctionAbstractTest extends TestCase
         $function  = $reflector->reflect('foo');
 
         self::assertFalse($function->isDeprecated());
+    }
+
+    public function deprecatedStubProvider(): array
+    {
+        return [
+            ['create_function', 70400, true],
+            ['create_function', 70100, false],
+            ['zip_open', 70400, false],
+            ['zip_open', 80000, true],
+        ];
+    }
+
+    /**
+     * @dataProvider deprecatedStubProvider
+     */
+    public function testStubbedIsDeprecated(string $functionName, int $phpVersionId, bool $expectedDeprecated): void
+    {
+        BetterReflection::$phpVersion = $phpVersionId;
+        $reflector = new FunctionReflector(
+            new PhpInternalSourceLocator($this->astLocator, new PhpStormStubsSourceStubber($this->parser, BetterReflection::$phpVersion)),
+            $this->classReflector
+        );
+        $function = $reflector->reflect($functionName);
+        self::assertEquals($expectedDeprecated, $function->isDeprecated());
     }
 
     public function testIsInternal() : void
