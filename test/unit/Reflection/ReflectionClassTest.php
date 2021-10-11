@@ -2087,4 +2087,27 @@ PHP;
 
         self::assertSame(['Iterator', 'Traversable', 'Stringable'], $class->getInterfaceNames());
     }
+
+    public function testClassConstantArrayUnpack(): void
+    {
+        $php = <<<'PHP'
+            <?php
+        
+            class ConstantUnpack
+            {
+                private const A = ['a', 'b'];
+                private const B = [...['a', 'b']];
+                private const C = [...self::A];
+            }
+        PHP;
+
+        $reflector = new ClassReflector(new AggregateSourceLocator([
+            new StringSourceLocator($php, $this->astLocator),
+            BetterReflectionSingleton::instance()->sourceLocator(),
+        ]));
+        $class     = $reflector->reflect('ConstantUnpack');
+        self::assertSame(['a', 'b'], $class->getConstant('A'));
+        self::assertSame(['a', 'b'], $class->getConstant('B'));
+        self::assertSame(['a', 'b'], $class->getConstant('C'));
+    }
 }
