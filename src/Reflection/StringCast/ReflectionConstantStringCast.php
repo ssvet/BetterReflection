@@ -9,6 +9,7 @@ use Roave\BetterReflection\Reflection\ReflectionConstant;
 use function assert;
 use function gettype;
 use function is_array;
+use function is_object;
 use function is_string;
 use function sprintf;
 
@@ -23,13 +24,21 @@ final class ReflectionConstantStringCast
     {
         $value = $constantReflection->getValue();
 
+        if (is_object($value)) {
+            $valueAsString = 'Object';
+        } elseif (is_array($value)) {
+            $valueAsString = 'Array';
+        } else {
+            $valueAsString = (string) $value;
+        }
+
         return sprintf(
             'Constant [ <%s> %s %s ] {%s %s }',
             self::sourceToString($constantReflection),
             gettype($value),
             $constantReflection->getName(),
             self::fileAndLinesToString($constantReflection),
-            is_array($value) ? 'Array' : (string) $value,
+            $valueAsString,
         );
     }
 
