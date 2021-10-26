@@ -332,7 +332,11 @@ final class PhpStormStubsSourceStubber implements SourceStubber
         foreach ($this->cachingVisitor->getClassNodes() as $className => $classNode) {
             assert(is_string($className));
             assert($classNode instanceof Node\Stmt\ClassLike);
-            if ($isCore && $this->hasLaterSinceVersion($classNode)) {
+            if (
+                $isCore
+                && $className !== 'ReturnTypeWillChange'
+                && $this->hasLaterSinceVersion($classNode)
+            ) {
                 continue;
             }
 
