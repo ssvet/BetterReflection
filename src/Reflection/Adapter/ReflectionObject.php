@@ -60,7 +60,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->betterReflectionObject->getName();
     }
@@ -68,7 +68,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function isInternal()
+    public function isInternal(): bool
     {
         return $this->betterReflectionObject->isInternal();
     }
@@ -76,7 +76,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function isUserDefined()
+    public function isUserDefined(): bool
     {
         return $this->betterReflectionObject->isUserDefined();
     }
@@ -84,7 +84,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function isInstantiable()
+    public function isInstantiable(): bool
     {
         return $this->betterReflectionObject->isInstantiable();
     }
@@ -92,7 +92,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function isCloneable()
+    public function isCloneable(): bool
     {
         return $this->betterReflectionObject->isCloneable();
     }
@@ -100,6 +100,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function getFileName()
     {
         $fileName = $this->betterReflectionObject->getFileName();
@@ -110,6 +111,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function getStartLine()
     {
         return $this->betterReflectionObject->getStartLine();
@@ -118,6 +120,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function getEndLine()
     {
         return $this->betterReflectionObject->getEndLine();
@@ -126,6 +129,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function getDocComment()
     {
         return $this->betterReflectionObject->getDocComment() ?: false;
@@ -134,7 +138,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function getConstructor()
+    public function getConstructor(): ?\ReflectionMethod
     {
         return new ReflectionMethod($this->betterReflectionObject->getConstructor());
     }
@@ -142,7 +146,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function hasMethod($name)
+    public function hasMethod($name): bool
     {
         return $this->betterReflectionObject->hasMethod($this->getMethodRealName($name));
     }
@@ -150,7 +154,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function getMethod($name)
+    public function getMethod($name): \ReflectionMethod
     {
         return new ReflectionMethod($this->betterReflectionObject->getMethod($this->getMethodRealName($name)));
     }
@@ -171,7 +175,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function getMethods($filter = null)
+    public function getMethods($filter = null): array
     {
         $methods = $this->betterReflectionObject->getMethods();
 
@@ -186,7 +190,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function hasProperty($name)
+    public function hasProperty($name): bool
     {
         return $this->betterReflectionObject->hasProperty($name);
     }
@@ -194,7 +198,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function getProperty($name)
+    public function getProperty($name): \ReflectionProperty
     {
         $property = $this->betterReflectionObject->getProperty($name);
 
@@ -208,7 +212,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function getProperties($filter = null)
+    public function getProperties($filter = null): array
     {
         return array_values(array_map(static function (BetterReflectionProperty $property) : ReflectionProperty {
             return new ReflectionProperty($property);
@@ -218,7 +222,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function hasConstant($name)
+    public function hasConstant($name): bool
     {
         return $this->betterReflectionObject->hasConstant($name);
     }
@@ -226,7 +230,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function getConstants(int $filter = null)
+    public function getConstants(int $filter = null): array
     {
         return $this->betterReflectionObject->getConstants($filter);
     }
@@ -234,6 +238,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function getConstant($name)
     {
         return $this->betterReflectionObject->getConstant($name);
@@ -242,7 +247,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function getInterfaces()
+    public function getInterfaces(): array
     {
         $interfaces = $this->betterReflectionObject->getInterfaces();
 
@@ -257,7 +262,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function getInterfaceNames()
+    public function getInterfaceNames(): array
     {
         return $this->betterReflectionObject->getInterfaceNames();
     }
@@ -265,7 +270,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function isInterface()
+    public function isInterface(): bool
     {
         return $this->betterReflectionObject->isInterface();
     }
@@ -273,7 +278,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function getTraits()
+    public function getTraits(): array
     {
         $traits = $this->betterReflectionObject->getTraits();
 
@@ -303,7 +308,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function getTraitNames()
+    public function getTraitNames(): array
     {
         return $this->betterReflectionObject->getTraitNames();
     }
@@ -311,7 +316,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function getTraitAliases()
+    public function getTraitAliases(): array
     {
         return $this->betterReflectionObject->getTraitAliases();
     }
@@ -319,7 +324,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function isTrait()
+    public function isTrait(): bool
     {
         return $this->betterReflectionObject->isTrait();
     }
@@ -327,7 +332,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function isAbstract()
+    public function isAbstract(): bool
     {
         return $this->betterReflectionObject->isAbstract();
     }
@@ -335,7 +340,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function isFinal()
+    public function isFinal(): bool
     {
         return $this->betterReflectionObject->isFinal();
     }
@@ -343,7 +348,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function getModifiers()
+    public function getModifiers(): int
     {
         return $this->betterReflectionObject->getModifiers();
     }
@@ -351,18 +356,19 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function isInstance($object)
+    public function isInstance($object): bool
     {
         try {
             return $this->betterReflectionObject->isInstance($object);
         } catch (NotAnObject $e) {
-            return null;
+            return false;
         }
     }
 
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function newInstance($arg = null, ...$args)
     {
         throw new Exception\NotImplemented('Not implemented');
@@ -371,6 +377,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function newInstanceWithoutConstructor()
     {
         throw new Exception\NotImplemented('Not implemented');
@@ -379,6 +386,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function newInstanceArgs(?array $args = null)
     {
         throw new Exception\NotImplemented('Not implemented');
@@ -387,6 +395,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function getParentClass()
     {
         $parentClass = $this->betterReflectionObject->getParentClass();
@@ -401,7 +410,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function isSubclassOf($class)
+    public function isSubclassOf($class): bool
     {
         $realParentClassNames = $this->betterReflectionObject->getParentClassNames();
 
@@ -417,7 +426,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function getStaticProperties()
+    public function getStaticProperties(): array
     {
         return $this->betterReflectionObject->getStaticProperties();
     }
@@ -425,6 +434,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function getStaticPropertyValue($name, $default = null)
     {
         $betterReflectionProperty = $this->betterReflectionObject->getProperty($name);
@@ -453,7 +463,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function setStaticPropertyValue($name, $value)
+    public function setStaticPropertyValue($name, $value): void
     {
         $betterReflectionProperty = $this->betterReflectionObject->getProperty($name);
 
@@ -477,7 +487,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function getDefaultProperties()
+    public function getDefaultProperties(): array
     {
         return $this->betterReflectionObject->getDefaultProperties();
     }
@@ -485,7 +495,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function isIterateable()
+    public function isIterateable(): bool
     {
         return $this->betterReflectionObject->isIterateable();
     }
@@ -493,7 +503,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function implementsInterface($interface)
+    public function implementsInterface($interface): bool
     {
         $realInterfaceNames = $this->betterReflectionObject->getInterfaceNames();
 
@@ -509,7 +519,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function getExtension()
+    public function getExtension(): ?\ReflectionExtension
     {
         throw new Exception\NotImplemented('Not implemented');
     }
@@ -517,6 +527,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function getExtensionName()
     {
         return $this->betterReflectionObject->getExtensionName() ?? false;
@@ -525,7 +536,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function inNamespace()
+    public function inNamespace(): bool
     {
         return $this->betterReflectionObject->inNamespace();
     }
@@ -533,7 +544,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function getNamespaceName()
+    public function getNamespaceName(): string
     {
         return $this->betterReflectionObject->getNamespaceName();
     }
@@ -541,7 +552,7 @@ class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function getShortName()
+    public function getShortName(): string
     {
         return $this->betterReflectionObject->getShortName();
     }

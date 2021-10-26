@@ -54,7 +54,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function inNamespace()
+    public function inNamespace(): bool
     {
         return $this->betterReflectionMethod->inNamespace();
     }
@@ -62,7 +62,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function isClosure()
+    public function isClosure(): bool
     {
         return $this->betterReflectionMethod->isClosure();
     }
@@ -70,7 +70,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function isDeprecated()
+    public function isDeprecated(): bool
     {
         return $this->betterReflectionMethod->isDeprecated();
     }
@@ -78,7 +78,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function isInternal()
+    public function isInternal(): bool
     {
         return $this->betterReflectionMethod->isInternal();
     }
@@ -86,7 +86,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function isUserDefined()
+    public function isUserDefined(): bool
     {
         return $this->betterReflectionMethod->isUserDefined();
     }
@@ -94,6 +94,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function getClosureThis()
     {
         throw new NotImplemented('Not implemented');
@@ -102,7 +103,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function getClosureScopeClass()
+    public function getClosureScopeClass(): ?\ReflectionClass
     {
         throw new NotImplemented('Not implemented');
     }
@@ -110,6 +111,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function getDocComment()
     {
         return $this->betterReflectionMethod->getDocComment() ?: false;
@@ -118,6 +120,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function getEndLine()
     {
         return $this->betterReflectionMethod->getEndLine();
@@ -126,7 +129,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function getExtension()
+    public function getExtension(): ?\ReflectionExtension
     {
         throw new NotImplemented('Not implemented');
     }
@@ -134,6 +137,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function getExtensionName()
     {
         return $this->betterReflectionMethod->getExtensionName() ?? false;
@@ -142,6 +146,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function getFileName()
     {
         $fileName = $this->betterReflectionMethod->getFileName();
@@ -152,7 +157,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->betterReflectionMethod->getName();
     }
@@ -160,7 +165,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function getNamespaceName()
+    public function getNamespaceName(): string
     {
         return $this->betterReflectionMethod->getNamespaceName();
     }
@@ -168,7 +173,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function getNumberOfParameters()
+    public function getNumberOfParameters(): int
     {
         return $this->betterReflectionMethod->getNumberOfParameters();
     }
@@ -176,7 +181,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function getNumberOfRequiredParameters()
+    public function getNumberOfRequiredParameters(): int
     {
         return $this->betterReflectionMethod->getNumberOfRequiredParameters();
     }
@@ -184,7 +189,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function getParameters()
+    public function getParameters(): array
     {
         $parameters = $this->betterReflectionMethod->getParameters();
 
@@ -199,7 +204,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function getReturnType()
+    public function getReturnType(): ?\ReflectionType
     {
         return ReflectionType::fromReturnTypeOrNull($this->betterReflectionMethod->getReturnType());
     }
@@ -207,7 +212,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function getShortName()
+    public function getShortName(): string
     {
         return $this->betterReflectionMethod->getShortName();
     }
@@ -215,6 +220,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function getStartLine()
     {
         return $this->betterReflectionMethod->getStartLine();
@@ -223,7 +229,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function getStaticVariables()
+    public function getStaticVariables(): array
     {
         throw new NotImplemented('Not implemented');
     }
@@ -231,7 +237,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function returnsReference()
+    public function returnsReference(): bool
     {
         return $this->betterReflectionMethod->returnsReference();
     }
@@ -239,7 +245,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function isGenerator()
+    public function isGenerator(): bool
     {
         return $this->betterReflectionMethod->isGenerator();
     }
@@ -247,7 +253,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function isVariadic()
+    public function isVariadic(): bool
     {
         return $this->betterReflectionMethod->isVariadic();
     }
@@ -255,7 +261,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function isPublic()
+    public function isPublic(): bool
     {
         return $this->betterReflectionMethod->isPublic();
     }
@@ -263,7 +269,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function isPrivate()
+    public function isPrivate(): bool
     {
         return $this->betterReflectionMethod->isPrivate();
     }
@@ -271,7 +277,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function isProtected()
+    public function isProtected(): bool
     {
         return $this->betterReflectionMethod->isProtected();
     }
@@ -279,7 +285,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function isAbstract()
+    public function isAbstract(): bool
     {
         return $this->betterReflectionMethod->isAbstract();
     }
@@ -287,7 +293,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function isFinal()
+    public function isFinal(): bool
     {
         return $this->betterReflectionMethod->isFinal();
     }
@@ -295,7 +301,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function isStatic()
+    public function isStatic(): bool
     {
         return $this->betterReflectionMethod->isStatic();
     }
@@ -303,7 +309,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function isConstructor()
+    public function isConstructor(): bool
     {
         return $this->betterReflectionMethod->isConstructor();
     }
@@ -311,7 +317,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function isDestructor()
+    public function isDestructor(): bool
     {
         return $this->betterReflectionMethod->isDestructor();
     }
@@ -319,12 +325,12 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function getClosure($object = null)
+    public function getClosure($object = null): \Closure
     {
         try {
             return $this->betterReflectionMethod->getClosure($object);
         } catch (NoObjectProvided | NotAnObject $e) {
-            return null;
+            throw new CoreReflectionException($e->getMessage(), 0, $e);
         } catch (Throwable $e) {
             throw new CoreReflectionException($e->getMessage(), 0, $e);
         }
@@ -333,7 +339,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function getModifiers()
+    public function getModifiers(): int
     {
         return $this->betterReflectionMethod->getModifiers();
     }
@@ -341,6 +347,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function invoke($object = null, $arg = null, ...$args)
     {
         if (! $this->isAccessible()) {
@@ -359,6 +366,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function invokeArgs($object = null, array $args = [])
     {
         if (! $this->isAccessible()) {
@@ -377,7 +385,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function getDeclaringClass()
+    public function getDeclaringClass(): \ReflectionClass
     {
         return new ReflectionClass($this->betterReflectionMethod->getImplementingClass());
     }
@@ -385,7 +393,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function getPrototype()
+    public function getPrototype(): ReflectionMethod
     {
         return new self($this->betterReflectionMethod->getPrototype());
     }
@@ -393,7 +401,7 @@ class ReflectionMethod extends CoreReflectionMethod
     /**
      * {@inheritDoc}
      */
-    public function setAccessible($accessible)
+    public function setAccessible($accessible): void
     {
         $this->accessible = true;
     }

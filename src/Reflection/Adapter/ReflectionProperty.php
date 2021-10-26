@@ -51,7 +51,7 @@ class ReflectionProperty extends CoreReflectionProperty
     /**
      * {@inheritDoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->betterReflectionProperty->getName();
     }
@@ -59,6 +59,7 @@ class ReflectionProperty extends CoreReflectionProperty
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function getValue($object = null)
     {
         if (! $this->isAccessible()) {
@@ -77,7 +78,7 @@ class ReflectionProperty extends CoreReflectionProperty
     /**
      * {@inheritDoc}
      */
-    public function setValue($object, $value = null)
+    public function setValue($object, $value = null): void
     {
         if (! $this->isAccessible()) {
             throw new CoreReflectionException('Property not accessible');
@@ -95,7 +96,7 @@ class ReflectionProperty extends CoreReflectionProperty
     /**
      * {@inheritDoc}
      */
-    public function hasType()
+    public function hasType(): bool
     {
         return $this->betterReflectionProperty->hasType();
     }
@@ -103,7 +104,7 @@ class ReflectionProperty extends CoreReflectionProperty
     /**
      * {@inheritDoc}
      */
-    public function getType()
+    public function getType(): ?\ReflectionType
     {
         return ReflectionType::fromReturnTypeOrNull($this->betterReflectionProperty->getType());
     }
@@ -111,7 +112,7 @@ class ReflectionProperty extends CoreReflectionProperty
     /**
      * {@inheritDoc}
      */
-    public function isPublic()
+    public function isPublic(): bool
     {
         return $this->betterReflectionProperty->isPublic();
     }
@@ -119,7 +120,7 @@ class ReflectionProperty extends CoreReflectionProperty
     /**
      * {@inheritDoc}
      */
-    public function isPrivate()
+    public function isPrivate(): bool
     {
         return $this->betterReflectionProperty->isPrivate();
     }
@@ -127,7 +128,7 @@ class ReflectionProperty extends CoreReflectionProperty
     /**
      * {@inheritDoc}
      */
-    public function isProtected()
+    public function isProtected(): bool
     {
         return $this->betterReflectionProperty->isProtected();
     }
@@ -135,7 +136,7 @@ class ReflectionProperty extends CoreReflectionProperty
     /**
      * {@inheritDoc}
      */
-    public function isStatic()
+    public function isStatic(): bool
     {
         return $this->betterReflectionProperty->isStatic();
     }
@@ -143,7 +144,7 @@ class ReflectionProperty extends CoreReflectionProperty
     /**
      * {@inheritDoc}
      */
-    public function isDefault()
+    public function isDefault(): bool
     {
         return $this->betterReflectionProperty->isDefault();
     }
@@ -161,7 +162,7 @@ class ReflectionProperty extends CoreReflectionProperty
     /**
      * {@inheritDoc}
      */
-    public function getModifiers()
+    public function getModifiers(): int
     {
         return $this->betterReflectionProperty->getModifiers();
     }
@@ -169,7 +170,7 @@ class ReflectionProperty extends CoreReflectionProperty
     /**
      * {@inheritDoc}
      */
-    public function getDeclaringClass()
+    public function getDeclaringClass(): \ReflectionClass
     {
         return new ReflectionClass($this->betterReflectionProperty->getImplementingClass());
     }
@@ -177,6 +178,7 @@ class ReflectionProperty extends CoreReflectionProperty
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function getDocComment()
     {
         return $this->betterReflectionProperty->getDocComment() ?: false;
@@ -185,7 +187,7 @@ class ReflectionProperty extends CoreReflectionProperty
     /**
      * {@inheritDoc}
      */
-    public function setAccessible($accessible)
+    public function setAccessible($accessible): void
     {
         $this->accessible = true;
     }
@@ -203,6 +205,7 @@ class ReflectionProperty extends CoreReflectionProperty
     /**
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function getDefaultValue()
     {
         return $this->betterReflectionProperty->getDefaultValue();

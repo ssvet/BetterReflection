@@ -44,7 +44,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
-    public function inNamespace()
+    public function inNamespace(): bool
     {
         return $this->betterReflectionFunction->inNamespace();
     }
@@ -52,7 +52,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
-    public function isClosure()
+    public function isClosure(): bool
     {
         return $this->betterReflectionFunction->isClosure();
     }
@@ -60,7 +60,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
-    public function isDeprecated()
+    public function isDeprecated(): bool
     {
         return $this->betterReflectionFunction->isDeprecated();
     }
@@ -68,7 +68,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
-    public function isInternal()
+    public function isInternal(): bool
     {
         return $this->betterReflectionFunction->isInternal();
     }
@@ -76,7 +76,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
-    public function isUserDefined()
+    public function isUserDefined(): bool
     {
         return $this->betterReflectionFunction->isUserDefined();
     }
@@ -84,6 +84,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function getClosureThis()
     {
         throw new NotImplemented('Not implemented');
@@ -92,7 +93,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
-    public function getClosureScopeClass()
+    public function getClosureScopeClass(): ?\ReflectionClass
     {
         throw new NotImplemented('Not implemented');
     }
@@ -100,6 +101,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function getDocComment()
     {
         return $this->betterReflectionFunction->getDocComment() ?: false;
@@ -108,6 +110,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function getEndLine()
     {
         return $this->betterReflectionFunction->getEndLine();
@@ -116,7 +119,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
-    public function getExtension()
+    public function getExtension(): ?\ReflectionExtension
     {
         throw new NotImplemented('Not implemented');
     }
@@ -124,6 +127,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function getExtensionName()
     {
         return $this->betterReflectionFunction->getExtensionName() ?? false;
@@ -132,6 +136,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function getFileName()
     {
         $fileName = $this->betterReflectionFunction->getFileName();
@@ -142,7 +147,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->betterReflectionFunction->getName();
     }
@@ -150,7 +155,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
-    public function getNamespaceName()
+    public function getNamespaceName(): string
     {
         return $this->betterReflectionFunction->getNamespaceName();
     }
@@ -158,7 +163,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
-    public function getNumberOfParameters()
+    public function getNumberOfParameters(): int
     {
         return $this->betterReflectionFunction->getNumberOfParameters();
     }
@@ -166,7 +171,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
-    public function getNumberOfRequiredParameters()
+    public function getNumberOfRequiredParameters(): int
     {
         return $this->betterReflectionFunction->getNumberOfRequiredParameters();
     }
@@ -174,7 +179,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
-    public function getParameters()
+    public function getParameters(): array
     {
         $parameters = $this->betterReflectionFunction->getParameters();
 
@@ -189,7 +194,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
-    public function getReturnType()
+    public function getReturnType(): ?\ReflectionType
     {
         return ReflectionType::fromReturnTypeOrNull($this->betterReflectionFunction->getReturnType());
     }
@@ -197,7 +202,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
-    public function getShortName()
+    public function getShortName(): string
     {
         return $this->betterReflectionFunction->getShortName();
     }
@@ -205,6 +210,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function getStartLine()
     {
         return $this->betterReflectionFunction->getStartLine();
@@ -213,7 +219,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
-    public function getStaticVariables()
+    public function getStaticVariables(): array
     {
         throw new NotImplemented('Not implemented');
     }
@@ -221,7 +227,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
-    public function returnsReference()
+    public function returnsReference(): bool
     {
         return $this->betterReflectionFunction->returnsReference();
     }
@@ -229,7 +235,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
-    public function isGenerator()
+    public function isGenerator(): bool
     {
         return $this->betterReflectionFunction->isGenerator();
     }
@@ -237,7 +243,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
-    public function isVariadic()
+    public function isVariadic(): bool
     {
         return $this->betterReflectionFunction->isVariadic();
     }
@@ -245,7 +251,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
-    public function isDisabled()
+    public function isDisabled(): bool
     {
         return $this->betterReflectionFunction->isDisabled();
     }
@@ -253,6 +259,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function invoke($arg = null, ...$args)
     {
         try {
@@ -265,6 +272,7 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function invokeArgs(array $args)
     {
         try {
@@ -277,12 +285,12 @@ class ReflectionFunction extends CoreReflectionFunction
     /**
      * {@inheritDoc}
      */
-    public function getClosure()
+    public function getClosure(): \Closure
     {
         try {
             return $this->betterReflectionFunction->getClosure();
         } catch (Throwable $e) {
-            return null;
+            throw new CoreReflectionException($e->getMessage(), 0, $e);
         }
     }
 }

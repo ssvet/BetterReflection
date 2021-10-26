@@ -41,7 +41,7 @@ class ReflectionParameter extends CoreReflectionParameter
     /**
      * {@inheritDoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->betterReflectionParameter->getName();
     }
@@ -49,7 +49,7 @@ class ReflectionParameter extends CoreReflectionParameter
     /**
      * {@inheritDoc}
      */
-    public function isPassedByReference()
+    public function isPassedByReference(): bool
     {
         return $this->betterReflectionParameter->isPassedByReference();
     }
@@ -57,7 +57,7 @@ class ReflectionParameter extends CoreReflectionParameter
     /**
      * {@inheritDoc}
      */
-    public function canBePassedByValue()
+    public function canBePassedByValue(): bool
     {
         return $this->betterReflectionParameter->canBePassedByValue();
     }
@@ -65,7 +65,7 @@ class ReflectionParameter extends CoreReflectionParameter
     /**
      * {@inheritDoc}
      */
-    public function getDeclaringFunction()
+    public function getDeclaringFunction(): \ReflectionFunctionAbstract
     {
         $function = $this->betterReflectionParameter->getDeclaringFunction();
         assert($function instanceof BetterReflectionMethod || $function instanceof \PHPStan\BetterReflection\Reflection\ReflectionFunction);
@@ -80,7 +80,7 @@ class ReflectionParameter extends CoreReflectionParameter
     /**
      * {@inheritDoc}
      */
-    public function getDeclaringClass()
+    public function getDeclaringClass(): ?\ReflectionClass
     {
         $declaringClass = $this->betterReflectionParameter->getDeclaringClass();
 
@@ -94,7 +94,7 @@ class ReflectionParameter extends CoreReflectionParameter
     /**
      * {@inheritDoc}
      */
-    public function getClass()
+    public function getClass(): ?\ReflectionClass
     {
         $class = $this->betterReflectionParameter->getClass();
 
@@ -108,7 +108,7 @@ class ReflectionParameter extends CoreReflectionParameter
     /**
      * {@inheritDoc}
      */
-    public function isArray()
+    public function isArray(): bool
     {
         return $this->betterReflectionParameter->isArray();
     }
@@ -116,7 +116,7 @@ class ReflectionParameter extends CoreReflectionParameter
     /**
      * {@inheritDoc}
      */
-    public function isCallable()
+    public function isCallable(): bool
     {
         return $this->betterReflectionParameter->isCallable();
     }
@@ -124,7 +124,7 @@ class ReflectionParameter extends CoreReflectionParameter
     /**
      * {@inheritDoc}
      */
-    public function allowsNull()
+    public function allowsNull(): bool
     {
         return $this->betterReflectionParameter->allowsNull();
     }
@@ -132,7 +132,7 @@ class ReflectionParameter extends CoreReflectionParameter
     /**
      * {@inheritDoc}
      */
-    public function getPosition()
+    public function getPosition(): int
     {
         return $this->betterReflectionParameter->getPosition();
     }
@@ -140,7 +140,7 @@ class ReflectionParameter extends CoreReflectionParameter
     /**
      * {@inheritDoc}
      */
-    public function isOptional()
+    public function isOptional(): bool
     {
         return $this->betterReflectionParameter->isOptional();
     }
@@ -148,7 +148,7 @@ class ReflectionParameter extends CoreReflectionParameter
     /**
      * {@inheritDoc}
      */
-    public function isVariadic()
+    public function isVariadic(): bool
     {
         return $this->betterReflectionParameter->isVariadic();
     }
@@ -156,7 +156,7 @@ class ReflectionParameter extends CoreReflectionParameter
     /**
      * {@inheritDoc}
      */
-    public function isDefaultValueAvailable()
+    public function isDefaultValueAvailable(): bool
     {
         return $this->betterReflectionParameter->isDefaultValueAvailable();
     }
@@ -164,6 +164,7 @@ class ReflectionParameter extends CoreReflectionParameter
     /**
      * {@inheritDoc}
      */
+    #[\ReturnTypeWillChange]
     public function getDefaultValue()
     {
         return $this->betterReflectionParameter->getDefaultValue();
@@ -172,7 +173,7 @@ class ReflectionParameter extends CoreReflectionParameter
     /**
      * {@inheritDoc}
      */
-    public function isDefaultValueConstant()
+    public function isDefaultValueConstant(): bool
     {
         return $this->betterReflectionParameter->isDefaultValueConstant();
     }
@@ -185,7 +186,7 @@ class ReflectionParameter extends CoreReflectionParameter
     /**
      * {@inheritDoc}
      */
-    public function getDefaultValueConstantName()
+    public function getDefaultValueConstantName(): ?string
     {
         return $this->betterReflectionParameter->getDefaultValueConstantName();
     }
@@ -193,7 +194,7 @@ class ReflectionParameter extends CoreReflectionParameter
     /**
      * {@inheritDoc}
      */
-    public function hasType()
+    public function hasType(): bool
     {
         return $this->betterReflectionParameter->hasType();
     }
@@ -201,7 +202,7 @@ class ReflectionParameter extends CoreReflectionParameter
     /**
      * {@inheritDoc}
      */
-    public function getType()
+    public function getType(): ?\ReflectionType
     {
         return ReflectionType::fromReturnTypeOrNull($this->betterReflectionParameter->getType());
     }

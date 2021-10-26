@@ -31,6 +31,7 @@ class ReflectionClassConstant extends CoreReflectionClassConstant
      *
      * @return scalar|array<scalar>|null
      */
+    #[\ReturnTypeWillChange]
     public function getValue()
     {
         return $this->betterClassConstant->getValue();
@@ -89,6 +90,7 @@ class ReflectionClassConstant extends CoreReflectionClassConstant
      *
      * @return string|false
      */
+    #[\ReturnTypeWillChange]
     public function getDocComment()
     {
         return $this->betterClassConstant->getDocComment() ?: false;
