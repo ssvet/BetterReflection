@@ -25,6 +25,7 @@ class ReflectionNamedType extends ReflectionType
         'void'     => null,
         'mixed'    => null,
         'static'   => null,
+        'null'     => null,
     ];
 
     /** @var string */
