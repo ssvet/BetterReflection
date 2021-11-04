@@ -16,6 +16,9 @@ use ReflectionProperty;
 
 class ReflectionClassConstant
 {
+
+    public const IS_FINAL = 32;
+
     /** @var bool */
     private $valueWasCached = false;
 
@@ -139,6 +142,7 @@ class ReflectionClassConstant
         $val += $this->isPublic() ? ReflectionProperty::IS_PUBLIC : 0;
         $val += $this->isProtected() ? ReflectionProperty::IS_PROTECTED : 0;
         $val += $this->isPrivate() ? ReflectionProperty::IS_PRIVATE : 0;
+        $val += $this->isFinal() ? self::IS_FINAL : 0;
 
         return $val;
     }
