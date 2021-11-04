@@ -20,6 +20,7 @@ use PhpParser\BuilderHelpers;
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PhpParser\Node\Const_;
+use PhpParser\Node\IntersectionType;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\NullableType;
@@ -33,6 +34,7 @@ use ReflectionClass as CoreReflectionClass;
 use ReflectionClassConstant;
 use ReflectionFunction as CoreReflectionFunction;
 use ReflectionFunctionAbstract as CoreReflectionFunctionAbstract;
+use ReflectionIntersectionType as CoreReflectionIntersectionType;
 use ReflectionMethod as CoreReflectionMethod;
 use ReflectionNamedType as CoreReflectionNamedType;
 use ReflectionParameter;
@@ -125,7 +127,7 @@ final class ReflectionSourceStubber implements SourceStubber
         $this->addDocComment($functionNode, $functionReflection);
         $this->addParameters($functionNode, $functionReflection);
         $returnType = $functionReflection->getReturnType();
-        assert($returnType instanceof CoreReflectionNamedType || $returnType instanceof  CoreReflectionUnionType || $returnType === null);
+        assert($returnType instanceof CoreReflectionNamedType || $returnType instanceof  CoreReflectionUnionType || $returnType instanceof CoreReflectionIntersectionType ||$returnType === null);
 
         if ($returnType !== null) {
             $functionNode->setReturnType($this->formatType($returnType));
@@ -294,7 +296,7 @@ final class ReflectionSourceStubber implements SourceStubber
 
             if (method_exists($propertyReflection, 'getType')) {
                 $propertyType = $propertyReflection->getType();
-                assert($propertyType instanceof CoreReflectionNamedType || $propertyType instanceof CoreReflectionUnionType || $propertyType === null);
+                assert($propertyType instanceof CoreReflectionNamedType || $propertyType instanceof CoreReflectionUnionType || $propertyType instanceof CoreReflectionIntersectionType || $propertyType === null);
 
                 if ($propertyType !== null) {
                     $propertyNode->setType($this->formatType($propertyType));
@@ -388,7 +390,7 @@ final class ReflectionSourceStubber implements SourceStubber
             $this->addParameters($methodNode, $methodReflection);
 
             $returnType = $methodReflection->getReturnType();
-            assert($returnType instanceof CoreReflectionNamedType || $returnType instanceof  CoreReflectionUnionType || $returnType === null);
+            assert($returnType instanceof CoreReflectionNamedType || $returnType instanceof CoreReflectionUnionType || $returnType instanceof CoreReflectionIntersectionType || $returnType === null);
 
             if ($methodReflection->getReturnType() !== null) {
                 $methodNode->setReturnType($this->formatType($returnType));
@@ -480,7 +482,7 @@ final class ReflectionSourceStubber implements SourceStubber
         }
 
         $parameterType = $parameterReflection->getType();
-        assert($parameterType instanceof CoreReflectionNamedType || $parameterType instanceof CoreReflectionUnionType || $parameterType === null);
+        assert($parameterType instanceof CoreReflectionNamedType || $parameterType instanceof CoreReflectionUnionType || $parameterType instanceof CoreReflectionIntersectionType || $parameterType === null);
 
         if ($parameterReflection->getType() !== null) {
             $parameterNode->setType($this->formatType($parameterType));
@@ -504,12 +506,23 @@ final class ReflectionSourceStubber implements SourceStubber
     }
 
     /**
-     * @param CoreReflectionNamedType|CoreReflectionUnionType $type
+     * @param CoreReflectionNamedType|CoreReflectionUnionType|CoreReflectionIntersectionType $type
      *
-     * @return Name|FullyQualified|NullableType|Node\UnionType
+     * @return Name|FullyQualified|NullableType|Node\UnionType|Node\IntersectionType
      */
     private function formatType($type) : NodeAbstract
     {
+        if ($type instanceof CoreReflectionIntersectionType) {
+            $types = [];
+
+            foreach ($type->getTypes() as $innerType) {
+                assert($innerType instanceof CoreReflectionNamedType);
+                $types[] = $this->formatType($innerType);
+            }
+
+            return new IntersectionType($types);
+        }
+
         if ($type instanceof CoreReflectionUnionType) {
             $innerTypes = [];
             $addNull    = $type->allowsNull();

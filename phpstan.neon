@@ -6,6 +6,7 @@ parameters:
 
     autoload_files:
         - stubs/ReflectionUnionType.php
+        - stubs/ReflectionIntersectionType.php
 
     excludes_analyse:
         # references huge array PhpStormStubsMap

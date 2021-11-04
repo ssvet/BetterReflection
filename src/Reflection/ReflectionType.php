@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PHPStan\BetterReflection\Reflection;
 
 use PhpParser\Node\Identifier;
+use PhpParser\Node\IntersectionType;
 use PhpParser\Node\Name;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\UnionType;
@@ -20,7 +21,7 @@ abstract class ReflectionType
     }
 
     /**
-     * @param Identifier|Name|NullableType|UnionType $type
+     * @param Identifier|Name|NullableType|UnionType|IntersectionType $type
      */
     public static function createFromTypeAndReflector($type) : self
     {
@@ -32,6 +33,10 @@ abstract class ReflectionType
 
         if ($type instanceof Identifier || $type instanceof Name) {
             return new ReflectionNamedType($type, $allowsNull);
+        }
+
+        if ($type instanceof IntersectionType) {
+            return new ReflectionIntersectionType($type, $allowsNull);
         }
 
         return new ReflectionUnionType($type, $allowsNull);
