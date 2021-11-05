@@ -280,6 +280,35 @@ class ReflectionMethod extends ReflectionFunctionAbstract
         return $this->declaringClass->getLocatedSource()->isInternal();
     }
 
+    public function getReturnType() : ?ReflectionType
+    {
+        if ($this->hasTentativeReturnType()) {
+            return null;
+        }
+
+        return parent::getReturnType();
+    }
+
+    public function hasTentativeReturnType(): bool
+    {
+        foreach ($this->getAttributes() as $attribute) {
+            if ($attribute->getName() === 'TentativeType' || $attribute->getName() === 'JetBrains\PhpStorm\Internal\TentativeType') {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function getTentativeReturnType(): ?ReflectionType
+    {
+        if (!$this->hasTentativeReturnType()) {
+            return null;
+        }
+
+        return parent::getReturnType();
+    }
+
     /**
      * @param object|null $object
      *

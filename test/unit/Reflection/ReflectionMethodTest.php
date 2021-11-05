@@ -634,4 +634,16 @@ PHP;
 
         self::assertSame([], $methodInfo->getBodyAst());
     }
+
+    public function testTentativeReturnTypes() : void
+    {
+        $classInfo = (new ClassReflector(new PhpInternalSourceLocator($this->astLocator, $this->sourceStubber)))->reflect(\ArrayAccess::class);
+        $methodInfo = $classInfo->getMethod('offsetExists');
+
+        self::assertFalse($methodInfo->hasReturnType());
+        self::assertTrue($methodInfo->hasTentativeReturnType());
+        self::assertNull($methodInfo->getReturnType());
+        self::assertNotNull($methodInfo->getTentativeReturnType());
+        self::assertSame('bool', (string) $methodInfo->getTentativeReturnType());
+    }
 }

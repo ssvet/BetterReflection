@@ -209,6 +209,16 @@ class ReflectionMethod extends CoreReflectionMethod
         return ReflectionType::fromReturnTypeOrNull($this->betterReflectionMethod->getReturnType());
     }
 
+    public function hasTentativeReturnType(): bool
+    {
+        return $this->betterReflectionMethod->hasTentativeReturnType();
+    }
+
+    public function getTentativeReturnType(): ?\ReflectionType
+    {
+        return ReflectionType::fromReturnTypeOrNull($this->betterReflectionMethod->getTentativeReturnType());
+    }
+
     /**
      * {@inheritDoc}
      */
