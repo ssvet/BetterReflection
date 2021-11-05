@@ -433,7 +433,7 @@ final class PhpStormStubsSourceStubber implements SourceStubber
                     if ($from !== null && $from > $this->phpVersionId) {
                         return true;
                     }
-                    if ($to !== null && $to < $this->phpVersionId) {
+                    if ($to !== null && $to <= $this->phpVersionId) {
                         return true;
                     }
                 }
@@ -478,6 +478,10 @@ final class PhpStormStubsSourceStubber implements SourceStubber
 
         if ($from === null && $to === null) {
             return null;
+        }
+
+        if ($to !== null) {
+            $to = (int) (floor($to / 100) * 100) + 100;
         }
 
         return [$from, $to];

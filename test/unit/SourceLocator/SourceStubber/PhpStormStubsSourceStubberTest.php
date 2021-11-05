@@ -767,6 +767,30 @@ class PhpStormStubsSourceStubberTest extends TestCase
                 80000,
                 false,
             ],
+            [
+                'ReflectionProperty',
+                'setAccessible',
+                70400,
+                true,
+            ],
+            [
+                'ReflectionProperty',
+                'setAccessible',
+                80000,
+                true,
+            ],
+            [
+                'ReflectionProperty',
+                'setAccessible',
+                80012,
+                true,
+            ],
+            [
+                'ReflectionProperty',
+                'setAccessible',
+                80100,
+                true,
+            ],
         ];
     }
 
