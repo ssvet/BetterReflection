@@ -63,8 +63,8 @@ final class PhpStormStubsSourceStubber implements SourceStubber
     /** @var Standard */
     private $prettyPrinter;
 
-    /** @var NodeTraverser */
-    private $nodeTraverser;
+    /** @var NameResolver */
+    private $nameResolver;
 
     /** @var string|null */
     private $stubsDirectory;
@@ -101,11 +101,9 @@ final class PhpStormStubsSourceStubber implements SourceStubber
         $this->builderFactory = new BuilderFactory();
         $this->prettyPrinter  = new Standard(self::BUILDER_OPTIONS);
 
-        $this->cachingVisitor = $this->createCachingVisitor();
+        $this->nameResolver = new NameResolver();
 
-        $this->nodeTraverser = new NodeTraverser();
-        $this->nodeTraverser->addVisitor(new NameResolver());
-        $this->nodeTraverser->addVisitor($this->cachingVisitor);
+        $this->cachingVisitor = $this->createCachingVisitor();
 
         $this->classMap    = array_change_key_case(PhpStormStubsMap::CLASSES);
         $this->functionMap = array_change_key_case(PhpStormStubsMap::FUNCTIONS);
@@ -320,11 +318,16 @@ final class PhpStormStubsSourceStubber implements SourceStubber
         $isCore = $this->isCoreExtension($this->getExtensionFromFilePath($filePath));
 
         $ast = $this->phpParser->parse(file_get_contents($absoluteFilePath));
+        $nodeTraverser = new NodeTraverser();
+        $nodeTraverser->addVisitor($this->nameResolver);
+        $nodeTraverser->traverse($ast);
 
         /** @psalm-suppress UndefinedMethod */
         $this->cachingVisitor->clearNodes();
 
-        $this->nodeTraverser->traverse($ast);
+        $nodeTraverser = new NodeTraverser();
+        $nodeTraverser->addVisitor($this->cachingVisitor);
+        $nodeTraverser->traverse($ast);
 
         /**
          * @psalm-suppress UndefinedMethod
@@ -419,7 +422,7 @@ final class PhpStormStubsSourceStubber implements SourceStubber
             foreach ($node->attrGroups as $attrGroup) {
                 foreach ($attrGroup->attrs as $attr) {
                     $name = $attr->name->toLowerString();
-                    if ($name !== 'phpstormstubselementavailable' && $name !== 'jetbrains\\phpstorm\\internal\\phpstormstubselementavailable') {
+                    if ($name !== 'jetbrains\\phpstorm\\internal\\phpstormstubselementavailable') {
                         continue;
                     }
 

@@ -292,7 +292,7 @@ class ReflectionMethod extends ReflectionFunctionAbstract
     public function hasTentativeReturnType(): bool
     {
         foreach ($this->getAttributes() as $attribute) {
-            if ($attribute->getName() === 'TentativeType' || $attribute->getName() === 'JetBrains\PhpStorm\Internal\TentativeType') {
+            if ($attribute->getName() === 'JetBrains\PhpStorm\Internal\TentativeType') {
                 return true;
             }
         }
