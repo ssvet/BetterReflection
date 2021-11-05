@@ -731,6 +731,42 @@ class PhpStormStubsSourceStubberTest extends TestCase
                 80000,
                 false,
             ],
+            [
+                'ReflectionMethod',
+                'getTentativeReturnType',
+                80000,
+                false,
+            ],
+            [
+                'ReflectionMethod',
+                'getTentativeReturnType',
+                80100,
+                true,
+            ],
+            [
+                'finfo',
+                'finfo',
+                50200,
+                false,
+            ],
+            [
+                'finfo',
+                'finfo',
+                50300,
+                true,
+            ],
+            [
+                'finfo',
+                'finfo',
+                70400,
+                true,
+            ],
+            [
+                'finfo',
+                'finfo',
+                80000,
+                false,
+            ],
         ];
     }
 

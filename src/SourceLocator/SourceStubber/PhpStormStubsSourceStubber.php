@@ -397,27 +397,90 @@ final class PhpStormStubsSourceStubber implements SourceStubber
     private function hasLaterSinceVersion(Node $node) : bool
     {
         $docComment = $node->getDocComment();
-        if ($docComment === null) {
-            return false;
-        }
+        if ($docComment !== null) {
+            $sinceResult = preg_match('#@since\s+(\d+\.\d+(?:\.\d+)?)#', $docComment->getText(), $sinceMatches);
+            if ($sinceResult) {
+                $sinceId = PhpIdParser::fromVersion($sinceMatches[1]);
 
-        $sinceResult = preg_match('#@since\s+(\d+\.\d+(?:\.\d+)?)#', $docComment->getText(), $sinceMatches);
-        if ($sinceResult) {
-            $sinceId = PhpIdParser::fromVersion($sinceMatches[1]);
+                if ($sinceId > $this->phpVersionId) {
+                    return true;
+                }
+            }
 
-            if ($sinceId > $this->phpVersionId) {
-                return true;
+            $removedResult = preg_match('#@removed\s+(\d+\.\d+(?:\.\d+)?)#', $docComment->getText(), $removedMatches);
+            if ($removedResult) {
+                $removedId = PhpIdParser::fromVersion($removedMatches[1]);
+
+                return $removedId <= $this->phpVersionId;
             }
         }
 
-        $removedResult = preg_match('#@removed\s+(\d+\.\d+(?:\.\d+)?)#', $docComment->getText(), $removedMatches);
-        if ($removedResult) {
-            $removedId = PhpIdParser::fromVersion($removedMatches[1]);
+        if (property_exists($node, 'attrGroups')) {
+            foreach ($node->attrGroups as $attrGroup) {
+                foreach ($attrGroup->attrs as $attr) {
+                    $name = $attr->name->toLowerString();
+                    if ($name !== 'phpstormstubselementavailable' && $name !== 'jetbrains\\phpstorm\\internal\\phpstormstubselementavailable') {
+                        continue;
+                    }
 
-            return $removedId <= $this->phpVersionId;
+                    $args = $attr->args;
+                    $versions = $this->getFromToVersions($args);
+                    if ($versions === null) {
+                        continue;
+                    }
+
+                    [$from, $to] = $versions;
+                    if ($from !== null && $from > $this->phpVersionId) {
+                        return true;
+                    }
+                    if ($to !== null && $to < $this->phpVersionId) {
+                        return true;
+                    }
+                }
+            }
         }
 
         return false;
+    }
+
+    /**
+     * @param Node\Arg[] $args
+     * @return array{int|null, int|null}|null
+     */
+    private function getFromToVersions(array $args): ?array
+    {
+        $from = null;
+        $to = null;
+        foreach ($args as $i => $arg) {
+            if (!$arg->value instanceof Node\Scalar\String_) {
+                continue;
+            }
+            if ($arg->name !== null) {
+                if ($arg->name->toLowerString() === 'from') {
+                    $from = PhpIdParser::fromVersion($arg->value->value);
+                    continue;
+                }
+                if ($arg->name->toLowerString() === 'to') {
+                    $to = PhpIdParser::fromVersion($arg->value->value);
+                    continue;
+                }
+
+                continue;
+            }
+
+            if ($from === null && $i === 0) {
+                $from = PhpIdParser::fromVersion($arg->value->value);
+            }
+            if ($to === null && $i === 1) {
+                $to = PhpIdParser::fromVersion($arg->value->value);
+            }
+        }
+
+        if ($from === null && $to === null) {
+            return null;
+        }
+
+        return [$from, $to];
     }
 
     private function isCoreExtension(string $extension) : bool
