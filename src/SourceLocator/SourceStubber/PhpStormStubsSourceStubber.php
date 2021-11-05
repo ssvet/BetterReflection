@@ -63,8 +63,8 @@ final class PhpStormStubsSourceStubber implements SourceStubber
     /** @var Standard */
     private $prettyPrinter;
 
-    /** @var NameResolver */
-    private $nameResolver;
+    /** @var NodeTraverser */
+    private $nodeTraverser;
 
     /** @var string|null */
     private $stubsDirectory;
@@ -101,9 +101,11 @@ final class PhpStormStubsSourceStubber implements SourceStubber
         $this->builderFactory = new BuilderFactory();
         $this->prettyPrinter  = new Standard(self::BUILDER_OPTIONS);
 
-        $this->nameResolver = new NameResolver();
-
         $this->cachingVisitor = $this->createCachingVisitor();
+
+        $this->nodeTraverser = new NodeTraverser();
+        $this->nodeTraverser->addVisitor(new NameResolver());
+        $this->nodeTraverser->addVisitor($this->cachingVisitor);
 
         $this->classMap    = array_change_key_case(PhpStormStubsMap::CLASSES);
         $this->functionMap = array_change_key_case(PhpStormStubsMap::FUNCTIONS);
@@ -318,16 +320,11 @@ final class PhpStormStubsSourceStubber implements SourceStubber
         $isCore = $this->isCoreExtension($this->getExtensionFromFilePath($filePath));
 
         $ast = $this->phpParser->parse(file_get_contents($absoluteFilePath));
-        $nodeTraverser = new NodeTraverser();
-        $nodeTraverser->addVisitor($this->nameResolver);
-        $nodeTraverser->traverse($ast);
 
         /** @psalm-suppress UndefinedMethod */
         $this->cachingVisitor->clearNodes();
 
-        $nodeTraverser = new NodeTraverser();
-        $nodeTraverser->addVisitor($this->cachingVisitor);
-        $nodeTraverser->traverse($ast);
+        $this->nodeTraverser->traverse($ast);
 
         /**
          * @psalm-suppress UndefinedMethod
@@ -613,7 +610,17 @@ final class PhpStormStubsSourceStubber implements SourceStubber
                     $nodeName                    = $node->namespacedName->toString();
                     $this->classNodes[$nodeName] = $node;
 
-                    return NodeTraverser::DONT_TRAVERSE_CHILDREN;
+                    // We need to traverse children to resolve attributes names for methods, properties etc.
+                    return null;
+                }
+
+                if (
+                    $node instanceof Node\Stmt\ClassMethod
+                    || $node instanceof Node\Stmt\Property
+                    || $node instanceof Node\Stmt\ClassConst
+                    || $node instanceof Node\Stmt\EnumCase
+                ) {
+                    return NodeTraverser::DONT_TRAVERSE_CURRENT_AND_CHILDREN;
                 }
 
                 if ($node instanceof Node\Stmt\Function_) {
