@@ -619,7 +619,7 @@ abstract class ReflectionFunctionAbstract
                         $key = $arg->name->toString();
                     }
 
-                    $arguments[$key] = $compileNodeToValue->__invoke($arg->value, new CompilerContext($this->reflector, $this->getFileName(), null, $this->declaringNamespace !== null && $this->declaringNamespace->name !== null ? $this->declaringNamespace->name->toString() : null, null));
+                    $arguments[$key] = $compileNodeToValue->__invoke($arg->value, new CompilerContext($this->reflector, $this->getFileName(), $this->getImplementingClass(), $this->declaringNamespace !== null && $this->declaringNamespace->name !== null ? $this->declaringNamespace->name->toString() : null, null));
                 }
 
                 $attributes[] = new ReflectionAttribute(
@@ -630,6 +630,11 @@ abstract class ReflectionFunctionAbstract
         }
 
         return $attributes;
+    }
+
+    public function getImplementingClass(): ?ReflectionClass
+    {
+        return null;
     }
 
     private function loadStaticParser() : Parser
