@@ -48,22 +48,35 @@ final class ClosureSourceLocator implements SourceLocator
      * {@inheritDoc}
      *
      * @throws ParseToAstFailure
+	 * @template TType of ReflectionFunction
+	 * @param Identifier<TType> $identifier
+	 * @return TType|null
      */
-    public function locateIdentifier(Reflector $reflector, Identifier $identifier): ?Reflection
+    public function locateIdentifier(Reflector $reflector, Identifier $identifier): ?ReflectionFunction
     {
         return $this->getReflectionFunction($reflector, $identifier->getType());
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @throws ParseToAstFailure
-     */
+	/**
+	 * Find all identifiers of a type
+	 *
+	 * @template TType of ReflectionFunction
+	 * @param IdentifierType<TType> $identifierType
+	 * @return list<TType>
+	 *
+	 * @throws ParseToAstFailure
+	 */
     public function locateIdentifiersByType(Reflector $reflector, IdentifierType $identifierType): array
     {
         return array_filter([$this->getReflectionFunction($reflector, $identifierType)]);
     }
 
+	/**
+	 * @template TType of ReflectionFunction
+	 * @param Reflector $reflector
+	 * @param IdentifierType<TType> $identifierType
+	 * @return TType|null
+	 */
     private function getReflectionFunction(Reflector $reflector, IdentifierType $identifierType): ?ReflectionFunction
     {
         if (! $identifierType->isFunction()) {

@@ -13,6 +13,9 @@ use Roave\BetterReflection\Reflection\ReflectionFunction;
 use function array_key_exists;
 use function sprintf;
 
+/**
+ * @template-covariant TType of Reflection
+ */
 class IdentifierType
 {
     public const IDENTIFIER_CLASS    = ReflectionClass::class;
@@ -25,8 +28,12 @@ class IdentifierType
         self::IDENTIFIER_CONSTANT => null,
     ];
 
+	/** @var class-string<TType> */
     private string $name;
 
+	/**
+	 * @param class-string<TType> $type
+	 */
     public function __construct(string $type = self::IDENTIFIER_CLASS)
     {
         if (! array_key_exists($type, self::VALID_TYPES)) {
@@ -39,6 +46,9 @@ class IdentifierType
         $this->name = $type;
     }
 
+	/**
+	 * @return class-string<TType>
+	 */
     public function getName(): string
     {
         return $this->name;

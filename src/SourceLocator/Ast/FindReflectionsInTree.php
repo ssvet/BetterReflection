@@ -12,6 +12,7 @@ use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\NodeVisitorAbstract;
 use Roave\BetterReflection\Identifier\IdentifierType;
 use Roave\BetterReflection\Reflection\Exception\InvalidConstantNode;
+use Roave\BetterReflection\Reflection\Reflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionConstant;
 use Roave\BetterReflection\Reflection\ReflectionFunction;
@@ -36,9 +37,11 @@ final class FindReflectionsInTree
     /**
      * Find all reflections of a given type in an Abstract Syntax Tree
      *
+	 * @template TType of Reflection
+	 * @param IdentifierType<TType> $identifierType
      * @param Node[] $ast
      *
-     * @return list<ReflectionClass|ReflectionFunction|ReflectionConstant>
+     * @return list<TType>
      */
     public function __invoke(
         Reflector $reflector,

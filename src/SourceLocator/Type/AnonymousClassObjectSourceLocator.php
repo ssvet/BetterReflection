@@ -48,25 +48,37 @@ final class AnonymousClassObjectSourceLocator implements SourceLocator
     }
 
     /**
-     * {@inheritDoc}
+     * @template TType of ReflectionClass
+	 * @param Identifier<TType> $identifier
+	 * @return TType|null
      *
      * @throws ParseToAstFailure
      */
-    public function locateIdentifier(Reflector $reflector, Identifier $identifier): ?Reflection
+    public function locateIdentifier(Reflector $reflector, Identifier $identifier): ?ReflectionClass
     {
         return $this->getReflectionClass($reflector, $identifier->getType());
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @throws ParseToAstFailure
-     */
+	/**
+	 * Find all identifiers of a type
+	 *
+	 * @template TType of ReflectionClass
+	 * @param IdentifierType<TType> $identifierType
+	 * @return list<TType>
+	 *
+	 * @throws ParseToAstFailure
+	 */
     public function locateIdentifiersByType(Reflector $reflector, IdentifierType $identifierType): array
     {
         return array_filter([$this->getReflectionClass($reflector, $identifierType)]);
     }
 
+	/**
+	 * @template TType of ReflectionClass
+	 * @param Reflector $reflector
+	 * @param IdentifierType<TType> $identifierType
+	 * @return TType|null
+	 */
     private function getReflectionClass(Reflector $reflector, IdentifierType $identifierType): ?ReflectionClass
     {
         if (! $identifierType->isClass()) {

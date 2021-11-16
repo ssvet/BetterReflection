@@ -30,7 +30,6 @@ final class DefaultReflector implements Reflector
         $identifier = new Identifier($identifierName, new IdentifierType(IdentifierType::IDENTIFIER_CLASS));
 
         $classInfo = $this->sourceLocator->locateIdentifier($this, $identifier);
-        assert($classInfo instanceof ReflectionClass || $classInfo === null);
 
         if ($classInfo === null) {
             throw Exception\IdentifierNotFound::fromIdentifier($identifier);
@@ -65,7 +64,6 @@ final class DefaultReflector implements Reflector
         $identifier = new Identifier($identifierName, new IdentifierType(IdentifierType::IDENTIFIER_FUNCTION));
 
         $functionInfo = $this->sourceLocator->locateIdentifier($this, $identifier);
-        assert($functionInfo instanceof ReflectionFunction || $functionInfo === null);
 
         if ($functionInfo === null) {
             throw Exception\IdentifierNotFound::fromIdentifier($identifier);
@@ -100,7 +98,6 @@ final class DefaultReflector implements Reflector
         $identifier = new Identifier($identifierName, new IdentifierType(IdentifierType::IDENTIFIER_CONSTANT));
 
         $constantInfo = $this->sourceLocator->locateIdentifier($this, $identifier);
-        assert($constantInfo instanceof ReflectionConstant || $constantInfo === null);
 
         if ($constantInfo === null) {
             throw Exception\IdentifierNotFound::fromIdentifier($identifier);
@@ -116,12 +113,9 @@ final class DefaultReflector implements Reflector
      */
     public function reflectAllConstants(): iterable
     {
-        /** @var list<ReflectionConstant> $allConstants */
-        $allConstants = $this->sourceLocator->locateIdentifiersByType(
+        return $this->sourceLocator->locateIdentifiersByType(
             $this,
             new IdentifierType(IdentifierType::IDENTIFIER_CONSTANT),
         );
-
-        return $allConstants;
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Roave\BetterReflection\Identifier;
 
 use Roave\BetterReflection\Identifier\Exception\InvalidIdentifierName;
+use Roave\BetterReflection\Reflection\Reflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionFunction;
 
@@ -12,6 +13,9 @@ use function ltrim;
 use function preg_match;
 use function strpos;
 
+/**
+ * @template-covariant TType of Reflection
+ */
 class Identifier
 {
     public const WILDCARD = '*';
@@ -22,6 +26,7 @@ class Identifier
 
     /**
      * @throws InvalidIdentifierName
+	 * @param IdentifierType<TType> $type
      */
     public function __construct(string $name, private IdentifierType $type)
     {
@@ -49,6 +54,9 @@ class Identifier
         return $this->name;
     }
 
+	/**
+	 * @return IdentifierType<TType>
+	 */
     public function getType(): IdentifierType
     {
         return $this->type;

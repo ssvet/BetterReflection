@@ -20,13 +20,19 @@ interface SourceLocator
      * NOTE: A SourceLocator should *NOT* throw an exception if it is unable to
      * locate the identifier, it should simply return null. If an exception is
      * thrown, it will break the Generic Reflector.
+	 *
+	 * @template TType of Reflection
+	 * @param Identifier<TType> $identifier
+	 * @return TType|null
      */
     public function locateIdentifier(Reflector $reflector, Identifier $identifier): ?Reflection;
 
     /**
      * Find all identifiers of a type
      *
-     * @return list<Reflection>
+	 * @template TType of Reflection
+	 * @param IdentifierType<TType> $identifierType
+     * @return list<TType>
      */
     public function locateIdentifiersByType(Reflector $reflector, IdentifierType $identifierType): array;
 }

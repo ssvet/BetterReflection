@@ -32,6 +32,10 @@ class Locator
     /**
      * @throws IdentifierNotFound
      * @throws Exception\ParseToAstFailure
+	 *
+	 * @template TType of Reflection
+	 * @param Identifier<TType> $identifier
+	 * @return TType
      */
     public function findReflection(
         Reflector $reflector,
@@ -52,7 +56,9 @@ class Locator
     /**
      * Get an array of reflections found in some code.
      *
-     * @return list<Reflection>
+	 * @template TType of Reflection
+	 * @param IdentifierType<TType> $identifierType
+     * @return list<TType>
      *
      * @throws Exception\ParseToAstFailure
      */
@@ -79,7 +85,10 @@ class Locator
     /**
      * Given an array of Reflections, try to find the identifier.
      *
-     * @param list<Reflection> $reflections
+	 * @template TType of Reflection
+     * @param list<TType> $reflections
+	 * @param Identifier<TType> $identifier
+	 * @return TType
      *
      * @throws IdentifierNotFound
      */
