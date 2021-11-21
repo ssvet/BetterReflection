@@ -1,0 +1,97 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Declaring PHPStan namespace is not allowed in 3rd party packages\\.$#"
+			count: 1
+			path: src/BetterReflection.php
+
+		-
+			message: "#^Method PHPStan\\\\BetterReflection\\\\Reflection\\\\ReflectionClass\\:\\:getConstants\\(\\) invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: src/Reflection/Adapter/ReflectionClass.php
+
+		-
+			message: "#^Method PHPStan\\\\BetterReflection\\\\Reflection\\\\ReflectionClass\\:\\:getReflectionConstants\\(\\) invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: src/Reflection/Adapter/ReflectionClass.php
+
+		-
+			message: "#^Method PHPStan\\\\BetterReflection\\\\Reflection\\\\ReflectionObject\\:\\:getConstants\\(\\) invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: src/Reflection/Adapter/ReflectionObject.php
+
+		-
+			message: "#^Method PHPStan\\\\BetterReflection\\\\Reflection\\\\Adapter\\\\ReflectionProperty\\:\\:getType\\(\\) should return ReflectionNamedType\\|ReflectionUnionType\\|null but returns ReflectionType\\|null\\.$#"
+			count: 1
+			path: src/Reflection/Adapter/ReflectionProperty.php
+
+		-
+			message: "#^Property PhpParser\\\\Node\\\\Expr\\\\Closure\\:\\:\\$stmts \\(array\\<PhpParser\\\\Node\\\\Stmt\\>\\|null\\) does not accept array\\<int\\|string, PhpParser\\\\Node\\>\\.$#"
+			count: 1
+			path: src/Reflection/ReflectionFunctionAbstract.php
+
+		-
+			message: "#^Offset 'classmap' on array\\{classmap\\: array\\<int, string\\>, files\\: array\\<int, string\\>, psr\\-4\\: array\\<string, array\\<int, string\\>\\>, psr\\-0\\: array\\<string, array\\<int, string\\>\\>\\} on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/Composer/Factory/MakeLocatorForComposerJson.php
+
+		-
+			message: "#^Offset 'files' on array\\{classmap\\: array\\<int, string\\>, files\\: array\\<int, string\\>, psr\\-4\\: array\\<string, array\\<int, string\\>\\>, psr\\-0\\: array\\<string, array\\<int, string\\>\\>\\} on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/Composer/Factory/MakeLocatorForComposerJson.php
+
+		-
+			message: "#^Offset 'psr\\-0' on array\\{classmap\\: array\\<int, string\\>, files\\: array\\<int, string\\>, psr\\-4\\: array\\<string, array\\<int, string\\>\\>, psr\\-0\\: array\\<string, array\\<int, string\\>\\>\\} on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/Composer/Factory/MakeLocatorForComposerJson.php
+
+		-
+			message: "#^Offset 'psr\\-4' on array\\{classmap\\: array\\<int, string\\>, files\\: array\\<int, string\\>, psr\\-4\\: array\\<string, array\\<int, string\\>\\>, psr\\-0\\: array\\<string, array\\<int, string\\>\\>\\} on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/Composer/Factory/MakeLocatorForComposerJson.php
+
+		-
+			message: "#^Offset 'classmap' on array\\{classmap\\: array\\<int, string\\>, files\\: array\\<int, string\\>, psr\\-4\\: array\\<string, array\\<int, string\\>\\>, psr\\-0\\: array\\<string, array\\<int, string\\>\\>\\} on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/Composer/Factory/MakeLocatorForComposerJsonAndInstalledJson.php
+
+		-
+			message: "#^Offset 'files' on array\\{classmap\\: array\\<int, string\\>, files\\: array\\<int, string\\>, psr\\-4\\: array\\<string, array\\<int, string\\>\\>, psr\\-0\\: array\\<string, array\\<int, string\\>\\>\\} on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/Composer/Factory/MakeLocatorForComposerJsonAndInstalledJson.php
+
+		-
+			message: "#^Offset 'psr\\-0' on array\\{classmap\\: array\\<int, string\\>, files\\: array\\<int, string\\>, psr\\-4\\: array\\<string, array\\<int, string\\>\\>, psr\\-0\\: array\\<string, array\\<int, string\\>\\>\\} on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/Composer/Factory/MakeLocatorForComposerJsonAndInstalledJson.php
+
+		-
+			message: "#^Offset 'psr\\-4' on array\\{classmap\\: array\\<int, string\\>, files\\: array\\<int, string\\>, psr\\-4\\: array\\<string, array\\<int, string\\>\\>, psr\\-0\\: array\\<string, array\\<int, string\\>\\>\\} on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/Composer/Factory/MakeLocatorForComposerJsonAndInstalledJson.php
+
+		-
+			message: "#^Offset 'classmap' on array\\{classmap\\: array\\<int, string\\>, files\\: array\\<int, string\\>, psr\\-4\\: array\\<string, array\\<int, string\\>\\>, psr\\-0\\: array\\<string, array\\<int, string\\>\\>\\} on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/Composer/Factory/MakeLocatorForInstalledJson.php
+
+		-
+			message: "#^Offset 'files' on array\\{classmap\\: array\\<int, string\\>, files\\: array\\<int, string\\>, psr\\-4\\: array\\<string, array\\<int, string\\>\\>, psr\\-0\\: array\\<string, array\\<int, string\\>\\>\\} on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/Composer/Factory/MakeLocatorForInstalledJson.php
+
+		-
+			message: "#^Offset 'psr\\-0' on array\\{classmap\\: array\\<int, string\\>, files\\: array\\<int, string\\>, psr\\-4\\: array\\<string, array\\<int, string\\>\\>, psr\\-0\\: array\\<string, array\\<int, string\\>\\>\\} on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/Composer/Factory/MakeLocatorForInstalledJson.php
+
+		-
+			message: "#^Offset 'psr\\-4' on array\\{classmap\\: array\\<int, string\\>, files\\: array\\<int, string\\>, psr\\-4\\: array\\<string, array\\<int, string\\>\\>, psr\\-0\\: array\\<string, array\\<int, string\\>\\>\\} on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/Composer/Factory/MakeLocatorForInstalledJson.php
+
+		-
+			message: "#^Property PHPStan\\\\BetterReflection\\\\SourceLocator\\\\Type\\\\FileIteratorSourceLocator\\:\\:\\$aggregateSourceLocator is never written, only read\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/FileIteratorSourceLocator.php
+

@@ -31,9 +31,6 @@ final class FindReflectionsInTree
     /** @var AstConversionStrategy */
     private $astConversionStrategy;
 
-    /** @var FunctionReflector */
-    private $functionReflector;
-
     /** @var Closure(): FunctionReflector */
     private $functionReflectorGetter;
 
