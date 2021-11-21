@@ -603,4 +603,9 @@ class ReflectionClass extends CoreReflectionClass
     {
         return $this->betterReflectionClass->getShortName();
     }
+
+    public function isEnum(): bool
+    {
+        return $this->betterReflectionClass->isEnum();
+    }
 }
