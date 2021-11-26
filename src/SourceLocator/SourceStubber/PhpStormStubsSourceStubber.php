@@ -290,7 +290,7 @@ final class PhpStormStubsSourceStubber implements SourceStubber
             $stub = str_replace('PS_UNRESERVE_PREFIX_throw', 'throw', $stub);
         }
 
-        return new StubData($stub, $extension);
+        return new StubData($stub, $extension, $this->getAbsoluteFilePath($filePath));
     }
 
     public function generateFunctionStub(string $functionName): ?StubData
@@ -309,7 +309,7 @@ final class PhpStormStubsSourceStubber implements SourceStubber
 
         $extension = $this->getExtensionFromFilePath($filePath);
 
-        return new StubData($this->createStub($functionNode), $extension);
+        return new StubData($this->createStub($functionNode), $extension, $this->getAbsoluteFilePath($filePath));
     }
 
     public function generateConstantStub(string $constantName): ?StubData
@@ -345,7 +345,7 @@ final class PhpStormStubsSourceStubber implements SourceStubber
 
         $extension = $this->getExtensionFromFilePath($filePath);
 
-        return new StubData($this->createStub($constantNodeData), $extension);
+        return new StubData($this->createStub($constantNodeData), $extension, $this->getAbsoluteFilePath($filePath));
     }
 
     private function parseFile(string $filePath): void
