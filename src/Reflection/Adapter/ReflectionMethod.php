@@ -325,4 +325,9 @@ final class ReflectionMethod extends CoreReflectionMethod
     {
         throw new Exception\NotImplemented('Not implemented');
     }
+
+    public function getBetterReflection(): BetterReflectionMethod
+    {
+        return $this->betterReflectionMethod;
+    }
 }
