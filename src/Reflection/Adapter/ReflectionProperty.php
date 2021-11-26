@@ -188,4 +188,9 @@ final class ReflectionProperty extends CoreReflectionProperty
     {
         return $this->betterReflectionProperty->isReadOnly();
     }
+
+    public function getBetterReflection(): BetterReflectionProperty
+    {
+        return $this->betterReflectionProperty;
+    }
 }
