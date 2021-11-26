@@ -45,6 +45,11 @@ final class EvaledCodeSourceLocator extends AbstractSourceLocator
             return null;
         }
 
+        $fileName = null;
+        if ($classReflection->getFileName() !== false) {
+            $fileName = $classReflection->getFileName();
+        }
+
         return new EvaledLocatedSource($stubData->getStub(), $classReflection->getName());
     }
 

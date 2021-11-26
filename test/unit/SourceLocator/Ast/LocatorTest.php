@@ -109,7 +109,7 @@ class LocatorTest extends TestCase
 
         $constantInfo = $this->locator->findReflection(
             new DefaultReflector(new StringSourceLocator($php, $this->locator)),
-            new LocatedSource($php, 'FOO'),
+            new LocatedSource($php, 'FOO', null),
             $this->getIdentifier('FOO', IdentifierType::IDENTIFIER_CONSTANT),
         );
 
