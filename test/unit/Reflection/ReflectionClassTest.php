@@ -23,13 +23,19 @@ use Roave\BetterReflection\Reflection\Exception\Uncloneable;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
+use Roave\BetterReflection\Reflection\ReflectionNamedType;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
+use Roave\BetterReflection\Reflection\ReflectionUnionType;
 use Roave\BetterReflection\Reflector\DefaultReflector;
 use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
 use Roave\BetterReflection\SourceLocator\Ast\Locator;
 use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use Roave\BetterReflection\SourceLocator\SourceStubber\AggregateSourceStubber;
+use Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubsSourceStubber;
+use Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber;
 use Roave\BetterReflection\SourceLocator\Type\AggregateSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\ComposerSourceLocator;
+use Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
 use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
@@ -2440,5 +2446,49 @@ PHP;
         $attributes      = $classReflection->getAttributesByInstance(Attr::class);
 
         self::assertCount(2, $attributes);
+    }
+
+    public function testReflectEnumTryFromMethodParameterType(): void
+    {
+        $php = '<?php
+            enum Foo: int {}
+        ';
+
+        $astLocator    = BetterReflectionSingleton::instance()->astLocator();
+        $reflection    = (new DefaultReflector(
+            new AggregateSourceLocator([
+                new StringSourceLocator($php, $this->astLocator),
+                new PhpInternalSourceLocator($astLocator, new AggregateSourceStubber(
+                    new PhpStormStubsSourceStubber(BetterReflectionSingleton::instance()->phpParser(), 80100),
+                    new ReflectionSourceStubber(),
+                )),
+            ]),
+        ))->reflectClass('Foo');
+        $tryFromMethod = $reflection->getMethod('tryFrom');
+        $parameter     = $tryFromMethod->getParameters()[0];
+        self::assertInstanceOf(ReflectionUnionType::class, $parameter->getType());
+        self::assertSame('string|int', (string) $parameter->getType());
+    }
+
+    public function testReflectEnumTryFromMethodReturnType(): void
+    {
+        $php = '<?php
+            enum Foo: int {}
+        ';
+
+        $astLocator    = BetterReflectionSingleton::instance()->astLocator();
+        $reflection    = (new DefaultReflector(
+            new AggregateSourceLocator([
+                new StringSourceLocator($php, $this->astLocator),
+                new PhpInternalSourceLocator($astLocator, new AggregateSourceStubber(
+                    new PhpStormStubsSourceStubber(BetterReflectionSingleton::instance()->phpParser(), 80100),
+                    new ReflectionSourceStubber(),
+                )),
+            ]),
+        ))->reflectClass('Foo');
+        $tryFromMethod = $reflection->getMethod('tryFrom');
+        self::assertInstanceOf(ReflectionNamedType::class, $tryFromMethod->getReturnType());
+        self::assertSame('static', $tryFromMethod->getReturnType()->getName());
+        self::assertTrue($tryFromMethod->getReturnType()->allowsNull());
     }
 }
