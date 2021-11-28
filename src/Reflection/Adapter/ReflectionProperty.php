@@ -16,6 +16,8 @@ use ValueError;
 
 use function array_map;
 
+use const PHP_VERSION_ID;
+
 final class ReflectionProperty extends CoreReflectionProperty
 {
     private bool $accessible = false;
@@ -171,6 +173,10 @@ final class ReflectionProperty extends CoreReflectionProperty
     {
         if ($flags !== 0 && $flags !== ReflectionAttribute::IS_INSTANCEOF) {
             throw new ValueError('Argument #2 ($flags) must be a valid attribute filter flag');
+        }
+
+        if (PHP_VERSION_ID >= 80000 && PHP_VERSION_ID < 80012) {
+            return [];
         }
 
         if ($name !== null && $flags & ReflectionAttribute::IS_INSTANCEOF) {
