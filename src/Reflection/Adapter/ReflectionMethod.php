@@ -10,6 +10,7 @@ use ReflectionException as CoreReflectionException;
 use ReflectionExtension as CoreReflectionExtension;
 use ReflectionMethod as CoreReflectionMethod;
 use ReflectionType as CoreReflectionType;
+use ReturnTypeWillChange;
 use Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
 use Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
 use Roave\BetterReflection\Reflection\ReflectionAttribute as BetterReflectionAttribute;
@@ -63,7 +64,11 @@ final class ReflectionMethod extends CoreReflectionMethod
         return $this->betterReflectionMethod->isUserDefined();
     }
 
-    public function getClosureThis(): ?object
+    /**
+     * {@inheritDoc}
+     */
+    #[ReturnTypeWillChange]
+    public function getClosureThis()
     {
         throw new NotImplemented('Not implemented');
     }
@@ -73,17 +78,29 @@ final class ReflectionMethod extends CoreReflectionMethod
         throw new NotImplemented('Not implemented');
     }
 
-    public function getDocComment(): string|false
+    /**
+     * {@inheritDoc}
+     */
+    #[ReturnTypeWillChange]
+    public function getDocComment()
     {
         return $this->betterReflectionMethod->getDocComment() ?: false;
     }
 
-    public function getStartLine(): int|false
+    /**
+     * {@inheritDoc}
+     */
+    #[ReturnTypeWillChange]
+    public function getStartLine()
     {
         return $this->betterReflectionMethod->getStartLine();
     }
 
-    public function getEndLine(): int|false
+    /**
+     * {@inheritDoc}
+     */
+    #[ReturnTypeWillChange]
+    public function getEndLine()
     {
         return $this->betterReflectionMethod->getEndLine();
     }
@@ -96,12 +113,20 @@ final class ReflectionMethod extends CoreReflectionMethod
         throw new NotImplemented('Not implemented');
     }
 
-    public function getExtensionName(): string
+    /**
+     * {@inheritDoc}
+     */
+    #[ReturnTypeWillChange]
+    public function getExtensionName()
     {
         return $this->betterReflectionMethod->getExtensionName() ?? '';
     }
 
-    public function getFileName(): string|false
+    /**
+     * {@inheritDoc}
+     */
+    #[ReturnTypeWillChange]
+    public function getFileName()
     {
         $fileName = $this->betterReflectionMethod->getFileName();
 
@@ -218,16 +243,16 @@ final class ReflectionMethod extends CoreReflectionMethod
     }
 
     /**
-     * @psalm-suppress MethodSignatureMismatch
+     * {@inheritDoc}
      */
-    public function getClosure(?object $object = null): Closure
+    public function getClosure($object = null): Closure
     {
         try {
             return $this->betterReflectionMethod->getClosure($object);
         } catch (NoObjectProvided $e) {
-            throw new ValueError($e->getMessage(), previous: $e);
+            throw new ValueError($e->getMessage(), 0, $e);
         } catch (Throwable $e) {
-            throw new CoreReflectionException($e->getMessage(), previous: $e);
+            throw new CoreReflectionException($e->getMessage(), 0, $e);
         }
     }
 
@@ -236,7 +261,17 @@ final class ReflectionMethod extends CoreReflectionMethod
         return $this->betterReflectionMethod->getModifiers();
     }
 
-    public function invoke(?object $object = null, mixed ...$args): mixed
+    /**
+     * @param object $object
+     * @param mixed  $arg
+     * @param mixed  ...$args
+     *
+     * @return mixed
+     *
+     * @throws CoreReflectionException
+     */
+    #[ReturnTypeWillChange]
+    public function invoke($object = null, $arg = null, ...$args)
     {
         if (! $this->isAccessible()) {
             throw new CoreReflectionException('Method not accessible');
@@ -247,14 +282,20 @@ final class ReflectionMethod extends CoreReflectionMethod
         } catch (NoObjectProvided | TypeError) {
             return null;
         } catch (Throwable $e) {
-            throw new CoreReflectionException($e->getMessage(), previous: $e);
+            throw new CoreReflectionException($e->getMessage(), 0, $e);
         }
     }
 
     /**
-     * @param list<mixed> $args
+     * @param object  $object
+     * @param mixed[] $args
+     *
+     * @return mixed
+     *
+     * @throws CoreReflectionException
      */
-    public function invokeArgs(?object $object = null, array $args = []): mixed
+    #[ReturnTypeWillChange]
+    public function invokeArgs($object = null, array $args = [])
     {
         if (! $this->isAccessible()) {
             throw new CoreReflectionException('Method not accessible');
@@ -265,7 +306,7 @@ final class ReflectionMethod extends CoreReflectionMethod
         } catch (NoObjectProvided | TypeError) {
             return null;
         } catch (Throwable $e) {
-            throw new CoreReflectionException($e->getMessage(), previous: $e);
+            throw new CoreReflectionException($e->getMessage(), 0, $e);
         }
     }
 
@@ -279,7 +320,10 @@ final class ReflectionMethod extends CoreReflectionMethod
         return new self($this->betterReflectionMethod->getPrototype());
     }
 
-    public function setAccessible(bool $accessible): void
+    /**
+     * {@inheritDoc}
+     */
+    public function setAccessible($accessible): void
     {
         $this->accessible = true;
     }
