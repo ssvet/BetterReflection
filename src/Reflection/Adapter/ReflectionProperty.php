@@ -6,6 +6,7 @@ namespace Roave\BetterReflection\Reflection\Adapter;
 
 use ReflectionException as CoreReflectionException;
 use ReflectionProperty as CoreReflectionProperty;
+use ReturnTypeWillChange;
 use Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
 use Roave\BetterReflection\Reflection\Exception\NotAnObject;
 use Roave\BetterReflection\Reflection\ReflectionAttribute as BetterReflectionAttribute;
@@ -37,9 +38,10 @@ final class ReflectionProperty extends CoreReflectionProperty
     }
 
     /**
-     * @psalm-suppress MethodSignatureMismatch
+     * {@inheritDoc}
      */
-    public function getValue(?object $object = null): mixed
+    #[ReturnTypeWillChange]
+    public function getValue($object = null)
     {
         if (! $this->isAccessible()) {
             throw new CoreReflectionException('Property not accessible');
@@ -50,7 +52,7 @@ final class ReflectionProperty extends CoreReflectionProperty
         } catch (NoObjectProvided | TypeError) {
             return null;
         } catch (Throwable $e) {
-            throw new CoreReflectionException($e->getMessage(), previous: $e);
+            throw new CoreReflectionException($e->getMessage(), 0, $e);
         }
     }
 
@@ -68,7 +70,7 @@ final class ReflectionProperty extends CoreReflectionProperty
         } catch (NoObjectProvided | NotAnObject) {
             return;
         } catch (Throwable $e) {
-            throw new CoreReflectionException($e->getMessage(), previous: $e);
+            throw new CoreReflectionException($e->getMessage(), 0, $e);
         }
     }
 
@@ -80,7 +82,7 @@ final class ReflectionProperty extends CoreReflectionProperty
     /**
      * @psalm-mutation-free
      */
-    public function getType(): ReflectionUnionType|ReflectionNamedType|ReflectionIntersectionType|null
+    public function getType(): ?\ReflectionType
     {
         /** @psalm-suppress ImpureMethodCall */
         return ReflectionType::fromTypeOrNull($this->betterReflectionProperty->getType());
@@ -121,12 +123,19 @@ final class ReflectionProperty extends CoreReflectionProperty
         return new ReflectionClass($this->betterReflectionProperty->getImplementingClass());
     }
 
-    public function getDocComment(): string|false
+    /**
+     * {@inheritDoc}
+     */
+    #[ReturnTypeWillChange]
+    public function getDocComment()
     {
         return $this->betterReflectionProperty->getDocComment() ?: false;
     }
 
-    public function setAccessible(bool $accessible): void
+    /**
+     * {@inheritDoc}
+     */
+    public function setAccessible($accessible): void
     {
         $this->accessible = true;
     }
@@ -141,12 +150,20 @@ final class ReflectionProperty extends CoreReflectionProperty
         return $this->betterReflectionProperty->hasDefaultValue();
     }
 
-    public function getDefaultValue(): mixed
+    /**
+     * @return mixed
+     */
+    #[ReturnTypeWillChange]
+    public function getDefaultValue()
     {
         return $this->betterReflectionProperty->getDefaultValue();
     }
 
-    public function isInitialized(?object $object = null): bool
+    /**
+     * {@inheritDoc}
+     */
+    #[ReturnTypeWillChange]
+    public function isInitialized($object = null)
     {
         if (! $this->isAccessible()) {
             throw new CoreReflectionException('Property not accessible');
@@ -155,7 +172,7 @@ final class ReflectionProperty extends CoreReflectionProperty
         try {
             return $this->betterReflectionProperty->isInitialized($object);
         } catch (Throwable $e) {
-            throw new CoreReflectionException($e->getMessage(), previous: $e);
+            throw new CoreReflectionException($e->getMessage(), 0, $e);
         }
     }
 
