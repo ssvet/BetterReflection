@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Roave\BetterReflection\Reflection\Adapter;
 
 use ReflectionClassConstant as CoreReflectionClassConstant;
+use ReturnTypeWillChange;
 use Roave\BetterReflection\Reflection\ReflectionAttribute as BetterReflectionAttribute;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant as BetterReflectionClassConstant;
 use Roave\BetterReflection\Reflection\ReflectionEnumCase as BetterReflectionEnumCase;
@@ -31,10 +32,8 @@ final class ReflectionClassConstant extends CoreReflectionClassConstant
         return $this->betterClassConstantOrEnumCase->getName();
     }
 
-    /**
-     * Returns constant value
-     */
-    public function getValue(): mixed
+    #[ReturnTypeWillChange]
+    public function getValue()
     {
         if ($this->betterClassConstantOrEnumCase instanceof BetterReflectionEnumCase) {
             return constant(sprintf('%s::%s', $this->betterClassConstantOrEnumCase->getDeclaringClass()->getName(), $this->betterClassConstantOrEnumCase->getName()));
@@ -101,8 +100,11 @@ final class ReflectionClassConstant extends CoreReflectionClassConstant
 
     /**
      * Returns the doc comment for this constant
+     *
+     * @return string|false
      */
-    public function getDocComment(): string|false
+    #[ReturnTypeWillChange]
+    public function getDocComment()
     {
         return $this->betterClassConstantOrEnumCase->getDocComment() ?: false;
     }
