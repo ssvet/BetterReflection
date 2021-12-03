@@ -10,7 +10,9 @@ use DatePeriod;
 use DateTime;
 use DateTimeInterface;
 use DOMNode;
+use Error;
 use Generator;
+use ParseError;
 use PDO;
 use PDOException;
 use PhpParser\Parser;
@@ -21,6 +23,7 @@ use ReflectionMethod as CoreReflectionMethod;
 use ReflectionNamedType as CoreReflectionNamedType;
 use ReflectionParameter as CoreReflectionParameter;
 use ReflectionProperty as CoreReflectionProperty;
+use Roave\BetterReflection\BetterReflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionConstant;
 use Roave\BetterReflection\Reflection\ReflectionFunction;
@@ -46,6 +49,7 @@ use ZipArchive;
 
 use function array_filter;
 use function array_key_exists;
+use function array_keys;
 use function array_map;
 use function array_merge;
 use function get_declared_classes;
@@ -89,6 +93,11 @@ class PhpStormStubsSourceStubberTest extends TestCase
         $this->sourceStubber            = new PhpStormStubsSourceStubber($this->phpParser, PHP_VERSION_ID);
         $this->phpInternalSourceLocator = new PhpInternalSourceLocator($this->astLocator, $this->sourceStubber);
         $this->reflector                = new DefaultReflector($this->phpInternalSourceLocator);
+    }
+
+    protected function tearDown(): void
+    {
+        BetterReflection::$phpVersion = PHP_VERSION_ID;
     }
 
     /**
@@ -1170,5 +1179,115 @@ class PhpStormStubsSourceStubberTest extends TestCase
     {
         $reflection = $this->reflector->reflectClass('XMLReader');
         $this->assertSame(realpath(__DIR__ . '/../../../../vendor/jetbrains/phpstorm-stubs/xmlreader/xmlreader.php'), realpath($reflection->getFileName()));
+    }
+
+    public function dataImmediateInterfaces(): array
+    {
+        return [
+            [
+                'PDOStatement',
+                ['Traversable'],
+                70400,
+            ],
+            [
+                'PDOStatement',
+                ['IteratorAggregate'],
+                80000,
+            ],
+            [
+                'DatePeriod',
+                ['Traversable'],
+                70400,
+            ],
+            [
+                'DatePeriod',
+                ['IteratorAggregate'],
+                80000,
+            ],
+            [
+                'SplFixedArray',
+                ['Iterator', 'ArrayAccess', 'Countable'],
+                70400,
+            ],
+            [
+                'SplFixedArray',
+                ['ArrayAccess', 'Countable', 'IteratorAggregate'],
+                80000,
+            ],
+            [
+                'SimpleXMLElement',
+                ['Traversable', 'ArrayAccess', 'Countable', 'Iterator'],
+                70400,
+            ],
+            [
+                'SimpleXMLElement',
+                ['Traversable', 'ArrayAccess', 'Countable', 'Iterator', 'Stringable', 'RecursiveIterator'],
+                80000,
+            ],
+            [
+                'DOMDocument',
+                [],
+                70400,
+            ],
+            [
+                'DOMDocument',
+                ['DOMParentNode'],
+                80000,
+            ],
+        ];
+    }
+
+    /**
+     * @param string[] $interfaceNames
+     *
+     * @dataProvider dataImmediateInterfaces
+     */
+    public function testImmediateInterfaces(
+        string $className,
+        array $interfaceNames,
+        int $phpVersion
+    ): void {
+        BetterReflection::$phpVersion = $phpVersion;
+        $sourceStubber                = new PhpStormStubsSourceStubber($this->phpParser, $phpVersion);
+        $phpInternalSourceLocator     = new PhpInternalSourceLocator($this->astLocator, $sourceStubber);
+        $reflector                    = new DefaultReflector($phpInternalSourceLocator);
+        $reflection                   = $reflector->reflectClass($className);
+        self::assertSame($interfaceNames, array_keys($reflection->getImmediateInterfaces()));
+    }
+
+    public function dataSubclass(): array
+    {
+        return [
+            [
+                ParseError::class,
+                CompileError::class,
+                70300,
+            ],
+            [
+                ParseError::class,
+                CompileError::class,
+                70400,
+            ],
+            [
+                ParseError::class,
+                Error::class,
+                70200,
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataSubclass
+     */
+    public function testSubclass(
+        string $className,
+        string $subclassName,
+        int $phpVersion
+    ): void {
+        $sourceStubber            = new PhpStormStubsSourceStubber($this->phpParser, $phpVersion);
+        $phpInternalSourceLocator = new PhpInternalSourceLocator($this->astLocator, $sourceStubber);
+        $reflector                = new DefaultReflector($phpInternalSourceLocator);
+        $reflection               = $reflector->reflectClass($className);
+        self::assertTrue($reflection->isSubclassOf($subclassName));
     }
 }

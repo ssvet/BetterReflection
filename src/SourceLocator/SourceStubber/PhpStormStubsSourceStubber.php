@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflection\SourceLocator\SourceStubber;
 
+use Error;
 use Generator;
 use JetBrains\PHPStormStub\PhpStormStubsMap;
+use ParseError;
 use PhpParser\BuilderFactory;
 use PhpParser\BuilderHelpers;
 use PhpParser\Comment\Doc;
@@ -280,6 +282,25 @@ final class PhpStormStubsSourceStubber implements SourceStubber
             return null;
         }
 
+        if ($classNode instanceof Node\Stmt\Class_) {
+            if (
+                $classNode->name instanceof Node\Identifier
+                && $classNode->name->toString() === ParseError::class
+                && $this->phpVersion < 70300
+            ) {
+                $classNode->extends = new Node\Name\FullyQualified(Error::class);
+            } elseif ($classNode->extends !== null) {
+                $filteredExtends = $this->filterNames([$classNode->extends]);
+                if ($filteredExtends === []) {
+                    $classNode->extends = null;
+                }
+            }
+
+            $classNode->implements = $this->filterNames($classNode->implements);
+        } elseif ($classNode instanceof Node\Stmt\Interface_) {
+            $classNode->extends = $this->filterNames($classNode->extends);
+        }
+
         $extension = $this->getExtensionFromFilePath($filePath);
         $stub      = $this->createStub($classNode);
 
@@ -290,7 +311,55 @@ final class PhpStormStubsSourceStubber implements SourceStubber
             $stub = str_replace('PS_UNRESERVE_PREFIX_throw', 'throw', $stub);
         }
 
+        if ($className === 'PDOStatement' && $this->phpVersion < 80000) {
+            $stub = str_replace('implements \IteratorAggregate', 'implements \Traversable', $stub);
+        }
+
+        if ($className === 'DatePeriod' && $this->phpVersion < 80000) {
+            $stub = str_replace('implements \IteratorAggregate', 'implements \Traversable', $stub);
+        }
+
+        if ($className === 'SplFixedArray') {
+            if ($this->phpVersion >= 80000) {
+                $stub = str_replace('implements \Iterator, ', 'implements ', $stub);
+            } else {
+                $stub = str_replace(', \IteratorAggregate', '', $stub);
+            }
+
+            $stub = str_replace(', \JsonSerializable', '', $stub);
+        }
+
+        if ($className === 'SimpleXMLElement' && $this->phpVersion < 80000) {
+            $stub = str_replace(', \RecursiveIterator', '', $stub);
+        }
+
         return new StubData($stub, $extension, $this->getAbsoluteFilePath($filePath));
+    }
+
+    /**
+     * @param Node\Name[] $names
+     *
+     * @return Node\Name[]
+     */
+    private function filterNames(array $names): array
+    {
+        $filtered = [];
+        foreach ($names as $name) {
+            $lowercaseName = $name->toLowerString();
+            if (! array_key_exists($lowercaseName, self::$classMap)) {
+                continue;
+            }
+
+            $filePath  = self::$classMap[$lowercaseName];
+            $classNode = $this->findClassNode($filePath, $lowercaseName);
+            if ($classNode === null) {
+                continue;
+            }
+
+            $filtered[] = $name;
+        }
+
+        return $filtered;
     }
 
     public function generateFunctionStub(string $functionName): ?StubData
