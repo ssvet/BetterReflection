@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\Reflection\Adapter;
 
+use Error;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass as CoreReflectionClass;
 use ReflectionEnumBackedCase as CoreReflectionEnumBackedCase;
@@ -15,7 +16,6 @@ use Roave\BetterReflection\Reflection\ReflectionAttribute as BetterReflectionAtt
 use Roave\BetterReflection\Reflection\ReflectionClass as BetterReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionEnum as BetterReflectionEnum;
 use Roave\BetterReflection\Reflection\ReflectionEnumCase as BetterReflectionEnumCase;
-use ValueError;
 
 use function array_combine;
 use function array_map;
@@ -279,7 +279,7 @@ class ReflectionEnumBackedCaseTest extends TestCase
         $betterReflectionEnumCase        = $this->createMock(BetterReflectionEnumCase::class);
         $reflectionEnumBackedCaseAdapter = new ReflectionEnumBackedCaseAdapter($betterReflectionEnumCase);
 
-        self::expectException(ValueError::class);
+        self::expectException(Error::class);
         $reflectionEnumBackedCaseAdapter->getAttributes(null, 123);
     }
 
