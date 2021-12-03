@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Roave\BetterReflectionTest\Reflection\Adapter;
 
+use Error;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass as CoreReflectionClass;
 use ReflectionParameter as CoreReflectionParameter;
@@ -19,7 +20,6 @@ use Roave\BetterReflection\Reflection\ReflectionFunction as BetterReflectionFunc
 use Roave\BetterReflection\Reflection\ReflectionMethod as BetterReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionNamedType as BetterReflectionNamedType;
 use Roave\BetterReflection\Reflection\ReflectionParameter as BetterReflectionParameter;
-use ValueError;
 
 use function array_combine;
 use function array_map;
@@ -289,7 +289,7 @@ class ReflectionParameterTest extends TestCase
         $betterReflectionParameter  = $this->createMock(BetterReflectionParameter::class);
         $reflectionParameterAdapter = new ReflectionParameterAdapter($betterReflectionParameter);
 
-        self::expectException(ValueError::class);
+        self::expectException(Error::class);
         $reflectionParameterAdapter->getAttributes(null, 123);
     }
 }
