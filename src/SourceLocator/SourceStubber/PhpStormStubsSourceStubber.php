@@ -222,7 +222,10 @@ final class PhpStormStubsSourceStubber implements SourceStubber
         return $classNode !== null;
     }
 
-    private function findClassNode(string $filePath, string $lowercaseName): ?Node\Stmt\ClassLike
+    /**
+     * @return array{0: Node\Stmt\ClassLike, 1: Node\Stmt\Namespace_|null}|null
+     */
+    private function findClassNode(string $filePath, string $lowercaseName): ?array
     {
         if (! array_key_exists($lowercaseName, $this->classNodes)) {
             $this->parseFile($filePath);
@@ -250,7 +253,10 @@ final class PhpStormStubsSourceStubber implements SourceStubber
         return $functionNode !== null;
     }
 
-    private function findFunctionNode(string $filePath, string $lowercaseFunctionName): ?Node\Stmt\Function_
+    /**
+     * @return array{0: Node\Stmt\Function_, 1: Node\Stmt\Namespace_|null}|null
+     */
+    private function findFunctionNode(string $filePath, string $lowercaseFunctionName): ?array
     {
         if (! array_key_exists($lowercaseFunctionName, $this->functionNodes)) {
             $this->parseFile($filePath);
@@ -276,12 +282,13 @@ final class PhpStormStubsSourceStubber implements SourceStubber
             return null;
         }
 
-        $filePath  = self::$classMap[$lowercaseClassName];
-        $classNode = $this->findClassNode($filePath, $lowercaseClassName);
-        if ($classNode === null) {
+        $filePath      = self::$classMap[$lowercaseClassName];
+        $classNodeData = $this->findClassNode($filePath, $lowercaseClassName);
+        if ($classNodeData === null) {
             return null;
         }
 
+        [$classNode] = $classNodeData;
         if ($classNode instanceof Node\Stmt\Class_) {
             if (
                 $classNode->name instanceof Node\Identifier
@@ -302,7 +309,7 @@ final class PhpStormStubsSourceStubber implements SourceStubber
         }
 
         $extension = $this->getExtensionFromFilePath($filePath);
-        $stub      = $this->createStub($classNode);
+        $stub      = $this->createStub($classNodeData);
 
         if ($className === Traversable::class) {
             // See https://github.com/JetBrains/phpstorm-stubs/commit/0778a26992c47d7dbee4d0b0bfb7fad4344371b1#diff-575bacb45377d474336c71cbf53c1729
@@ -370,15 +377,15 @@ final class PhpStormStubsSourceStubber implements SourceStubber
             return null;
         }
 
-        $filePath     = self::$functionMap[$lowercaseFunctionName];
-        $functionNode = $this->findFunctionNode($filePath, $lowercaseFunctionName);
-        if ($functionNode === null) {
+        $filePath         = self::$functionMap[$lowercaseFunctionName];
+        $functionNodeData = $this->findFunctionNode($filePath, $lowercaseFunctionName);
+        if ($functionNodeData === null) {
             return null;
         }
 
         $extension = $this->getExtensionFromFilePath($filePath);
 
-        return new StubData($this->createStub($functionNode), $extension, $this->getAbsoluteFilePath($filePath));
+        return new StubData($this->createStub($functionNodeData), $extension, $this->getAbsoluteFilePath($filePath));
     }
 
     public function generateConstantStub(string $constantName): ?StubData
