@@ -1,0 +1,182 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Parameter \\#1 \\$callback of function array_map expects \\(callable\\(PhpParser\\\\Node\\\\Arg\\|PhpParser\\\\Node\\\\VariadicPlaceholder\\)\\: mixed\\)\\|null, Closure\\(PhpParser\\\\Node\\\\Arg\\)\\: mixed given\\.$#"
+			count: 1
+			path: src/NodeCompiler/CompileNodeToValue.php
+
+		-
+			message: "#^Method PHPStan\\\\BetterReflection\\\\Reflection\\\\Adapter\\\\ReflectionAttribute\\:\\:getName\\(\\) should return class\\-string\\<object\\> but returns string\\.$#"
+			count: 1
+			path: src/Reflection/Adapter/ReflectionAttribute.php
+
+		-
+			message: "#^Method PHPStan\\\\BetterReflection\\\\Reflection\\\\Adapter\\\\ReflectionProperty\\:\\:getType\\(\\) should return ReflectionNamedType\\|ReflectionUnionType\\|null but returns PHPStan\\\\BetterReflection\\\\Reflection\\\\Adapter\\\\ReflectionIntersectionType\\|PHPStan\\\\BetterReflection\\\\Reflection\\\\Adapter\\\\ReflectionNamedType\\|PHPStan\\\\BetterReflection\\\\Reflection\\\\Adapter\\\\ReflectionUnionType\\|null\\.$#"
+			count: 1
+			path: src/Reflection/Adapter/ReflectionProperty.php
+
+		-
+			message: "#^Cannot call method toString\\(\\) on PhpParser\\\\Node\\\\Name\\|false\\.$#"
+			count: 1
+			path: src/Reflection/ReflectionClass.php
+
+		-
+			message: "#^Method PHPStan\\\\BetterReflection\\\\Reflection\\\\ReflectionClass\\:\\:getInterfaceNames\\(\\) should return array\\<int, class\\-string\\> but returns array\\<int, string\\>\\.$#"
+			count: 1
+			path: src/Reflection/ReflectionClass.php
+
+		-
+			message: "#^Method PHPStan\\\\BetterReflection\\\\Reflection\\\\ReflectionClass\\:\\:getInterfaces\\(\\) should return array\\<class\\-string, PHPStan\\\\BetterReflection\\\\Reflection\\\\ReflectionClass\\> but returns array\\<string, PHPStan\\\\BetterReflection\\\\Reflection\\\\ReflectionClass\\>\\.$#"
+			count: 1
+			path: src/Reflection/ReflectionClass.php
+
+		-
+			message: "#^Parameter \\#1 \\$args of method PHPStan\\\\BetterReflection\\\\Reflection\\\\ReflectionFunction\\:\\:invokeArgs\\(\\) expects array\\<int, mixed\\>, array\\<int\\|string, mixed\\> given\\.$#"
+			count: 1
+			path: src/Reflection/ReflectionFunction.php
+
+		-
+			message: "#^Trying to invoke string but it might not be a callable\\.$#"
+			count: 2
+			path: src/Reflection/ReflectionFunction.php
+
+		-
+			message: "#^Parameter \\#1 \\$args of method PHPStan\\\\BetterReflection\\\\Reflection\\\\ReflectionMethod\\:\\:callStaticMethod\\(\\) expects array\\<int, mixed\\>, array\\<int\\|string, mixed\\> given\\.$#"
+			count: 1
+			path: src/Reflection/ReflectionMethod.php
+
+		-
+			message: "#^Parameter \\#2 \\$args of method PHPStan\\\\BetterReflection\\\\Reflection\\\\ReflectionMethod\\:\\:callObjectMethod\\(\\) expects array\\<int, mixed\\>, array\\<int\\|string, mixed\\> given\\.$#"
+			count: 1
+			path: src/Reflection/ReflectionMethod.php
+
+		-
+			message: "#^Parameter \\#2 \\$args of method PHPStan\\\\BetterReflection\\\\Reflection\\\\ReflectionMethod\\:\\:invokeArgs\\(\\) expects array\\<int, mixed\\>, array\\<int\\|string, mixed\\> given\\.$#"
+			count: 1
+			path: src/Reflection/ReflectionMethod.php
+
+		-
+			message: "#^Method PHPStan\\\\BetterReflection\\\\Reflector\\\\ClassReflector\\:\\:getAllClasses\\(\\) should return array\\<PHPStan\\\\BetterReflection\\\\Reflection\\\\ReflectionClass\\> but returns iterable\\<int, PHPStan\\\\BetterReflection\\\\Reflection\\\\ReflectionClass\\>\\.$#"
+			count: 1
+			path: src/Reflector/ClassReflector.php
+
+		-
+			message: "#^Method PHPStan\\\\BetterReflection\\\\Reflector\\\\ConstantReflector\\:\\:getAllConstants\\(\\) should return array\\<PHPStan\\\\BetterReflection\\\\Reflection\\\\ReflectionConstant\\> but returns iterable\\<int, PHPStan\\\\BetterReflection\\\\Reflection\\\\ReflectionConstant\\>\\.$#"
+			count: 1
+			path: src/Reflector/ConstantReflector.php
+
+		-
+			message: "#^Method PHPStan\\\\BetterReflection\\\\Reflector\\\\FunctionReflector\\:\\:getAllFunctions\\(\\) should return array\\<PHPStan\\\\BetterReflection\\\\Reflection\\\\ReflectionFunction\\> but returns iterable\\<int, PHPStan\\\\BetterReflection\\\\Reflection\\\\ReflectionFunction\\>\\.$#"
+			count: 1
+			path: src/Reflector/FunctionReflector.php
+
+		-
+			message: "#^Parameter \\#1 \\$code of method PhpParser\\\\Parser\\:\\:parse\\(\\) expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/SourceLocator/SourceStubber/PhpStormStubsSourceStubber.php
+
+		-
+			message: "#^Property PHPStan\\\\BetterReflection\\\\SourceLocator\\\\Type\\\\AggregateSourceLocator\\:\\:\\$sourceLocators \\(array\\<int, PHPStan\\\\BetterReflection\\\\SourceLocator\\\\Type\\\\SourceLocator\\>\\) does not accept array\\<int\\|string, PHPStan\\\\BetterReflection\\\\SourceLocator\\\\Type\\\\SourceLocator\\>\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/AggregateSourceLocator.php
+
+		-
+			message: "#^Parameter \\#1 \\$code of method PhpParser\\\\Parser\\:\\:parse\\(\\) expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/AnonymousClassObjectSourceLocator.php
+
+		-
+			message: "#^Parameter \\#1 \\$filename of static method PHPStan\\\\BetterReflection\\\\SourceLocator\\\\FileChecker\\:\\:assertReadableFile\\(\\) expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/AnonymousClassObjectSourceLocator.php
+
+		-
+			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/AnonymousClassObjectSourceLocator.php
+
+		-
+			message: "#^Parameter \\#1 \\$path of static method PHPStan\\\\BetterReflection\\\\Util\\\\FileHelper\\:\\:normalizeWindowsPath\\(\\) expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/AnonymousClassObjectSourceLocator.php
+
+		-
+			message: "#^Parameter \\#1 \\$source of class PHPStan\\\\BetterReflection\\\\SourceLocator\\\\Located\\\\AnonymousLocatedSource constructor expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/AnonymousClassObjectSourceLocator.php
+
+		-
+			message: "#^Parameter \\#2 \\$startLine of class class@anonymous/SourceLocator/Type/AnonymousClassObjectSourceLocator\\.php\\:\\d+ constructor expects int, int\\|false given\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/AnonymousClassObjectSourceLocator.php
+
+		-
+			message: "#^Parameter \\#1 \\$code of method PhpParser\\\\Parser\\:\\:parse\\(\\) expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/AutoloadSourceLocator.php
+
+		-
+			message: "#^Parameter \\#1 \\$source of class PHPStan\\\\BetterReflection\\\\SourceLocator\\\\Located\\\\AliasLocatedSource constructor expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/AutoloadSourceLocator.php
+
+		-
+			message: "#^Parameter \\#1 \\$source of class PHPStan\\\\BetterReflection\\\\SourceLocator\\\\Located\\\\LocatedSource constructor expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/AutoloadSourceLocator.php
+
+		-
+			message: "#^Parameter \\#1 \\$code of method PhpParser\\\\Parser\\:\\:parse\\(\\) expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/ClosureSourceLocator.php
+
+		-
+			message: "#^Parameter \\#1 \\$filename of static method PHPStan\\\\BetterReflection\\\\SourceLocator\\\\FileChecker\\:\\:assertReadableFile\\(\\) expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/ClosureSourceLocator.php
+
+		-
+			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/ClosureSourceLocator.php
+
+		-
+			message: "#^Parameter \\#1 \\$path of static method PHPStan\\\\BetterReflection\\\\Util\\\\FileHelper\\:\\:normalizeWindowsPath\\(\\) expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/ClosureSourceLocator.php
+
+		-
+			message: "#^Parameter \\#1 \\$source of class PHPStan\\\\BetterReflection\\\\SourceLocator\\\\Located\\\\AnonymousLocatedSource constructor expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/ClosureSourceLocator.php
+
+		-
+			message: "#^Parameter \\#2 \\$startLine of class class@anonymous/SourceLocator/Type/ClosureSourceLocator\\.php\\:\\d+ constructor expects int, int\\|false given\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/ClosureSourceLocator.php
+
+		-
+			message: "#^Parameter \\#1 \\$source of class PHPStan\\\\BetterReflection\\\\SourceLocator\\\\Located\\\\LocatedSource constructor expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/Composer/PsrAutoloaderLocator.php
+
+		-
+			message: "#^Parameter \\#1 \\$source of class PHPStan\\\\BetterReflection\\\\SourceLocator\\\\Located\\\\LocatedSource constructor expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/ComposerSourceLocator.php
+
+		-
+			message: "#^Parameter \\#1 \\$fileName of class PHPStan\\\\BetterReflection\\\\SourceLocator\\\\Type\\\\SingleFileSourceLocator constructor expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/FileIteratorSourceLocator.php
+
+		-
+			message: "#^Parameter \\#1 \\$path of function pathinfo expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/FileIteratorSourceLocator.php
+
+		-
+			message: "#^Parameter \\#1 \\$source of class PHPStan\\\\BetterReflection\\\\SourceLocator\\\\Located\\\\LocatedSource constructor expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/SourceLocator/Type/SingleFileSourceLocator.php
+
