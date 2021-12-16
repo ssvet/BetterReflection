@@ -22,8 +22,6 @@ use ValueError;
 use function array_map;
 use function func_get_args;
 
-use const PHP_VERSION_ID;
-
 final class ReflectionFunction extends CoreReflectionFunction
 {
     public function __construct(private BetterReflectionFunction $betterReflectionFunction)
@@ -265,7 +263,7 @@ final class ReflectionFunction extends CoreReflectionFunction
     /**
      * @param class-string|null $name
      *
-     * @return list<ReflectionAttribute>
+     * @return list<ReflectionAttribute|FakeReflectionAttribute>
      */
     public function getAttributes(?string $name = null, int $flags = 0): array
     {
@@ -273,15 +271,7 @@ final class ReflectionFunction extends CoreReflectionFunction
             throw new ValueError('Argument #2 ($flags) must be a valid attribute filter flag');
         }
 
-        if (PHP_VERSION_ID >= 80000 && PHP_VERSION_ID < 80012) {
-            return [];
-        }
-
-        if (PHP_VERSION_ID < 70200) {
-            return [];
-        }
-
-        if ($name !== null && $flags & ReflectionAttribute::IS_INSTANCEOF) {
+        if ($name !== null && $flags !== 0) {
             $attributes = $this->betterReflectionFunction->getAttributesByInstance($name);
         } elseif ($name !== null) {
             $attributes = $this->betterReflectionFunction->getAttributesByName($name);
@@ -289,6 +279,6 @@ final class ReflectionFunction extends CoreReflectionFunction
             $attributes = $this->betterReflectionFunction->getAttributes();
         }
 
-        return array_map(static fn (BetterReflectionAttribute $betterReflectionAttribute): ReflectionAttribute => new ReflectionAttribute($betterReflectionAttribute), $attributes);
+        return array_map(static fn (BetterReflectionAttribute $betterReflectionAttribute): ReflectionAttribute|FakeReflectionAttribute => ReflectionAttributeFactory::create($betterReflectionAttribute), $attributes);
     }
 }
