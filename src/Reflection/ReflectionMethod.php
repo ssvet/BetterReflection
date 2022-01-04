@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Reflection;
+namespace PHPStan\BetterReflection\Reflection;
 
 use Closure;
 use OutOfBoundsException;
@@ -12,13 +12,13 @@ use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Namespace_ as NamespaceNode;
 use ReflectionException;
 use ReflectionMethod as CoreReflectionMethod;
-use Roave\BetterReflection\Reflection\Exception\ClassDoesNotExist;
-use Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
-use Roave\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass;
-use Roave\BetterReflection\Reflection\StringCast\ReflectionMethodStringCast;
-use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use Roave\BetterReflection\Reflector\Reflector;
-use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use PHPStan\BetterReflection\Reflection\Exception\ClassDoesNotExist;
+use PHPStan\BetterReflection\Reflection\Exception\NoObjectProvided;
+use PHPStan\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass;
+use PHPStan\BetterReflection\Reflection\StringCast\ReflectionMethodStringCast;
+use PHPStan\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use PHPStan\BetterReflection\Reflector\Reflector;
+use PHPStan\BetterReflection\SourceLocator\Located\LocatedSource;
 
 use function assert;
 use function class_exists;
@@ -35,7 +35,7 @@ class ReflectionMethod
      */
     private $methodNode;
     /**
-     * @var \Roave\BetterReflection\Reflector\Reflector
+     * @var \PHPStan\BetterReflection\Reflector\Reflector
      */
     private $reflector;
     /**
@@ -43,7 +43,7 @@ class ReflectionMethod
      */
     private $node;
     /**
-     * @var \Roave\BetterReflection\SourceLocator\Located\LocatedSource
+     * @var \PHPStan\BetterReflection\SourceLocator\Located\LocatedSource
      */
     private $locatedSource;
     /**
@@ -51,15 +51,15 @@ class ReflectionMethod
      */
     private $declaringNamespace;
     /**
-     * @var \Roave\BetterReflection\Reflection\ReflectionClass
+     * @var \PHPStan\BetterReflection\Reflection\ReflectionClass
      */
     private $declaringClass;
     /**
-     * @var \Roave\BetterReflection\Reflection\ReflectionClass
+     * @var \PHPStan\BetterReflection\Reflection\ReflectionClass
      */
     private $implementingClass;
     /**
-     * @var \Roave\BetterReflection\Reflection\ReflectionClass
+     * @var \PHPStan\BetterReflection\Reflection\ReflectionClass
      */
     private $currentClass;
     /**

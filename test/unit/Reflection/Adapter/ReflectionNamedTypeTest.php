@@ -7,15 +7,15 @@ namespace Roave\BetterReflectionTest\Reflection\Adapter;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass as CoreReflectionClass;
 use ReflectionNamedType as CoreReflectionNamedType;
-use Roave\BetterReflection\Reflection\Adapter\ReflectionNamedType as ReflectionNamedTypeAdapter;
-use Roave\BetterReflection\Reflection\ReflectionNamedType as BetterReflectionNamedType;
+use PHPStan\BetterReflection\Reflection\Adapter\ReflectionNamedType as ReflectionNamedTypeAdapter;
+use PHPStan\BetterReflection\Reflection\ReflectionNamedType as BetterReflectionNamedType;
 
 use function array_combine;
 use function array_map;
 use function get_class_methods;
 
 /**
- * @covers \Roave\BetterReflection\Reflection\Adapter\ReflectionNamedType
+ * @covers \PHPStan\BetterReflection\Reflection\Adapter\ReflectionNamedType
  */
 class ReflectionNamedTypeTest extends TestCase
 {
