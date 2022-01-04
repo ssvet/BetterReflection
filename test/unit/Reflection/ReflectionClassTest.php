@@ -2536,4 +2536,35 @@ PHP;
         $fooBarDoFooMethod = $fooBar->getMethod('doFoo');
         self::assertTrue($fooBarDoFooMethod->isPublic());
     }
+
+    public function testChildClassDoesNotHaveRenamedTraitMethodFromParent(): void
+    {
+        $php            = <<<'PHP'
+            <?php
+
+            trait someTrait {
+                public function someNumber():int {
+                    return 10;
+                }
+            }
+
+            class ParentClass {
+                use someTrait {
+                    someNumber as myNumber;
+                }
+            }
+
+            class SubClass extends ParentClass {
+
+            }
+        PHP;
+        $reflector      = new DefaultReflector(new MemoizingSourceLocator(new StringSourceLocator($php, $this->astLocator)));
+        $parentClass = $reflector->reflectClass('ParentClass');
+        self::assertFalse($parentClass->hasMethod('someNumber'));
+        self::assertTrue($parentClass->hasMethod('myNumber'));
+
+        $subClass = $reflector->reflectClass('SubClass');
+        self::assertFalse($subClass->hasMethod('someNumber'));
+        self::assertTrue($subClass->hasMethod('myNumber'));
+    }
 }
