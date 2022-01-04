@@ -29,16 +29,36 @@ class ReflectionFunction implements Reflection
 
     public const CLOSURE_NAME = '{closure}';
 
-    private Node\Stmt\Function_|Node\Expr\Closure|Node\Expr\ArrowFunction $functionNode;
-
-    private function __construct(
-        private Reflector $reflector,
-        private Node\Stmt\ClassMethod|Node\Stmt\Function_|Node\Expr\Closure|Node\Expr\ArrowFunction $node,
-        private LocatedSource $locatedSource,
-        private ?NamespaceNode $declaringNamespace = null,
-    ) {
+    /**
+     * @var \PhpParser\Node\Expr\ArrowFunction|\PhpParser\Node\Expr\Closure|\PhpParser\Node\Stmt\Function_
+     */
+    private $functionNode;
+    /**
+     * @var \Roave\BetterReflection\Reflector\Reflector
+     */
+    private $reflector;
+    /**
+     * @var \PhpParser\Node\Expr\ArrowFunction|\PhpParser\Node\Expr\Closure|\PhpParser\Node\Stmt\ClassMethod|\PhpParser\Node\Stmt\Function_
+     */
+    private $node;
+    /**
+     * @var \Roave\BetterReflection\SourceLocator\Located\LocatedSource
+     */
+    private $locatedSource;
+    /**
+     * @var NamespaceNode|null
+     */
+    private $declaringNamespace;
+    /**
+     * @param \PhpParser\Node\Expr\ArrowFunction|\PhpParser\Node\Expr\Closure|\PhpParser\Node\Stmt\ClassMethod|\PhpParser\Node\Stmt\Function_ $node
+     */
+    private function __construct(Reflector $reflector, $node, LocatedSource $locatedSource, ?NamespaceNode $declaringNamespace = null)
+    {
+        $this->reflector = $reflector;
+        $this->node = $node;
+        $this->locatedSource = $locatedSource;
+        $this->declaringNamespace = $declaringNamespace;
         assert($node instanceof Node\Stmt\Function_ || $node instanceof Node\Expr\Closure || $node instanceof Node\Expr\ArrowFunction);
-
         $this->functionNode = $node;
     }
 
@@ -72,13 +92,10 @@ class ReflectionFunction implements Reflection
 
     /**
      * @internal
+     * @param \PhpParser\Node\Expr\ArrowFunction|\PhpParser\Node\Expr\Closure|\PhpParser\Node\Stmt\Function_ $node
      */
-    public static function createFromNode(
-        Reflector $reflector,
-        Node\Stmt\Function_|Node\Expr\Closure|Node\Expr\ArrowFunction $node,
-        LocatedSource $locatedSource,
-        ?NamespaceNode $namespaceNode = null,
-    ): self {
+    public static function createFromNode(Reflector $reflector, $node, LocatedSource $locatedSource, ?NamespaceNode $namespaceNode = null): self
+    {
         return new self($reflector, $node, $locatedSource, $namespaceNode);
     }
 
@@ -139,14 +156,18 @@ class ReflectionFunction implements Reflection
 
         $this->assertFunctionExist($functionName);
 
-        return static fn (mixed ...$args): mixed => $functionName(...$args);
+        return static function (...$args) use ($functionName) {
+            return $functionName(...$args);
+        };
     }
 
     /**
      * @throws NotImplemented
      * @throws FunctionDoesNotExist
+     * @param mixed ...$args
+     * @return mixed
      */
-    public function invoke(mixed ...$args): mixed
+    public function invoke(...$args)
     {
         return $this->invokeArgs($args);
     }
@@ -156,8 +177,9 @@ class ReflectionFunction implements Reflection
      *
      * @throws NotImplemented
      * @throws FunctionDoesNotExist
+     * @return mixed
      */
-    public function invokeArgs(array $args = []): mixed
+    public function invokeArgs(array $args = [])
     {
         $this->assertIsNoClosure();
 

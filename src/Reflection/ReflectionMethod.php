@@ -30,46 +30,64 @@ class ReflectionMethod
 {
     use ReflectionFunctionAbstract;
 
-    private MethodNode $methodNode;
-
-    private function __construct(
-        private Reflector $reflector,
-        private MethodNode|Node\Stmt\Function_|Node\Expr\Closure|Node\Expr\ArrowFunction $node,
-        private LocatedSource $locatedSource,
-        private ?NamespaceNode $declaringNamespace,
-        private ReflectionClass $declaringClass,
-        private ReflectionClass $implementingClass,
-        private ReflectionClass $currentClass,
-        private ?string $aliasName,
-    ) {
+    /**
+     * @var MethodNode
+     */
+    private $methodNode;
+    /**
+     * @var \Roave\BetterReflection\Reflector\Reflector
+     */
+    private $reflector;
+    /**
+     * @var MethodNode|\PhpParser\Node\Expr\ArrowFunction|\PhpParser\Node\Expr\Closure|\PhpParser\Node\Stmt\Function_
+     */
+    private $node;
+    /**
+     * @var \Roave\BetterReflection\SourceLocator\Located\LocatedSource
+     */
+    private $locatedSource;
+    /**
+     * @var NamespaceNode|null
+     */
+    private $declaringNamespace;
+    /**
+     * @var \Roave\BetterReflection\Reflection\ReflectionClass
+     */
+    private $declaringClass;
+    /**
+     * @var \Roave\BetterReflection\Reflection\ReflectionClass
+     */
+    private $implementingClass;
+    /**
+     * @var \Roave\BetterReflection\Reflection\ReflectionClass
+     */
+    private $currentClass;
+    /**
+     * @var string|null
+     */
+    private $aliasName;
+    /**
+     * @param MethodNode|\PhpParser\Node\Expr\ArrowFunction|\PhpParser\Node\Expr\Closure|\PhpParser\Node\Stmt\Function_ $node
+     */
+    private function __construct(Reflector $reflector, $node, LocatedSource $locatedSource, ?NamespaceNode $declaringNamespace, ReflectionClass $declaringClass, ReflectionClass $implementingClass, ReflectionClass $currentClass, ?string $aliasName)
+    {
+        $this->reflector = $reflector;
+        $this->node = $node;
+        $this->locatedSource = $locatedSource;
+        $this->declaringNamespace = $declaringNamespace;
+        $this->declaringClass = $declaringClass;
+        $this->implementingClass = $implementingClass;
+        $this->currentClass = $currentClass;
+        $this->aliasName = $aliasName;
         assert($node instanceof MethodNode);
-
         $this->methodNode = $node;
     }
-
     /**
      * @internal
      */
-    public static function createFromNode(
-        Reflector $reflector,
-        MethodNode $node,
-        LocatedSource $locatedSource,
-        ?Namespace_ $namespace,
-        ReflectionClass $declaringClass,
-        ReflectionClass $implementingClass,
-        ReflectionClass $currentClass,
-        ?string $aliasName = null,
-    ): self {
-        return new self(
-            $reflector,
-            $node,
-            $locatedSource,
-            $namespace,
-            $declaringClass,
-            $implementingClass,
-            $currentClass,
-            $aliasName,
-        );
+    public static function createFromNode(Reflector $reflector, MethodNode $node, LocatedSource $locatedSource, ?Namespace_ $namespace, ReflectionClass $declaringClass, ReflectionClass $implementingClass, ReflectionClass $currentClass, ?string $aliasName = null): self
+    {
+        return new self($reflector, $node, $locatedSource, $namespace, $declaringClass, $implementingClass, $currentClass, $aliasName);
     }
 
     /**
@@ -89,8 +107,9 @@ class ReflectionMethod
      * @throws ReflectionException
      * @throws IdentifierNotFound
      * @throws OutOfBoundsException
+     * @param object $instance
      */
-    public static function createFromInstance(object $instance, string $methodName): self
+    public static function createFromInstance($instance, string $methodName): self
     {
         return ReflectionClass::createFromInstance($instance)->getMethod($methodName);
     }
@@ -148,11 +167,7 @@ class ReflectionMethod
             }
         }
 
-        throw new Exception\MethodPrototypeNotFound(sprintf(
-            'Method %s::%s does not have a prototype',
-            $this->getDeclaringClass()->getName(),
-            $this->getName(),
-        ));
+        throw new Exception\MethodPrototypeNotFound(sprintf('Method %s::%s does not have a prototype', $this->getDeclaringClass()->getName(), $this->getName()));
     }
 
     private function findPrototype(): ?self
@@ -167,7 +182,7 @@ class ReflectionMethod
 
         try {
             return $this->getPrototype();
-        } catch (Exception\MethodPrototypeNotFound) {
+        } catch (Exception\MethodPrototypeNotFound $exception) {
             return $this;
         }
     }
@@ -308,28 +323,36 @@ class ReflectionMethod
      * @throws ClassDoesNotExist
      * @throws NoObjectProvided
      * @throws ObjectNotInstanceOfClass
+     * @param object|null $object
      */
-    public function getClosure(?object $object = null): Closure
+    public function getClosure($object = null): Closure
     {
         $declaringClassName = $this->getDeclaringClass()->getName();
 
         if ($this->isStatic()) {
             $this->assertClassExist($declaringClassName);
 
-            return fn (mixed ...$args): mixed => $this->callStaticMethod($args);
+            return function (...$args) {
+                return $this->callStaticMethod($args);
+            };
         }
 
         $instance = $this->assertObject($object);
 
-        return fn (mixed ...$args): mixed => $this->callObjectMethod($instance, $args);
+        return function (...$args) use ($instance) {
+            return $this->callObjectMethod($instance, $args);
+        };
     }
 
     /**
      * @throws ClassDoesNotExist
      * @throws NoObjectProvided
      * @throws ObjectNotInstanceOfClass
+     * @param mixed ...$args
+     * @return mixed
+     * @param object|null $object
      */
-    public function invoke(?object $object = null, mixed ...$args): mixed
+    public function invoke($object = null, ...$args)
     {
         return $this->invokeArgs($object, $args);
     }
@@ -340,8 +363,10 @@ class ReflectionMethod
      * @throws ClassDoesNotExist
      * @throws NoObjectProvided
      * @throws ObjectNotInstanceOfClass
+     * @return mixed
+     * @param object|null $object
      */
-    public function invokeArgs(?object $object = null, array $args = []): mixed
+    public function invokeArgs($object = null, array $args = [])
     {
         $implementingClassName = $this->getImplementingClass()->getName();
 
@@ -356,13 +381,16 @@ class ReflectionMethod
 
     /**
      * @param list<mixed> $args
+     * @return mixed
      */
-    private function callStaticMethod(array $args): mixed
+    private function callStaticMethod(array $args)
     {
         $implementingClassName = $this->getImplementingClass()->getName();
 
         /** @psalm-suppress InvalidStringClass */
-        $closure = Closure::bind(fn (string $implementingClassName, string $methodName, array $methodArgs): mixed => $implementingClassName::{$methodName}(...$methodArgs), null, $implementingClassName);
+        $closure = Closure::bind(function (string $implementingClassName, string $methodName, array $methodArgs) {
+            return $implementingClassName::{$methodName}(...$methodArgs);
+        }, null, $implementingClassName);
 
         assert($closure instanceof Closure);
 
@@ -371,10 +399,14 @@ class ReflectionMethod
 
     /**
      * @param list<mixed> $args
+     * @return mixed
+     * @param object $object
      */
-    private function callObjectMethod(object $object, array $args): mixed
+    private function callObjectMethod($object, array $args)
     {
-        $closure = Closure::bind(fn (object $object, string $methodName, array $methodArgs): mixed => $object->{$methodName}(...$methodArgs), $object, $this->getImplementingClass()->getName());
+        $closure = Closure::bind(function ($object, string $methodName, array $methodArgs) {
+            return $object->{$methodName}(...$methodArgs);
+        }, $object, $this->getImplementingClass()->getName());
 
         assert($closure instanceof Closure);
 
@@ -394,8 +426,10 @@ class ReflectionMethod
     /**
      * @throws NoObjectProvided
      * @throws ObjectNotInstanceOfClass
+     * @param object|null $object
+     * @return object
      */
-    private function assertObject(?object $object): object
+    private function assertObject($object)
     {
         if ($object === null) {
             throw NoObjectProvided::create();
@@ -403,7 +437,7 @@ class ReflectionMethod
 
         $implementingClassName = $this->getImplementingClass()->getName();
 
-        if ($object::class !== $implementingClassName) {
+        if (get_class($object) !== $implementingClassName) {
             throw ObjectNotInstanceOfClass::fromClassName($implementingClassName);
         }
 

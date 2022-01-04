@@ -38,7 +38,9 @@ class ReflectionFunctionTest extends TestCase
     {
         $methods = get_class_methods(CoreReflectionFunction::class);
 
-        return array_combine($methods, array_map(static fn (string $i): array => [$i], $methods));
+        return array_combine($methods, array_map(static function (string $i) : array {
+            return [$i];
+        }, $methods));
     }
 
     /**
@@ -109,40 +111,29 @@ class ReflectionFunctionTest extends TestCase
      * @param list<mixed> $args
      *
      * @dataProvider methodExpectationProvider
+     * @param mixed $returnValue
+     * @param mixed $expectedReturnValue
      */
-    public function testAdapterMethods(
-        string $methodName,
-        array $args,
-        mixed $returnValue,
-        ?string $expectedException,
-        mixed $expectedReturnValue,
-        ?string $expectedReturnValueInstance,
-    ): void {
+    public function testAdapterMethods(string $methodName, array $args, $returnValue, ?string $expectedException, $expectedReturnValue, ?string $expectedReturnValueInstance): void
+    {
         $reflectionStub = $this->createMock(BetterReflectionFunction::class);
-
         if ($expectedException === null) {
             $reflectionStub->expects($this->once())
                 ->method($methodName)
                 ->with(...$args)
                 ->willReturn($returnValue);
         }
-
         $adapter = new ReflectionFunctionAdapter($reflectionStub);
-
         if ($expectedException !== null) {
             $this->expectException($expectedException);
         }
-
         $actualReturnValue = $adapter->{$methodName}(...$args);
-
         if ($expectedReturnValue !== null) {
             self::assertSame($expectedReturnValue, $actualReturnValue);
         }
-
         if ($expectedReturnValueInstance === null) {
             return;
         }
-
         if (is_array($actualReturnValue)) {
             self::assertNotEmpty($actualReturnValue);
             self::assertContainsOnlyInstancesOf($expectedReturnValueInstance, $actualReturnValue);
