@@ -29,7 +29,9 @@ class ReflectionClassConstantTest extends TestCase
     {
         $methods = get_class_methods(CoreReflectionClassConstant::class);
 
-        return array_combine($methods, array_map(static fn (string $i): array => [$i], $methods));
+        return array_combine($methods, array_map(static function (string $i) : array {
+            return [$i];
+        }, $methods));
     }
 
     /**
@@ -64,8 +66,9 @@ class ReflectionClassConstantTest extends TestCase
      * @param list<mixed> $args
      *
      * @dataProvider methodExpectationProvider
+     * @param mixed $returnValue
      */
-    public function testAdapterMethods(string $methodName, ?string $expectedException, mixed $returnValue, array $args): void
+    public function testAdapterMethods(string $methodName, ?string $expectedException, $returnValue, array $args): void
     {
         $reflectionStub = $this->createMock(BetterReflectionClassConstant::class);
 
@@ -97,8 +100,9 @@ class ReflectionClassConstantTest extends TestCase
 
     /**
      * @dataProvider dataAdapterMethodsForEnumCase
+     * @param mixed $expectedValue
      */
-    public function testAdapterMethodsForEnumCase(string $methodName, mixed $expectedValue): void
+    public function testAdapterMethodsForEnumCase(string $methodName, $expectedValue): void
     {
         $reflectionClassConstantAdapter = new ReflectionClassConstantAdapter($this->createMock(BetterReflectionEnumCase::class));
 
@@ -310,8 +314,9 @@ class ReflectionClassConstantTest extends TestCase
 
     /**
      * @dataProvider dataIsEnumCase
+     * @param BetterReflectionClassConstant|BetterReflectionEnumCase $classConstantOrEnum
      */
-    public function testIsEnumCase(BetterReflectionClassConstant|BetterReflectionEnumCase $classConstantOrEnum, bool $isEnumCase): void
+    public function testIsEnumCase($classConstantOrEnum, bool $isEnumCase): void
     {
         $reflectionClassConstantAdapter = new ReflectionClassConstantAdapter($classConstantOrEnum);
 

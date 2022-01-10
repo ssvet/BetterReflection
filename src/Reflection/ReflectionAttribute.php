@@ -14,14 +14,32 @@ use Roave\BetterReflection\Reflector\Reflector;
 
 class ReflectionAttribute
 {
-    public function __construct(
-        private Reflector $reflector,
-        private Node\Attribute $node,
-        private ReflectionClass|ReflectionMethod|ReflectionFunction|ReflectionClassConstant|ReflectionEnumCase|ReflectionProperty|ReflectionParameter $owner,
-        private bool $isRepeated,
-    ) {
+    /**
+     * @var \Roave\BetterReflection\Reflector\Reflector
+     */
+    private $reflector;
+    /**
+     * @var \PhpParser\Node\Attribute
+     */
+    private $node;
+    /**
+     * @var \Roave\BetterReflection\Reflection\ReflectionClass|\Roave\BetterReflection\Reflection\ReflectionClassConstant|\Roave\BetterReflection\Reflection\ReflectionEnumCase|\Roave\BetterReflection\Reflection\ReflectionFunction|\Roave\BetterReflection\Reflection\ReflectionMethod|\Roave\BetterReflection\Reflection\ReflectionParameter|\Roave\BetterReflection\Reflection\ReflectionProperty
+     */
+    private $owner;
+    /**
+     * @var bool
+     */
+    private $isRepeated;
+    /**
+     * @param \Roave\BetterReflection\Reflection\ReflectionClass|\Roave\BetterReflection\Reflection\ReflectionClassConstant|\Roave\BetterReflection\Reflection\ReflectionEnumCase|\Roave\BetterReflection\Reflection\ReflectionFunction|\Roave\BetterReflection\Reflection\ReflectionMethod|\Roave\BetterReflection\Reflection\ReflectionParameter|\Roave\BetterReflection\Reflection\ReflectionProperty $owner
+     */
+    public function __construct(Reflector $reflector, Node\Attribute $node, $owner, bool $isRepeated)
+    {
+        $this->reflector = $reflector;
+        $this->node = $node;
+        $this->owner = $owner;
+        $this->isRepeated = $isRepeated;
     }
-
     public function getName(): string
     {
         return $this->node->name->toString();
@@ -44,7 +62,7 @@ class ReflectionAttribute
 
         foreach ($this->node->args as $argNo => $arg) {
             $argValue                                     = $compiler->__invoke($arg->value, $context)->value;
-            $arguments[$arg->name?->toString() ?? $argNo] = $argValue;
+            $arguments[(($argName = $arg->name) ? $argName->toString() : null) ?? $argNo] = $argValue;
         }
 
         return $arguments;
@@ -52,16 +70,24 @@ class ReflectionAttribute
 
     public function getTarget(): int
     {
-        return match (true) {
-            $this->owner instanceof ReflectionClass => Attribute::TARGET_CLASS,
-            $this->owner instanceof ReflectionFunction => Attribute::TARGET_FUNCTION,
-            $this->owner instanceof ReflectionMethod => Attribute::TARGET_METHOD,
-            $this->owner instanceof ReflectionProperty => Attribute::TARGET_PROPERTY,
-            $this->owner instanceof ReflectionClassConstant => Attribute::TARGET_CLASS_CONSTANT,
-            $this->owner instanceof ReflectionEnumCase => Attribute::TARGET_CLASS_CONSTANT,
-            $this->owner instanceof ReflectionParameter => Attribute::TARGET_PARAMETER,
-            default => throw new LogicException('unknown owner'), // @phpstan-ignore-line
-        };
+        switch (true) {
+            case $this->owner instanceof ReflectionClass:
+                return Attribute::TARGET_CLASS;
+            case $this->owner instanceof ReflectionFunction:
+                return Attribute::TARGET_FUNCTION;
+            case $this->owner instanceof ReflectionMethod:
+                return Attribute::TARGET_METHOD;
+            case $this->owner instanceof ReflectionProperty:
+                return Attribute::TARGET_PROPERTY;
+            case $this->owner instanceof ReflectionClassConstant:
+                return Attribute::TARGET_CLASS_CONSTANT;
+            case $this->owner instanceof ReflectionEnumCase:
+                return Attribute::TARGET_CLASS_CONSTANT;
+            case $this->owner instanceof ReflectionParameter:
+                return Attribute::TARGET_PARAMETER;
+            default:
+                throw new LogicException('unknown owner');
+        }
     }
 
     public function isRepeated(): bool

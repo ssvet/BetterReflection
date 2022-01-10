@@ -23,32 +23,33 @@ use function assert;
 class ReflectionEnum extends ReflectionClass
 {
     /** @var array<string, ReflectionEnumCase>|null */
-    private ?array $cachedCases = null;
-
+    private $cachedCases;
+    /**
+     * @var \Roave\BetterReflection\Reflector\Reflector
+     */
+    private $reflector;
+    /**
+     * @var EnumNode
+     */
+    private $node;
     /**
      * @phpcs:disable Generic.CodeAnalysis.UselessOverridingMethod.Found
      */
-    protected function __construct(
-        private Reflector $reflector,
-        private EnumNode $node,
-        LocatedSource $locatedSource,
-        ?NamespaceNode $declaringNamespace = null,
-    ) {
+    protected function __construct(Reflector $reflector, EnumNode $node, LocatedSource $locatedSource, ?NamespaceNode $declaringNamespace = null)
+    {
+        $this->reflector = $reflector;
+        $this->node = $node;
         parent::__construct($reflector, $node, $locatedSource, $declaringNamespace);
     }
-
     /**
      * @internal
+     * @param ClassNode|EnumNode|InterfaceNode|TraitNode $node
+     * @return $this
      */
-    public static function createFromNode(
-        Reflector $reflector,
-        ClassNode|InterfaceNode|TraitNode|EnumNode $node,
-        LocatedSource $locatedSource,
-        ?NamespaceNode $namespace = null,
-    ): self {
+    public static function createFromNode(Reflector $reflector, $node, LocatedSource $locatedSource, ?NamespaceNode $namespace = null): \Roave\BetterReflection\Reflection\ReflectionClass
+    {
         $node = $node;
         assert($node instanceof EnumNode);
-
         return new self($reflector, $node, $locatedSource, $namespace);
     }
 
@@ -72,12 +73,15 @@ class ReflectionEnum extends ReflectionClass
     public function getCases(): array
     {
         if ($this->cachedCases === null) {
-            $casesNodes = array_filter($this->node->stmts, static fn (Node\Stmt $stmt): bool => $stmt instanceof Node\Stmt\EnumCase);
+            $casesNodes = array_filter($this->node->stmts, static function (Node\Stmt $stmt) : bool {
+                return $stmt instanceof Node\Stmt\EnumCase;
+            });
 
-            $this->cachedCases = array_combine(
-                array_map(static fn (Node\Stmt\EnumCase $node): string => $node->name->toString(), $casesNodes),
-                array_map(fn (Node\Stmt\EnumCase $node): ReflectionEnumCase => ReflectionEnumCase::createFromNode($this->reflector, $node, $this), $casesNodes),
-            );
+            $this->cachedCases = array_combine(array_map(static function (Node\Stmt\EnumCase $node) : string {
+                return $node->name->toString();
+            }, $casesNodes), array_map(function (Node\Stmt\EnumCase $node) : ReflectionEnumCase {
+                return ReflectionEnumCase::createFromNode($this->reflector, $node, $this);
+            }, $casesNodes));
         }
 
         return $this->cachedCases;
