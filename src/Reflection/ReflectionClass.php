@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Reflection;
+namespace PHPStan\BetterReflection\Reflection;
 
 use BackedEnum;
 use OutOfBoundsException;
@@ -18,24 +18,24 @@ use PhpParser\Node\Stmt\Trait_ as TraitNode;
 use PhpParser\Node\Stmt\TraitUse;
 use ReflectionClass as CoreReflectionClass;
 use ReflectionException;
-use Roave\BetterReflection\BetterReflection;
-use Roave\BetterReflection\Reflection\Annotation\AnnotationHelper;
-use Roave\BetterReflection\Reflection\Attribute\ReflectionAttributeHelper;
-use Roave\BetterReflection\Reflection\Exception\ClassDoesNotExist;
-use Roave\BetterReflection\Reflection\Exception\NoObjectProvided;
-use Roave\BetterReflection\Reflection\Exception\NotAClassReflection;
-use Roave\BetterReflection\Reflection\Exception\NotAnInterfaceReflection;
-use Roave\BetterReflection\Reflection\Exception\NotAnObject;
-use Roave\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass;
-use Roave\BetterReflection\Reflection\Exception\PropertyDoesNotExist;
-use Roave\BetterReflection\Reflection\Exception\Uncloneable;
-use Roave\BetterReflection\Reflection\StringCast\ReflectionClassStringCast;
-use Roave\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use Roave\BetterReflection\Reflector\Reflector;
-use Roave\BetterReflection\SourceLocator\Located\InternalLocatedSource;
-use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
-use Roave\BetterReflection\Util\CalculateReflectionColumn;
-use Roave\BetterReflection\Util\GetLastDocComment;
+use PHPStan\BetterReflection\BetterReflection;
+use PHPStan\BetterReflection\Reflection\Annotation\AnnotationHelper;
+use PHPStan\BetterReflection\Reflection\Attribute\ReflectionAttributeHelper;
+use PHPStan\BetterReflection\Reflection\Exception\ClassDoesNotExist;
+use PHPStan\BetterReflection\Reflection\Exception\NoObjectProvided;
+use PHPStan\BetterReflection\Reflection\Exception\NotAClassReflection;
+use PHPStan\BetterReflection\Reflection\Exception\NotAnInterfaceReflection;
+use PHPStan\BetterReflection\Reflection\Exception\NotAnObject;
+use PHPStan\BetterReflection\Reflection\Exception\ObjectNotInstanceOfClass;
+use PHPStan\BetterReflection\Reflection\Exception\PropertyDoesNotExist;
+use PHPStan\BetterReflection\Reflection\Exception\Uncloneable;
+use PHPStan\BetterReflection\Reflection\StringCast\ReflectionClassStringCast;
+use PHPStan\BetterReflection\Reflector\Exception\IdentifierNotFound;
+use PHPStan\BetterReflection\Reflector\Reflector;
+use PHPStan\BetterReflection\SourceLocator\Located\InternalLocatedSource;
+use PHPStan\BetterReflection\SourceLocator\Located\LocatedSource;
+use PHPStan\BetterReflection\Util\CalculateReflectionColumn;
+use PHPStan\BetterReflection\Util\GetLastDocComment;
 use Stringable;
 use Traversable;
 use UnitEnum;
@@ -87,7 +87,7 @@ class ReflectionClass implements Reflection
     private $cachedTraitPrecedences;
 
     /**
-     * @var \Roave\BetterReflection\Reflection\ReflectionClass|null
+     * @var \PHPStan\BetterReflection\Reflection\ReflectionClass|null
      */
     private $cachedParentClass;
 
@@ -98,7 +98,7 @@ class ReflectionClass implements Reflection
     private $cachedName;
 
     /**
-     * @var \Roave\BetterReflection\Reflection\ReflectionMethod|null
+     * @var \PHPStan\BetterReflection\Reflection\ReflectionMethod|null
      */
     private $cachedConstructor;
 
@@ -108,7 +108,7 @@ class ReflectionClass implements Reflection
     /** @var list<string>|null */
     private $cachedInterfaceNames;
     /**
-     * @var \Roave\BetterReflection\Reflector\Reflector
+     * @var \PHPStan\BetterReflection\Reflector\Reflector
      */
     private $reflector;
     /**
@@ -116,7 +116,7 @@ class ReflectionClass implements Reflection
      */
     private $node;
     /**
-     * @var \Roave\BetterReflection\SourceLocator\Located\LocatedSource
+     * @var \PHPStan\BetterReflection\SourceLocator\Located\LocatedSource
      */
     private $locatedSource;
     /**
