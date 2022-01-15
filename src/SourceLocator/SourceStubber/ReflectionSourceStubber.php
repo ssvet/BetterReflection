@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\SourceLocator\SourceStubber;
+namespace PHPStan\BetterReflection\SourceLocator\SourceStubber;
 
 use LogicException;
 use PhpParser\Builder\Class_;
@@ -35,7 +35,7 @@ use ReflectionNamedType as CoreReflectionNamedType;
 use ReflectionParameter;
 use ReflectionProperty as CoreReflectionProperty;
 use ReflectionUnionType as CoreReflectionUnionType;
-use Roave\BetterReflection\Reflection\Annotation\AnnotationHelper;
+use PHPStan\BetterReflection\Reflection\Annotation\AnnotationHelper;
 
 use function array_diff;
 use function array_key_exists;

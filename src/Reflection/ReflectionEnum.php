@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\Reflection;
+namespace PHPStan\BetterReflection\Reflection;
 
 use LogicException;
 use PhpParser\Node;
@@ -11,8 +11,8 @@ use PhpParser\Node\Stmt\Enum_ as EnumNode;
 use PhpParser\Node\Stmt\Interface_ as InterfaceNode;
 use PhpParser\Node\Stmt\Namespace_ as NamespaceNode;
 use PhpParser\Node\Stmt\Trait_ as TraitNode;
-use Roave\BetterReflection\Reflector\Reflector;
-use Roave\BetterReflection\SourceLocator\Located\LocatedSource;
+use PHPStan\BetterReflection\Reflector\Reflector;
+use PHPStan\BetterReflection\SourceLocator\Located\LocatedSource;
 
 use function array_combine;
 use function array_filter;
@@ -25,7 +25,7 @@ class ReflectionEnum extends ReflectionClass
     /** @var array<string, ReflectionEnumCase>|null */
     private $cachedCases;
     /**
-     * @var \Roave\BetterReflection\Reflector\Reflector
+     * @var \PHPStan\BetterReflection\Reflector\Reflector
      */
     private $reflector;
     /**
@@ -46,7 +46,7 @@ class ReflectionEnum extends ReflectionClass
      * @param ClassNode|EnumNode|InterfaceNode|TraitNode $node
      * @return $this
      */
-    public static function createFromNode(Reflector $reflector, $node, LocatedSource $locatedSource, ?NamespaceNode $namespace = null): \Roave\BetterReflection\Reflection\ReflectionClass
+    public static function createFromNode(Reflector $reflector, $node, LocatedSource $locatedSource, ?NamespaceNode $namespace = null): \PHPStan\BetterReflection\Reflection\ReflectionClass
     {
         $node = $node;
         assert($node instanceof EnumNode);
