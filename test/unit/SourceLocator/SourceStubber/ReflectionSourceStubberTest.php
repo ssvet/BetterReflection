@@ -39,11 +39,20 @@ use const PHP_VERSION_ID;
  */
 class ReflectionSourceStubberTest extends TestCase
 {
-    private ReflectionSourceStubber $stubber;
+    /**
+     * @var \Roave\BetterReflection\SourceLocator\SourceStubber\ReflectionSourceStubber
+     */
+    private $stubber;
 
-    private PhpInternalSourceLocator $phpInternalSourceLocator;
+    /**
+     * @var \Roave\BetterReflection\SourceLocator\Type\PhpInternalSourceLocator
+     */
+    private $phpInternalSourceLocator;
 
-    private Reflector $reflector;
+    /**
+     * @var \Roave\BetterReflection\Reflector\Reflector
+     */
+    private $reflector;
 
     public static function setUpBeforeClass(): void
     {
@@ -60,10 +69,7 @@ class ReflectionSourceStubberTest extends TestCase
         parent::setUp();
 
         $this->stubber                  = new ReflectionSourceStubber();
-        $this->phpInternalSourceLocator = new PhpInternalSourceLocator(
-            BetterReflectionSingleton::instance()->astLocator(),
-            $this->stubber,
-        );
+        $this->phpInternalSourceLocator = new PhpInternalSourceLocator(BetterReflectionSingleton::instance()->astLocator(), $this->stubber);
         $this->reflector                = new DefaultReflector($this->phpInternalSourceLocator);
     }
 
@@ -72,10 +78,7 @@ class ReflectionSourceStubberTest extends TestCase
         $stubData = $this->stubber->generateClassStub('stdClass');
 
         self::assertNotNull($stubData);
-        self::assertStringMatchesFormat(
-            '%Aclass stdClass%A{%A}%A',
-            $stubData->getStub(),
-        );
+        self::assertStringMatchesFormat('%Aclass stdClass%A{%A}%A', $stubData->getStub());
         self::assertSame('Core', $stubData->getExtensionName());
     }
 
@@ -84,10 +87,7 @@ class ReflectionSourceStubberTest extends TestCase
         $stubData = $this->stubber->generateClassStub(Traversable::class);
 
         self::assertNotNull($stubData);
-        self::assertStringMatchesFormat(
-            '%Ainterface Traversable%A{%A}%A',
-            $stubData->getStub(),
-        );
+        self::assertStringMatchesFormat('%Ainterface Traversable%A{%A}%A', $stubData->getStub());
         self::assertSame('Core', $stubData->getExtensionName());
     }
 
@@ -101,28 +101,20 @@ class ReflectionSourceStubberTest extends TestCase
      */
     public function internalClassesProvider(): array
     {
-        $allSymbols = array_merge(
-            get_declared_classes(),
-            get_declared_interfaces(),
-            get_declared_traits(),
-        );
+        $allSymbols = array_merge(get_declared_classes(), get_declared_interfaces(), get_declared_traits());
 
-        return array_map(
-            static fn (string $symbol): array => [$symbol],
-            array_filter(
-                $allSymbols,
-                static function (string $symbol): bool {
-                    $reflection = new CoreReflectionClass($symbol);
+        return array_map(static function (string $symbol) : array {
+            return [$symbol];
+        }, array_filter($allSymbols, static function (string $symbol): bool {
+            $reflection = new CoreReflectionClass($symbol);
 
-                    if (! $reflection->isInternal()) {
-                        return false;
-                    }
+            if (! $reflection->isInternal()) {
+                return false;
+            }
 
-                    // Check only always enabled extensions
-                    return in_array($reflection->getExtensionName(), ['Core', 'standard', 'pcre', 'SPL'], true);
-                },
-            ),
-        );
+            // Check only always enabled extensions
+            return in_array($reflection->getExtensionName(), ['Core', 'standard', 'pcre', 'SPL'], true);
+        }));
     }
 
     /**
@@ -152,10 +144,7 @@ class ReflectionSourceStubberTest extends TestCase
         $originalParentClass = $original->getParentClass();
         $stubbedParentClass  = $stubbed->getParentClass();
 
-        self::assertSame(
-            $originalParentClass ? $originalParentClass->getName() : null,
-            $stubbedParentClass ? $stubbedParentClass->getName() : null,
-        );
+        self::assertSame($originalParentClass ? $originalParentClass->getName() : null, $stubbedParentClass ? $stubbedParentClass->getName() : null);
     }
 
     private function assertSameInterfaces(CoreReflectionClass $original, ReflectionClass $stubbed): void
@@ -185,23 +174,17 @@ class ReflectionSourceStubberTest extends TestCase
 
     private function assertSameMethodAttributes(CoreReflectionMethod $original, ReflectionMethod $stubbed): void
     {
-        $originalParameterNames = array_map(
-            static fn (CoreReflectionParameter $parameter): string => $parameter->getDeclaringFunction()->getName() . '.' . $parameter->getName(),
-            $original->getParameters(),
-        );
-        $stubParameterNames     = array_map(
-            static fn (ReflectionParameter $parameter): string => $parameter->getDeclaringFunction()->getName() . '.' . $parameter->getName(),
-            $stubbed->getParameters(),
-        );
+        $originalParameterNames = array_map(static function (CoreReflectionParameter $parameter) : string {
+            return $parameter->getDeclaringFunction()->getName() . '.' . $parameter->getName();
+        }, $original->getParameters());
+        $stubParameterNames     = array_map(static function (ReflectionParameter $parameter) : string {
+            return $parameter->getDeclaringFunction()->getName() . '.' . $parameter->getName();
+        }, $stubbed->getParameters());
 
         self::assertSame($originalParameterNames, $stubParameterNames);
 
         foreach ($original->getParameters() as $parameter) {
-            $this->assertSameParameterAttributes(
-                $original,
-                $parameter,
-                $stubbed->getParameter($parameter->getName()),
-            );
+            $this->assertSameParameterAttributes($original, $parameter, $stubbed->getParameter($parameter->getName()));
         }
 
         self::assertSame($original->isPublic(), $stubbed->isPublic());
@@ -215,48 +198,31 @@ class ReflectionSourceStubberTest extends TestCase
 
         if (method_exists($original, 'hasTentativeReturnType')) {
             self::assertSame($original->hasTentativeReturnType(), $stubbed->hasTentativeReturnType(), $original->getName());
-            self::assertSame(
-                (string) $original->getTentativeReturnType(),
-                (string) ReflectionType::fromTypeOrNull($stubbed->getTentativeReturnType()),
-                $original->getName(),
-            );
+            self::assertSame((string) $original->getTentativeReturnType(), (string) ReflectionType::fromTypeOrNull($stubbed->getTentativeReturnType()), $original->getName());
         }
 
         self::assertSame($original->hasReturnType(), $stubbed->hasReturnType(), $original->getName());
-        self::assertSame(
-            (string) $original->getReturnType(),
-            (string) ReflectionType::fromTypeOrNull($stubbed->getReturnType()),
-            $original->getName(),
-        );
+        self::assertSame((string) $original->getReturnType(), (string) ReflectionType::fromTypeOrNull($stubbed->getReturnType()), $original->getName());
     }
 
-    private function assertSameParameterAttributes(
-        CoreReflectionMethod $originalMethod,
-        CoreReflectionParameter $original,
-        ReflectionParameter $stubbed,
-    ): void {
+    private function assertSameParameterAttributes(CoreReflectionMethod $originalMethod, CoreReflectionParameter $original, ReflectionParameter $stubbed): void
+    {
         $methodName    = $original->getDeclaringClass()->getName() . '#' . $originalMethod->getName();
         $parameterName = $methodName . '.' . $original->getName();
-
         self::assertSame($original->getName(), $stubbed->getName(), $parameterName);
-
         if ($original->isDefaultValueAvailable()) {
             self::assertSame($original->getDefaultValue(), $stubbed->getDefaultValue(), $parameterName);
         } else {
             self::assertSame($original->isDefaultValueAvailable(), $stubbed->isDefaultValueAvailable(), $parameterName);
         }
-
         // @ because isArray() and isCallable() are deprecated
         self::assertSame(@$original->isArray(), $stubbed->isArray(), $parameterName);
         self::assertSame(@$original->isCallable(), $stubbed->isCallable(), $parameterName);
-
         //self::assertSame($original->allowsNull(), $stubbed->allowsNull()); @TODO WTF?
-
         self::assertSame($original->canBePassedByValue(), $stubbed->canBePassedByValue(), $parameterName);
         self::assertSame($original->isOptional(), $stubbed->isOptional(), $parameterName);
         self::assertSame($original->isPassedByReference(), $stubbed->isPassedByReference(), $parameterName);
         self::assertSame($original->isVariadic(), $stubbed->isVariadic(), $parameterName);
-
         // @ because getClass() is deprecated
         $class = @$original->getClass();
         if ($class) {
@@ -276,17 +242,13 @@ class ReflectionSourceStubberTest extends TestCase
     {
         $functionNames = get_defined_functions()['internal'];
 
-        return array_map(
-            static fn (string $functionName): array => [$functionName],
-            array_filter(
-                $functionNames,
-                static function (string $functionName): bool {
-                    $reflection = new CoreReflectionFunction($functionName);
+        return array_map(static function (string $functionName) : array {
+            return [$functionName];
+        }, array_filter($functionNames, static function (string $functionName): bool {
+            $reflection = new CoreReflectionFunction($functionName);
 
-                    return $reflection->isInternal();
-                },
-            ),
-        );
+            return $reflection->isInternal();
+        }));
     }
 
     /**
@@ -299,16 +261,10 @@ class ReflectionSourceStubberTest extends TestCase
 
         if (method_exists($originalReflection, 'hasTentativeReturnType') && $originalReflection->hasTentativeReturnType()) {
             self::assertSame($originalReflection->hasTentativeReturnType(), $stubbedReflection->hasTentativeReturnType());
-            self::assertSame(
-                (string) $originalReflection->getTentativeReturnType(),
-                (string) ReflectionType::fromTypeOrNull($stubbedReflection->getTentativeReturnType()),
-            );
+            self::assertSame((string) $originalReflection->getTentativeReturnType(), (string) ReflectionType::fromTypeOrNull($stubbedReflection->getTentativeReturnType()));
         } else {
             self::assertSame($originalReflection->hasReturnType(), $stubbedReflection->hasReturnType());
-            self::assertSame(
-                (string) $originalReflection->getReturnType(),
-                (string) ReflectionType::fromTypeOrNull($stubbedReflection->getReturnType()),
-            );
+            self::assertSame((string) $originalReflection->getReturnType(), (string) ReflectionType::fromTypeOrNull($stubbedReflection->getReturnType()));
         }
     }
 
@@ -372,10 +328,7 @@ class ReflectionSourceStubberTest extends TestCase
         $stubData = $this->stubber->generateConstantStub('E_ALL');
 
         self::assertNotNull($stubData);
-        self::assertStringMatchesFormat(
-            "%Adefine('E_ALL',%w%d);",
-            $stubData->getStub(),
-        );
+        self::assertStringMatchesFormat("%Adefine('E_ALL',%w%d);", $stubData->getStub());
         self::assertSame('Core', $stubData->getExtensionName());
     }
 

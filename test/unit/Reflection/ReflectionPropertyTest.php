@@ -47,9 +47,15 @@ use function sprintf;
  */
 class ReflectionPropertyTest extends TestCase
 {
-    private Reflector $reflector;
+    /**
+     * @var \Roave\BetterReflection\Reflector\Reflector
+     */
+    private $reflector;
 
-    private Locator $astLocator;
+    /**
+     * @var \Roave\BetterReflection\SourceLocator\Ast\Locator
+     */
+    private $astLocator;
 
     public function setUp(): void
     {
@@ -180,10 +186,7 @@ class ReflectionPropertyTest extends TestCase
         $property  = $classInfo->getProperty($propertyName);
 
         self::assertSame($expectedModifier, $property->getModifiers());
-        self::assertSame(
-            $expectedModifierNames,
-            Reflection::getModifierNames($property->getModifiers()),
-        );
+        self::assertSame($expectedModifierNames, Reflection::getModifierNames($property->getModifiers()));
     }
 
     public function testIsPromoted(): void
@@ -217,18 +220,8 @@ class ReflectionPropertyTest extends TestCase
     {
         $classInfo = $this->reflector->reflectClass(ExampleClass::class);
 
-        self::assertFalse(
-            ReflectionProperty::createFromNode(
-                $this->reflector,
-                new Property(Class_::MODIFIER_PUBLIC, [new PropertyProperty('foo')]),
-                0,
-                $classInfo,
-                $classInfo,
-                false,
-                false,
-            )
-            ->isDefault(),
-        );
+        self::assertFalse(ReflectionProperty::createFromNode($this->reflector, new Property(Class_::MODIFIER_PUBLIC, [new PropertyProperty('foo')]), 0, $classInfo, $classInfo, false, false)
+        ->isDefault());
     }
 
     public function testToString(): void
@@ -252,8 +245,9 @@ class ReflectionPropertyTest extends TestCase
 
     /**
      * @dataProvider propertyDefaultValueProvider
+     * @param mixed $defaultValue
      */
-    public function testPropertyDefaultValue(string $propertyName, bool $hasDefaultValue, mixed $defaultValue): void
+    public function testPropertyDefaultValue(string $propertyName, bool $hasDefaultValue, $defaultValue): void
     {
         $classInfo = (new DefaultReflector(new SingleFileSourceLocator(__DIR__ . '/../Fixture/DefaultProperties.php', $this->astLocator)))->reflectClass(DefaultProperties::class);
         $property  = $classInfo->getProperty($propertyName);
@@ -614,13 +608,10 @@ PHP;
     /**
      * @dataProvider hasTypeProvider
      */
-    public function testHasType(
-        string $propertyName,
-        bool $expectedHasType,
-    ): void {
+    public function testHasType(string $propertyName, bool $expectedHasType): void
+    {
         $classReflection    = $this->reflector->reflectClass(Php74PropertyTypeDeclarations::class);
         $propertyReflection = $classReflection->getProperty($propertyName);
-
         self::assertSame($expectedHasType, $propertyReflection->hasType());
     }
 
@@ -641,15 +632,11 @@ PHP;
     /**
      * @dataProvider getTypeProvider
      */
-    public function testGetType(
-        string $propertyName,
-        string $expectedType,
-    ): void {
+    public function testGetType(string $propertyName, string $expectedType): void
+    {
         $classReflection    = $this->reflector->reflectClass(Php74PropertyTypeDeclarations::class);
         $propertyReflection = $classReflection->getProperty($propertyName);
-
         $type = $propertyReflection->getType();
-
         self::assertSame($expectedType, (string) $type);
     }
 
@@ -671,8 +658,9 @@ PHP;
 
     /**
      * @dataProvider isInitializedProvider
+     * @param object|null $object
      */
-    public function testIsInitialized(string $propertyName, ?object $object, bool $isInitialized): void
+    public function testIsInitialized(string $propertyName, $object, bool $isInitialized): void
     {
         $classReflection = $this->reflector->reflectClass(InitializedProperties::class);
 
