@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\BetterReflection\SourceLocator\SourceStubber;
+namespace PHPStan\BetterReflection\SourceLocator\SourceStubber;
 
 use Error;
 use Generator;
@@ -16,10 +16,10 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\Parser;
 use PhpParser\PrettyPrinter\Standard;
-use Roave\BetterReflection\Reflection\Annotation\AnnotationHelper;
-use Roave\BetterReflection\SourceLocator\FileChecker;
-use Roave\BetterReflection\SourceLocator\SourceStubber\Exception\CouldNotFindPhpStormStubs;
-use Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubs\CachingVisitor;
+use PHPStan\BetterReflection\Reflection\Annotation\AnnotationHelper;
+use PHPStan\BetterReflection\SourceLocator\FileChecker;
+use PHPStan\BetterReflection\SourceLocator\SourceStubber\Exception\CouldNotFindPhpStormStubs;
+use PHPStan\BetterReflection\SourceLocator\SourceStubber\PhpStormStubs\CachingVisitor;
 use Traversable;
 
 use function array_change_key_case;
@@ -151,7 +151,7 @@ final class PhpStormStubsSourceStubber implements SourceStubber
     private $stubsDirectory;
 
     /**
-     * @var \Roave\BetterReflection\SourceLocator\SourceStubber\PhpStormStubs\CachingVisitor
+     * @var \PHPStan\BetterReflection\SourceLocator\SourceStubber\PhpStormStubs\CachingVisitor
      */
     private $cachingVisitor;
 
