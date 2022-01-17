@@ -136,6 +136,8 @@ class ReflectionPropertyTest extends TestCase
     public function testGetDocCommentBetweenComments(): void
     {
         $php       = '<?php
+            interface Foo {
+            }
             class Bar implements Foo {
                 /* A comment  */
                 /** Property description */
