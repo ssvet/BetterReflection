@@ -558,6 +558,14 @@ class ReflectionClassTest extends TestCase
                 IntEnum::class,
                 ['name' => 'string', 'value' => 'int'],
             ],
+            [
+                UnitEnum::class,
+                ['name' => 'string'],
+            ],
+            [
+                BackedEnum::class,
+                ['name' => 'string', 'value' => 'int|string'],
+            ],
         ];
     }
 
@@ -574,7 +582,7 @@ class ReflectionClassTest extends TestCase
         ]));
 
         $classInfo  = $reflector->reflectClass($className);
-        $properties = $classInfo->getImmediateProperties();
+        $properties = $classInfo->getProperties();
 
         foreach ($propertiesData as $propertyName => $propertyType) {
             $fullPropertyName = sprintf('%s::$%s', $className, $propertyName);
