@@ -37,10 +37,18 @@ use function strpos;
  */
 final class ClosureSourceLocator implements SourceLocator
 {
-    private CoreFunctionReflection $coreFunctionReflection;
+    /**
+     * @var CoreFunctionReflection
+     */
+    private $coreFunctionReflection;
+    /**
+     * @var \PhpParser\Parser
+     */
+    private $parser;
 
-    public function __construct(Closure $closure, private Parser $parser)
+    public function __construct(Closure $closure, Parser $parser)
     {
+        $this->parser = $parser;
         $this->coreFunctionReflection = new CoreFunctionReflection($closure);
     }
 
@@ -83,12 +91,25 @@ final class ClosureSourceLocator implements SourceLocator
         $nodeVisitor = new class ($fileName, $this->coreFunctionReflection->getStartLine()) extends NodeVisitorAbstract
         {
             /** @var list<array{node: Node\Expr\Closure|Node\Expr\ArrowFunction, namespace: Namespace_|null}> */
-            private array $closureNodes = [];
+            private $closureNodes = [];
 
-            private ?Namespace_ $currentNamespace = null;
+            /**
+             * @var \PhpParser\Node\Stmt\Namespace_|null
+             */
+            private $currentNamespace;
+            /**
+             * @var string
+             */
+            private $fileName;
+            /**
+             * @var int
+             */
+            private $startLine;
 
-            public function __construct(private string $fileName, private int $startLine)
+            public function __construct(string $fileName, int $startLine)
             {
+                $this->fileName = $fileName;
+                $this->startLine = $startLine;
             }
 
             /**
@@ -131,7 +152,9 @@ final class ClosureSourceLocator implements SourceLocator
              */
             public function getClosureNodes(): array
             {
-                $closureNodesDataOnSameLine = array_values(array_filter($this->closureNodes, fn (array $nodes): bool => $nodes['node']->getLine() === $this->startLine));
+                $closureNodesDataOnSameLine = array_values(array_filter($this->closureNodes, function (array $nodes) : bool {
+                    return $nodes['node']->getLine() === $this->startLine;
+                }));
 
                 if (! $closureNodesDataOnSameLine) {
                     throw NoClosureOnLine::create($this->fileName, $this->startLine);
@@ -156,12 +179,7 @@ final class ClosureSourceLocator implements SourceLocator
 
         $closureNodes = $nodeVisitor->getClosureNodes();
 
-        $reflectionFunction = (new NodeToReflection())->__invoke(
-            $reflector,
-            $closureNodes['node'],
-            new AnonymousLocatedSource($fileContents, $fileName),
-            $closureNodes['namespace'],
-        );
+        $reflectionFunction = (new NodeToReflection())->__invoke($reflector, $closureNodes['node'], new AnonymousLocatedSource($fileContents, $fileName), $closureNodes['namespace']);
         assert($reflectionFunction instanceof ReflectionFunction);
 
         return $reflectionFunction;

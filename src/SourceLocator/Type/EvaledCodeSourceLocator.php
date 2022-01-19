@@ -20,8 +20,13 @@ use function trait_exists;
 
 final class EvaledCodeSourceLocator extends AbstractSourceLocator
 {
-    public function __construct(Locator $astLocator, private SourceStubber $stubber)
+    /**
+     * @var \Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber
+     */
+    private $stubber;
+    public function __construct(Locator $astLocator, SourceStubber $stubber)
     {
+        $this->stubber = $stubber;
         parent::__construct($astLocator);
     }
 

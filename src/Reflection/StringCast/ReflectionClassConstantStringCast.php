@@ -19,14 +19,7 @@ final class ReflectionClassConstantStringCast
     {
         $value = $constantReflection->getValue();
 
-        return sprintf(
-            "Constant [ %s%s %s %s ] { %s }\n",
-            $constantReflection->isFinal() ? 'final ' : '',
-            self::visibilityToString($constantReflection),
-            gettype($value),
-            $constantReflection->getName(),
-            is_array($value) ? 'Array' : (string) $value,
-        );
+        return sprintf("Constant [ %s%s %s %s ] { %s }\n", $constantReflection->isFinal() ? 'final ' : '', self::visibilityToString($constantReflection), gettype($value), $constantReflection->getName(), is_array($value) ? 'Array' : (string) $value);
     }
 
     private static function visibilityToString(ReflectionClassConstant $constantReflection): string
