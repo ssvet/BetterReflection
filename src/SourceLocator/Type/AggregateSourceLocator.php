@@ -15,7 +15,7 @@ use function array_merge;
 class AggregateSourceLocator implements SourceLocator
 {
     /** @var list<SourceLocator> */
-    private array $sourceLocators;
+    private $sourceLocators;
 
     /**
      * @param list<SourceLocator> $sourceLocators
@@ -24,7 +24,9 @@ class AggregateSourceLocator implements SourceLocator
     {
         // This slightly confusing code simply type-checks the $sourceLocators
         // array by unpacking them and splatting them in the closure.
-        $validator            = static fn (SourceLocator ...$sourceLocator): array => $sourceLocator;
+        $validator            = static function (SourceLocator ...$sourceLocator) : array {
+            return $sourceLocator;
+        };
         $this->sourceLocators = $validator(...$sourceLocators);
     }
 
@@ -46,9 +48,8 @@ class AggregateSourceLocator implements SourceLocator
      */
     public function locateIdentifiersByType(Reflector $reflector, IdentifierType $identifierType): array
     {
-        return array_merge(
-            [],
-            ...array_map(static fn (SourceLocator $sourceLocator): array => $sourceLocator->locateIdentifiersByType($reflector, $identifierType), $this->sourceLocators),
-        );
+        return array_merge([], ...array_map(static function (SourceLocator $sourceLocator) use ($reflector, $identifierType) : array {
+            return $sourceLocator->locateIdentifiersByType($reflector, $identifierType);
+        }, $this->sourceLocators));
     }
 }

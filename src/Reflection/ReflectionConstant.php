@@ -30,15 +30,40 @@ use function substr_count;
 
 class ReflectionConstant implements Reflection
 {
-    private ?CompiledValue $compiledValue = null;
-
-    private function __construct(
-        private Reflector $reflector,
-        private Node\Stmt\Const_|Node\Expr\FuncCall $node,
-        private LocatedSource $locatedSource,
-        private ?NamespaceNode $declaringNamespace = null,
-        private ?int $positionInNode = null,
-    ) {
+    /**
+     * @var \Roave\BetterReflection\NodeCompiler\CompiledValue|null
+     */
+    private $compiledValue;
+    /**
+     * @var \Roave\BetterReflection\Reflector\Reflector
+     */
+    private $reflector;
+    /**
+     * @var \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Stmt\Const_
+     */
+    private $node;
+    /**
+     * @var \Roave\BetterReflection\SourceLocator\Located\LocatedSource
+     */
+    private $locatedSource;
+    /**
+     * @var NamespaceNode|null
+     */
+    private $declaringNamespace;
+    /**
+     * @var int|null
+     */
+    private $positionInNode;
+    /**
+     * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Stmt\Const_ $node
+     */
+    private function __construct(Reflector $reflector, $node, LocatedSource $locatedSource, ?NamespaceNode $declaringNamespace = null, ?int $positionInNode = null)
+    {
+        $this->reflector = $reflector;
+        $this->node = $node;
+        $this->locatedSource = $locatedSource;
+        $this->declaringNamespace = $declaringNamespace;
+        $this->positionInNode = $positionInNode;
     }
 
     /**
@@ -60,53 +85,28 @@ class ReflectionConstant implements Reflection
      *
      * @param Node\Stmt\Const_|Node\Expr\FuncCall $node Node has to be processed by the PhpParser\NodeVisitor\NameResolver
      */
-    public static function createFromNode(
-        Reflector $reflector,
-        Node $node,
-        LocatedSource $locatedSource,
-        ?NamespaceNode $namespace = null,
-        ?int $positionInNode = null,
-    ): self {
+    public static function createFromNode(Reflector $reflector, Node $node, LocatedSource $locatedSource, ?NamespaceNode $namespace = null, ?int $positionInNode = null): self
+    {
         if ($node instanceof Node\Stmt\Const_) {
             assert(is_int($positionInNode));
 
             return self::createFromConstKeyword($reflector, $node, $locatedSource, $namespace, $positionInNode);
         }
-
         return self::createFromDefineFunctionCall($reflector, $node, $locatedSource);
     }
 
-    private static function createFromConstKeyword(
-        Reflector $reflector,
-        Node\Stmt\Const_ $node,
-        LocatedSource $locatedSource,
-        ?NamespaceNode $namespace,
-        int $positionInNode,
-    ): self {
-        return new self(
-            $reflector,
-            $node,
-            $locatedSource,
-            $namespace,
-            $positionInNode,
-        );
+    private static function createFromConstKeyword(Reflector $reflector, Node\Stmt\Const_ $node, LocatedSource $locatedSource, ?NamespaceNode $namespace, int $positionInNode): self
+    {
+        return new self($reflector, $node, $locatedSource, $namespace, $positionInNode);
     }
 
     /**
      * @throws InvalidConstantNode
      */
-    private static function createFromDefineFunctionCall(
-        Reflector $reflector,
-        Node\Expr\FuncCall $node,
-        LocatedSource $locatedSource,
-    ): self {
+    private static function createFromDefineFunctionCall(Reflector $reflector, Node\Expr\FuncCall $node, LocatedSource $locatedSource): self
+    {
         ConstantNodeChecker::assertValidDefineFunctionCall($node);
-
-        return new self(
-            $reflector,
-            $node,
-            $locatedSource,
-        );
+        return new self($reflector, $node, $locatedSource);
     }
 
     /**
@@ -204,12 +204,18 @@ class ReflectionConstant implements Reflection
         return AnnotationHelper::isDeprecated($this->getDocComment());
     }
 
-    public function populateValue(mixed $value): void
+    /**
+     * @param mixed $value
+     */
+    public function populateValue($value): void
     {
         $this->compiledValue = new CompiledValue($value);
     }
 
-    public function getValue(): mixed
+    /**
+     * @return mixed
+     */
+    public function getValue()
     {
         if ($this->compiledValue !== null) {
             return $this->compiledValue->value;
@@ -224,10 +230,7 @@ class ReflectionConstant implements Reflection
             $valueNode = $this->node->consts[$this->positionInNode]->value;
         }
 
-        $this->compiledValue = (new CompileNodeToValue())->__invoke(
-            $valueNode,
-            new CompilerContext($this->reflector, $this),
-        );
+        $this->compiledValue = (new CompileNodeToValue())->__invoke($valueNode, new CompilerContext($this->reflector, $this));
 
         return $this->compiledValue->value;
     }
