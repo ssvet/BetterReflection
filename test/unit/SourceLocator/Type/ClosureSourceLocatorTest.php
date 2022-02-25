@@ -28,9 +28,15 @@ use function sprintf;
  */
 class ClosureSourceLocatorTest extends TestCase
 {
-    private Parser $parser;
+    /**
+     * @var \PhpParser\Parser
+     */
+    private $parser;
 
-    private Reflector $reflector;
+    /**
+     * @var \Roave\BetterReflection\Reflector\Reflector
+     */
+    private $reflector;
 
     protected function setUp(): void
     {
@@ -62,13 +68,7 @@ class ClosureSourceLocatorTest extends TestCase
     {
         $locator = new ClosureSourceLocator($closure, $this->parser);
 
-        $reflection = $locator->locateIdentifier(
-            $this->reflector,
-            new Identifier(
-                'Foo',
-                new IdentifierType(IdentifierType::IDENTIFIER_FUNCTION),
-            ),
-        );
+        $reflection = $locator->locateIdentifier($this->reflector, new Identifier('Foo', new IdentifierType(IdentifierType::IDENTIFIER_FUNCTION)));
 
         self::assertInstanceOf(ReflectionFunction::class, $reflection);
         self::assertTrue($reflection->isClosure());
@@ -88,13 +88,7 @@ class ClosureSourceLocatorTest extends TestCase
 
         $this->expectException(EvaledClosureCannotBeLocated::class);
 
-        $locator->locateIdentifier(
-            $this->reflector,
-            new Identifier(
-                'Foo',
-                new IdentifierType(IdentifierType::IDENTIFIER_FUNCTION),
-            ),
-        );
+        $locator->locateIdentifier($this->reflector, new Identifier('Foo', new IdentifierType(IdentifierType::IDENTIFIER_FUNCTION)));
     }
 
     /**
@@ -103,10 +97,7 @@ class ClosureSourceLocatorTest extends TestCase
     public function testLocateIdentifiersByType(Closure $closure, string $namespace, string $file, int $startLine, int $endLine): void
     {
         /** @var list<ReflectionFunction> $reflections */
-        $reflections = (new ClosureSourceLocator($closure, $this->parser))->locateIdentifiersByType(
-            $this->reflector,
-            new IdentifierType(IdentifierType::IDENTIFIER_FUNCTION),
-        );
+        $reflections = (new ClosureSourceLocator($closure, $this->parser))->locateIdentifiersByType($this->reflector, new IdentifierType(IdentifierType::IDENTIFIER_FUNCTION));
 
         self::assertCount(1, $reflections);
         self::assertArrayHasKey(0, $reflections);
@@ -152,10 +143,7 @@ class ClosureSourceLocatorTest extends TestCase
         };
 
         /** @var list<ReflectionFunction> $reflections */
-        $reflections = (new ClosureSourceLocator($closure, $this->parser))->locateIdentifiersByType(
-            $this->reflector,
-            new IdentifierType(IdentifierType::IDENTIFIER_CLASS),
-        );
+        $reflections = (new ClosureSourceLocator($closure, $this->parser))->locateIdentifiersByType($this->reflector, new IdentifierType(IdentifierType::IDENTIFIER_CLASS));
 
         self::assertCount(0, $reflections);
     }
@@ -179,12 +167,6 @@ class ClosureSourceLocatorTest extends TestCase
         $this->expectException(TwoClosuresOnSameLine::class);
         $this->expectExceptionMessage(sprintf('Two closures on line 3 in %s', $file));
 
-        (new ClosureSourceLocator($closure, $this->parser))->locateIdentifier(
-            $this->reflector,
-            new Identifier(
-                'Foo',
-                new IdentifierType(IdentifierType::IDENTIFIER_FUNCTION),
-            ),
-        );
+        (new ClosureSourceLocator($closure, $this->parser))->locateIdentifier($this->reflector, new Identifier('Foo', new IdentifierType(IdentifierType::IDENTIFIER_FUNCTION)));
     }
 }

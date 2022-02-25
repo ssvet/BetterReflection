@@ -53,7 +53,7 @@ class CompileNodeToValue
             $constantName = $this->resolveClassConstantName($node, $context);
         }
 
-        $constExprEvaluator = new ConstExprEvaluator(function (Node\Expr $node) use ($context, $constantName): mixed {
+        $constExprEvaluator = new ConstExprEvaluator(function (Node\Expr $node) use ($context, $constantName) {
             if ($node instanceof Node\Expr\ConstFetch) {
                 return $this->getConstantValue($node, $constantName, $context);
             }
@@ -102,7 +102,7 @@ class CompileNodeToValue
             }
 
             if ($node instanceof Node\Scalar\MagicConst\Function_) {
-                return $context->getFunction()?->getName() ?? '';
+                return (($getFunction = $context->getFunction()) ? $getFunction->getName() : null) ?? '';
             }
 
             if ($node instanceof Node\Scalar\MagicConst\Trait_) {
@@ -164,15 +164,18 @@ class CompileNodeToValue
             $context->getReflector()->reflectConstant($constantName);
 
             return true;
-        } catch (IdentifierNotFound) {
+        } catch (IdentifierNotFound $exception) {
             return false;
         }
     }
 
-    private function getConstantValue(Node\Expr\ConstFetch $node, ?string $constantName, CompilerContext $context): mixed
+    /**
+     * @return mixed
+     */
+    private function getConstantValue(Node\Expr\ConstFetch $node, ?string $constantName, CompilerContext $context)
     {
         // It's not resolved when constant value is expression
-        $constantName ??= $this->resolveConstantName($node, $context);
+        $constantName = $constantName ?? $this->resolveConstantName($node, $context);
 
         if (defined($constantName)) {
             return constant($constantName);
@@ -191,10 +194,13 @@ class CompileNodeToValue
         return sprintf('%s::%s', $this->resolveClassName($className, $context), $constantName);
     }
 
-    private function getClassConstantValue(Node\Expr\ClassConstFetch $node, ?string $classConstantName, CompilerContext $context): mixed
+    /**
+     * @return mixed
+     */
+    private function getClassConstantValue(Node\Expr\ClassConstFetch $node, ?string $classConstantName, CompilerContext $context)
     {
         // It's not resolved when constant value is expression
-        $classConstantName ??= $this->resolveClassConstantName($node, $context);
+        $classConstantName = $classConstantName ?? $this->resolveClassConstantName($node, $context);
 
         [$className, $constantName] = explode('::', $classConstantName);
 
@@ -203,7 +209,7 @@ class CompileNodeToValue
         }
 
         $classContext    = $context->getClass();
-        $classReflection = $classContext?->getName() === $className ? $classContext : $context->getReflector()->reflectClass($className);
+        $classReflection = (($classContext2 = $classContext) ? $classContext2->getName() : null) === $className ? $classContext : $context->getReflector()->reflectClass($className);
 
         $reflectionConstant = $classReflection->getReflectionConstant($constantName);
         if ($classReflection instanceof ReflectionEnum) {
@@ -221,7 +227,10 @@ class CompileNodeToValue
         return $reflectionConstant->getValue();
     }
 
-    private function compileNew(Node\Expr\New_ $node, CompilerContext $context): object
+    /**
+     * @return object
+     */
+    private function compileNew(Node\Expr\New_ $node, CompilerContext $context)
     {
         assert($node->class instanceof Node\Name);
 
@@ -232,7 +241,9 @@ class CompileNodeToValue
             throw Exception\UnableToCompileNode::becauseOfClassCannotBeLoaded($context, $node, $className);
         }
 
-        $arguments = array_map(fn (Node\Arg $arg): mixed => $this($arg->value, $context)->value, $node->args);
+        $arguments = array_map(function (Node\Arg $arg) use ($context) {
+            return $this($arg->value, $context)->value;
+        }, $node->args);
 
         return new $className(...$arguments);
     }
@@ -278,7 +289,7 @@ class CompileNodeToValue
      */
     private function compileClassConstant(CompilerContext $context): string
     {
-        return $context->getClass()?->getName() ?? '';
+        return (($getClass = $context->getClass()) ? $getClass->getName() : null) ?? '';
     }
 
     private function resolveClassName(string $className, CompilerContext $context): string
