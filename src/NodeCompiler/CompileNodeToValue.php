@@ -202,7 +202,8 @@ class CompileNodeToValue
             return $className;
         }
 
-        $classReflection = $context->getReflector()->reflectClass($className);
+        $classContext    = $context->getClass();
+        $classReflection = $classContext?->getName() === $className ? $classContext : $context->getReflector()->reflectClass($className);
 
         $reflectionConstant = $classReflection->getReflectionConstant($constantName);
         if ($classReflection instanceof ReflectionEnum) {
