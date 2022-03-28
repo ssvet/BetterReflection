@@ -7,12 +7,12 @@ namespace Roave\BetterReflectionTest\Reflection;
 use PhpParser\Node\Stmt\ClassConst;
 use PHPUnit\Framework\TestCase;
 use ReflectionClassConstant as CoreReflectionClassConstant;
-use Roave\BetterReflection\Reflection\ReflectionClassConstant;
-use Roave\BetterReflection\Reflector\DefaultReflector;
-use Roave\BetterReflection\SourceLocator\Ast\Locator;
-use Roave\BetterReflection\SourceLocator\Type\ComposerSourceLocator;
-use Roave\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
-use Roave\BetterReflection\SourceLocator\Type\StringSourceLocator;
+use PHPStan\BetterReflection\Reflection\ReflectionClassConstant;
+use PHPStan\BetterReflection\Reflector\DefaultReflector;
+use PHPStan\BetterReflection\SourceLocator\Ast\Locator;
+use PHPStan\BetterReflection\SourceLocator\Type\ComposerSourceLocator;
+use PHPStan\BetterReflection\SourceLocator\Type\SingleFileSourceLocator;
+use PHPStan\BetterReflection\SourceLocator\Type\StringSourceLocator;
 use Roave\BetterReflectionTest\BetterReflectionSingleton;
 use Roave\BetterReflectionTest\Fixture\Attr;
 use Roave\BetterReflectionTest\Fixture\ClassWithAttributes;
@@ -23,7 +23,7 @@ use function sprintf;
 class ReflectionClassConstantTest extends TestCase
 {
     /**
-     * @var \Roave\BetterReflection\SourceLocator\Ast\Locator
+     * @var \PHPStan\BetterReflection\SourceLocator\Ast\Locator
      */
     private $astLocator;
 
