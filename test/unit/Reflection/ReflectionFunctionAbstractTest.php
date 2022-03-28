@@ -566,7 +566,7 @@ class ReflectionFunctionAbstractTest extends TestCase
             return 'Hello world';
         }, $this->parser)))->reflectFunction(ReflectionFunction::CLOSURE_NAME);
 
-        self::assertSame("'Hello world'", $function->getBodyCode());
+        self::assertSame("return 'Hello world';", $function->getBodyCode());
     }
 
     public function testGetAst(): void
