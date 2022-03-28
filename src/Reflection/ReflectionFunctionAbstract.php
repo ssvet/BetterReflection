@@ -28,7 +28,10 @@ use function is_array;
 
 trait ReflectionFunctionAbstract
 {
-    private ?string $cachedName = null;
+    /**
+     * @var string|null
+     */
+    private $cachedName;
 
     abstract public function __toString(): string;
 
@@ -57,7 +60,7 @@ trait ReflectionFunctionAbstract
      */
     public function getNamespaceName(): string
     {
-        return $this->declaringNamespace?->name?->toString() ?? '';
+        return (($name = ($declaringNamespace = $this->declaringNamespace) ? $declaringNamespace->name : null) ? $name->toString() : null) ?? '';
     }
 
     /**
@@ -83,10 +86,9 @@ trait ReflectionFunctionAbstract
      */
     public function getNumberOfRequiredParameters(): int
     {
-        return count(array_filter(
-            $this->getParameters(),
-            static fn (ReflectionParameter $p): bool => ! $p->isOptional(),
-        ));
+        return count(array_filter($this->getParameters(), static function (ReflectionParameter $p) : bool {
+            return ! $p->isOptional();
+        }));
     }
 
     /**
@@ -102,12 +104,7 @@ trait ReflectionFunctionAbstract
         /** @var list<Node\Param> $nodeParams */
         $nodeParams = $this->node->params;
         foreach ($nodeParams as $paramIndex => $paramNode) {
-            $parameters[] = ReflectionParameter::createFromNode(
-                $this->reflector,
-                $paramNode,
-                $this,
-                $paramIndex,
-            );
+            $parameters[] = ReflectionParameter::createFromNode($this->reflector, $paramNode, $this, $paramIndex);
         }
 
         return $parameters;
@@ -199,7 +196,9 @@ trait ReflectionFunctionAbstract
     /** Checks if the function/method contains `throw` expressions. */
     public function couldThrow(): bool
     {
-        $visitor   = new FindingVisitor(static fn (Node $node): bool => $node instanceof NodeThrow);
+        $visitor   = new FindingVisitor(static function (Node $node) : bool {
+            return $node instanceof NodeThrow;
+        });
         $traverser = new NodeTraverser();
         $traverser->addVisitor($visitor);
         $traverser->traverse($this->getBodyAst());
@@ -289,8 +288,9 @@ trait ReflectionFunctionAbstract
 
     /**
      * Get the return type declaration
+     * @return \Roave\BetterReflection\Reflection\ReflectionIntersectionType|\Roave\BetterReflection\Reflection\ReflectionNamedType|\Roave\BetterReflection\Reflection\ReflectionUnionType|null
      */
-    public function getReturnType(): ReflectionNamedType|ReflectionUnionType|ReflectionIntersectionType|null
+    public function getReturnType()
     {
         if ($this->hasTentativeReturnType()) {
             return null;
@@ -320,7 +320,10 @@ trait ReflectionFunctionAbstract
         return AnnotationHelper::hasTentativeReturnType($this->getDocComment());
     }
 
-    public function getTentativeReturnType(): ReflectionNamedType|ReflectionUnionType|ReflectionIntersectionType|null
+    /**
+     * @return \Roave\BetterReflection\Reflection\ReflectionIntersectionType|\Roave\BetterReflection\Reflection\ReflectionNamedType|\Roave\BetterReflection\Reflection\ReflectionUnionType|null
+     */
+    public function getTentativeReturnType()
     {
         if (! $this->hasTentativeReturnType()) {
             return null;
@@ -329,7 +332,10 @@ trait ReflectionFunctionAbstract
         return $this->createReturnType();
     }
 
-    private function createReturnType(): ReflectionNamedType|ReflectionUnionType|ReflectionIntersectionType|null
+    /**
+     * @return \Roave\BetterReflection\Reflection\ReflectionIntersectionType|\Roave\BetterReflection\Reflection\ReflectionNamedType|\Roave\BetterReflection\Reflection\ReflectionUnionType|null
+     */
+    private function createReturnType()
     {
         $returnType = $this->node->getReturnType();
         assert($returnType instanceof Node\Identifier || $returnType instanceof Node\Name || $returnType instanceof Node\NullableType || $returnType instanceof Node\UnionType || $returnType instanceof Node\IntersectionType || $returnType === null);
