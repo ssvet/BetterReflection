@@ -139,7 +139,6 @@ class ReflectionClassTest extends TestCase
         self::assertTrue($classInfo->inNamespace());
         self::assertSame(ExampleClass::class, $classInfo->getName());
         self::assertSame('Roave\BetterReflectionTest\Fixture', $classInfo->getNamespaceName());
-        self::assertInstanceOf(Node\Stmt\Namespace_::class, $classInfo->getDeclaringNamespaceAst());
         self::assertSame('ExampleClass', $classInfo->getShortName());
     }
 
@@ -153,7 +152,6 @@ class ReflectionClassTest extends TestCase
         self::assertFalse($classInfo->inNamespace());
         self::assertSame('ClassWithNoNamespace', $classInfo->getName());
         self::assertSame('', $classInfo->getNamespaceName());
-        self::assertNull($classInfo->getDeclaringNamespaceAst());
         self::assertSame('ClassWithNoNamespace', $classInfo->getShortName());
     }
 
@@ -167,7 +165,6 @@ class ReflectionClassTest extends TestCase
         self::assertFalse($classInfo->inNamespace());
         self::assertSame('ClassWithExplicitGlobalNamespace', $classInfo->getName());
         self::assertSame('', $classInfo->getNamespaceName());
-        self::assertInstanceOf(Node\Stmt\Namespace_::class, $classInfo->getDeclaringNamespaceAst());
         self::assertSame('ClassWithExplicitGlobalNamespace', $classInfo->getShortName());
     }
 
@@ -1967,20 +1964,6 @@ PHP;
 
         $this->expectException(PropertyDoesNotExist::class);
         $classInfo->setStaticPropertyValue('foo', null);
-    }
-
-    public function testGetAst(): void
-    {
-        $php = '<?php
-            class Foo {}
-        ';
-
-        $reflection = (new DefaultReflector(new StringSourceLocator($php, $this->astLocator)))->reflectClass('Foo');
-
-        $ast = $reflection->getAst();
-
-        self::assertInstanceOf(Class_::class, $ast);
-        self::assertSame('Foo', $ast->name->name);
     }
 
     public function testGetConstantsReturnsAllConstantsRegardlessOfVisibility(): void
