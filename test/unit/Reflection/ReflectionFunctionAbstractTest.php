@@ -600,7 +600,7 @@ class ReflectionFunctionAbstractTest extends TestCase
         )))->reflectFunction(ReflectionFunction::CLOSURE_NAME);
 
         self::assertSame(
-            "'Hello world'",
+            "return 'Hello world';",
             $function->getBodyCode(),
         );
     }
