@@ -2221,8 +2221,6 @@ PHP;
         self::assertFalse($protectedMethodFromTrait->isPublic());
         self::assertTrue($protectedMethodFromTrait->isProtected());
 
-        self::assertNotSame($protectedMethodFromClass->getAst(), $protectedMethodFromTrait->getAst());
-
         $privateMethodFromClass = $classReflection->getMethod('privateMethod');
         self::assertTrue($privateMethodFromClass->isProtected());
         self::assertFalse($privateMethodFromClass->isPrivate());
@@ -2230,8 +2228,6 @@ PHP;
         $privateMethodFromTrait = $traitReflection->getMethod('privateMethod');
         self::assertFalse($privateMethodFromTrait->isProtected());
         self::assertTrue($privateMethodFromTrait->isPrivate());
-
-        self::assertNotSame($privateMethodFromClass->getAst(), $privateMethodFromTrait->getAst());
 
         $privateMethodRenamed = $classReflection->getMethod('privateMethodRenamed');
         self::assertTrue($privateMethodRenamed->isProtected());

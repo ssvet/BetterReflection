@@ -43,8 +43,9 @@ class ReflectionParameter
         private ParamNode $node,
         private ReflectionMethod|ReflectionFunction $function,
         private int $parameterIndex,
+        private bool $optional,
     ) {
-        $this->isOptional = $this->detectIsOptional();
+        $this->isOptional = $this->optional;
         $this->attributes = ReflectionAttributeHelper::createAttributes($this->reflector, $this, $node->attrGroups);
     }
 
@@ -165,12 +166,14 @@ class ReflectionParameter
         ParamNode $node,
         ReflectionMethod|ReflectionFunction $function,
         int $parameterIndex,
+        bool $optional,
     ): self {
         return new self(
             $reflector,
             $node,
             $function,
             $parameterIndex,
+            $optional,
         );
     }
 
@@ -469,31 +472,6 @@ class ReflectionParameter
         } catch (LogicException) {
             return null;
         }
-    }
-
-    private function detectIsOptional(): bool
-    {
-        if ($this->node->variadic) {
-            return true;
-        }
-
-        if ($this->node->default === null) {
-            return false;
-        }
-
-        foreach ($this->function->getAst()->getParams() as $otherParameterIndex => $otherParameterNode) {
-            if ($otherParameterIndex <= $this->parameterIndex) {
-                continue;
-            }
-
-            // When we find next parameter that does not have a default or is not variadic,
-            // it means current parameter cannot be optional EVEN if it has a default value
-            if ($otherParameterNode->default === null && ! $otherParameterNode->variadic) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     /**
