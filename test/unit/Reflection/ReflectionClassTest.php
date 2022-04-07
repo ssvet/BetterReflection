@@ -615,7 +615,7 @@ class Foo
            $b = 1;
     protected $c = 'c',
               $d = 'd';
-    private $e = bool,
+    private $e = true,
             $f = false;
 }
 PHP;
