@@ -72,6 +72,8 @@ class ReflectionClass implements Reflection
     /** @var array<lowercase-string, ReflectionMethod>|null */
     private ?array $cachedMethods = null;
 
+    private ?ReflectionClass $cachedParentClass = null;
+
     /** @var array<string, ReflectionProperty>|null */
     private ?array $cachedProperties = null;
 
@@ -1079,6 +1081,10 @@ class ReflectionClass implements Reflection
             return null;
         }
 
+        if ($this->cachedParentClass !== null) {
+            return $this->cachedParentClass;
+        }
+
         try {
             $parentClass = $this->reflector->reflectClass($this->parentClassName);
         } catch (IdentifierNotFound) {
@@ -1089,7 +1095,7 @@ class ReflectionClass implements Reflection
             throw NotAClassReflection::fromReflectionClass($parentClass);
         }
 
-        return $parentClass;
+        return $this->cachedParentClass = $parentClass;
     }
 
     /**
