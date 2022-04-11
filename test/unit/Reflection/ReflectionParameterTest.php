@@ -43,11 +43,20 @@ use const SORT_ASC as SORT_ASC_TEST;
  */
 class ReflectionParameterTest extends TestCase
 {
-    private Reflector $reflector;
+    /**
+     * @var \Roave\BetterReflection\Reflector\Reflector
+     */
+    private $reflector;
 
-    private Locator $astLocator;
+    /**
+     * @var \Roave\BetterReflection\SourceLocator\Ast\Locator
+     */
+    private $astLocator;
 
-    private SourceStubber $sourceStubber;
+    /**
+     * @var \Roave\BetterReflection\SourceLocator\SourceStubber\SourceStubber
+     */
+    private $sourceStubber;
 
     public function setUp(): void
     {
@@ -190,8 +199,9 @@ class ReflectionParameterTest extends TestCase
 
     /**
      * @dataProvider defaultParameterProvider
+     * @param mixed $expectedValue
      */
-    public function testDefaultParametersTypes(string $defaultExpression, mixed $expectedValue): void
+    public function testDefaultParametersTypes(string $defaultExpression, $expectedValue): void
     {
         $content = sprintf('<?php class Foo { public function myMethod($var = %s) {} }', $defaultExpression);
 
@@ -261,16 +271,11 @@ class ReflectionParameterTest extends TestCase
      * @dataProvider typeProvider
      * @parem string $expectedType
      */
-    public function testGetType(
-        string $parameterToTest,
-        string $expectedType,
-    ): void {
+    public function testGetType(string $parameterToTest, string $expectedType): void
+    {
         $classInfo = $this->reflector->reflectClass(Methods::class);
-
         $method = $classInfo->getMethod('methodWithExplicitTypedParameters');
-
         $type = $method->getParameter($parameterToTest)->getType();
-
         self::assertSame($expectedType, (string) $type);
     }
 
@@ -494,10 +499,7 @@ class ReflectionParameterTest extends TestCase
 
     public function testIsDefaultValueConstantAndGetDefaultValueConstantName(): void
     {
-        $reflector = new DefaultReflector(new SingleFileSourceLocator(
-            __DIR__ . '/../Fixture/Methods.php',
-            $this->astLocator,
-        ));
+        $reflector = new DefaultReflector(new SingleFileSourceLocator(__DIR__ . '/../Fixture/Methods.php', $this->astLocator));
 
         $classInfo = $reflector->reflectClass(Methods::class);
         $method    = $classInfo->getMethod('methodWithUpperCasedDefaults');
@@ -530,10 +532,7 @@ class ReflectionParameterTest extends TestCase
 
     public function testGetDefaultValueConstantNameClassConstants(): void
     {
-        $reflector = new DefaultReflector(new SingleFileSourceLocator(
-            __DIR__ . '/../Fixture/ClassWithConstantsAsDefaultValues.php',
-            $this->astLocator,
-        ));
+        $reflector = new DefaultReflector(new SingleFileSourceLocator(__DIR__ . '/../Fixture/ClassWithConstantsAsDefaultValues.php', $this->astLocator));
         $classInfo = $reflector->reflectClass(ClassWithConstantsAsDefaultValues::class);
         $method    = $classInfo->getMethod('method');
 
@@ -557,10 +556,7 @@ class ReflectionParameterTest extends TestCase
 
     public function testGetDefaultValueConstantNameNamespacedConstants(): void
     {
-        $reflector = new DefaultReflector(new SingleFileSourceLocator(
-            __DIR__ . '/../Fixture/ClassWithConstantsAsDefaultValues.php',
-            $this->astLocator,
-        ));
+        $reflector = new DefaultReflector(new SingleFileSourceLocator(__DIR__ . '/../Fixture/ClassWithConstantsAsDefaultValues.php', $this->astLocator));
         $classInfo = $reflector->reflectClass(ClassWithConstantsAsDefaultValues::class);
         $method    = $classInfo->getMethod('method');
 
@@ -639,7 +635,7 @@ class ReflectionParameterTest extends TestCase
         $methodReflection    = $classReflection->getMethod('methodGetClassParameters');
         $parameterReflection = $methodReflection->getParameter($parameterName);
 
-        self::assertSame($className, $parameterReflection->getClass()?->getName());
+        self::assertSame($className, ($getClass = $parameterReflection->getClass()) ? $getClass->getName() : null);
     }
 
     public function testGetClassFromSelfTypeHintedProperty(): void
