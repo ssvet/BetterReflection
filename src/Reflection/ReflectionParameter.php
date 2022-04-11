@@ -16,7 +16,6 @@ use Roave\BetterReflection\NodeCompiler\CompileNodeToValue;
 use Roave\BetterReflection\NodeCompiler\CompilerContext;
 use Roave\BetterReflection\NodeCompiler\Exception\UnableToCompileNode;
 use Roave\BetterReflection\Reflection\Attribute\ReflectionAttributeHelper;
-use Roave\BetterReflection\Reflection\Exception\Uncloneable;
 use Roave\BetterReflection\Reflection\StringCast\ReflectionParameterStringCast;
 use Roave\BetterReflection\Reflector\Reflector;
 use Roave\BetterReflection\Util\CalculateReflectionColumn;
@@ -47,6 +46,14 @@ class ReflectionParameter
     ) {
         $this->isOptional = $this->optional;
         $this->attributes = ReflectionAttributeHelper::createAttributes($this->reflector, $this, $node->attrGroups);
+    }
+
+    public function changeFunction(ReflectionMethod|ReflectionFunction $function): self
+    {
+        $self = clone $this;
+        $self->function = $function;
+
+        return $self;
     }
 
     /**
@@ -472,16 +479,6 @@ class ReflectionParameter
         } catch (LogicException) {
             return null;
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @throws Uncloneable
-     */
-    public function __clone()
-    {
-        throw Uncloneable::fromClass(self::class);
     }
 
     public function getStartColumn(): int
