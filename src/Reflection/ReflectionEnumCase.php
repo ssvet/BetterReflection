@@ -22,27 +22,37 @@ use function is_string;
 
 class ReflectionEnumCase
 {
-    private ?CompiledValue $compiledValue = null;
+    /**
+     * @var \Roave\BetterReflection\NodeCompiler\CompiledValue|null
+     */
+    private $compiledValue;
 
     /** @var list<ReflectionAttribute> */
-    private array $attributes;
-
-    private function __construct(
-        private Reflector $reflector,
-        private EnumCase $node,
-        private ReflectionEnum $enum,
-    ) {
+    private $attributes;
+    /**
+     * @var \Roave\BetterReflection\Reflector\Reflector
+     */
+    private $reflector;
+    /**
+     * @var \PhpParser\Node\Stmt\EnumCase
+     */
+    private $node;
+    /**
+     * @var \Roave\BetterReflection\Reflection\ReflectionEnum
+     */
+    private $enum;
+    private function __construct(Reflector $reflector, EnumCase $node, ReflectionEnum $enum)
+    {
+        $this->reflector = $reflector;
+        $this->node = $node;
+        $this->enum = $enum;
         $this->attributes = ReflectionAttributeHelper::createAttributes($this->reflector, $this, $node->attrGroups);
     }
-
     /**
      * @internal
      */
-    public static function createFromNode(
-        Reflector $reflector,
-        EnumCase $node,
-        ReflectionEnum $enum,
-    ): self {
+    public static function createFromNode(Reflector $reflector, EnumCase $node, ReflectionEnum $enum): self
+    {
         return new self($reflector, $node, $enum);
     }
 
@@ -51,7 +61,10 @@ class ReflectionEnumCase
         return $this->node->name->toString();
     }
 
-    public function getValue(): string|int
+    /**
+     * @return int|string
+     */
+    public function getValue()
     {
         $value = $this->getCompiledValue()->value;
         assert(is_string($value) || is_int($value));
@@ -69,10 +82,7 @@ class ReflectionEnumCase
         }
 
         if ($this->compiledValue === null) {
-            $this->compiledValue = (new CompileNodeToValue())->__invoke(
-                $this->node->expr,
-                new CompilerContext($this->reflector, $this),
-            );
+            $this->compiledValue = (new CompileNodeToValue())->__invoke($this->node->expr, new CompilerContext($this->reflector, $this));
         }
 
         return $this->compiledValue;
