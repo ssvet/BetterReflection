@@ -20,6 +20,7 @@ use Roave\BetterReflection\Reflection\StringCast\ReflectionParameterStringCast;
 use Roave\BetterReflection\Reflector\Reflector;
 use Roave\BetterReflection\Util\CalculateReflectionColumn;
 
+use Roave\BetterReflection\Util\Exception\NoNodePosition;
 use function assert;
 use function count;
 use function is_array;
@@ -37,21 +38,62 @@ class ReflectionParameter
     /** @var list<ReflectionAttribute> */
     private array $attributes;
 
+    private Node\Expr|null $defaultExpr;
+
+    private Node\Identifier|Node\Name|Node\ComplexType|null $astType;
+
+    private ReflectionNamedType|ReflectionUnionType|ReflectionIntersectionType|null $type;
+
+    private string $name;
+
+    private bool $variadic;
+
+    private bool $byRef;
+
+    private bool $isPromoted;
+
+    private int $startColumn;
+
+    private int $endColumn;
+
     private function __construct(
         private Reflector $reflector,
-        private ParamNode $node,
+        ParamNode $node,
         private ReflectionMethod|ReflectionFunction $function,
         private int $parameterIndex,
         private bool $optional,
     ) {
         $this->isOptional = $this->optional;
         $this->attributes = ReflectionAttributeHelper::createAttributes($this->reflector, $this, $node->attrGroups);
+        $this->defaultExpr = $node->default;
+        $this->astType = $node->type;
+        $this->type = $this->createType($node->type);
+
+        assert($node->var instanceof Node\Expr\Variable);
+        assert(is_string($node->var->name));
+        $this->name = $node->var->name;
+        $this->variadic = $node->variadic;
+        $this->byRef = $node->byRef;
+        $this->isPromoted = $node->flags !== 0;
+
+        try {
+            $this->startColumn = CalculateReflectionColumn::getStartColumn($this->function->getLocatedSource()->getSource(), $node);
+        } catch (NoNodePosition $e) {
+            $this->startColumn = -1;
+        }
+
+        try {
+            $this->endColumn = CalculateReflectionColumn::getEndColumn($this->function->getLocatedSource()->getSource(), $node);
+        } catch (NoNodePosition $e) {
+            $this->endColumn = -1;
+        }
     }
 
     public function changeFunction(ReflectionMethod|ReflectionFunction $function): self
     {
         $self = clone $this;
         $self->function = $function;
+        $self->type = $self->createType($self->astType);
 
         return $self;
     }
@@ -189,13 +231,14 @@ class ReflectionParameter
      */
     private function getCompiledDefaultValue(): CompiledValue
     {
-        if (! $this->isDefaultValueAvailable()) {
-            throw new LogicException('This parameter does not have a default value available');
-        }
+       $defaultExpr = $this->defaultExpr;
+       if ($defaultExpr === null) {
+           throw new LogicException('This parameter does not have a default value available');
+       }
 
         if ($this->compiledDefaultValue === null) {
             $this->compiledDefaultValue = (new CompileNodeToValue())->__invoke(
-                $this->node->default,
+                $defaultExpr,
                 new CompilerContext($this->reflector, $this),
             );
         }
@@ -208,10 +251,7 @@ class ReflectionParameter
      */
     public function getName(): string
     {
-        assert($this->node->var instanceof Node\Expr\Variable);
-        assert(is_string($this->node->var->name));
-
-        return $this->node->var->name;
+        return $this->name;
     }
 
     /**
@@ -272,7 +312,7 @@ class ReflectionParameter
      */
     public function isDefaultValueAvailable(): bool
     {
-        return $this->node->default !== null;
+        return $this->defaultExpr !== null;
     }
 
     /**
@@ -319,14 +359,18 @@ class ReflectionParameter
      */
     public function getType(): ReflectionNamedType|ReflectionUnionType|ReflectionIntersectionType|null
     {
-        $type = $this->node->type;
+        return $this->type;
+    }
+
+    public function createType(Node\Identifier|Node\Name|Node\ComplexType|null $type): ReflectionNamedType|ReflectionUnionType|ReflectionIntersectionType|null
+    {
         assert($type instanceof Node\Identifier || $type instanceof Node\Name || $type instanceof Node\NullableType || $type instanceof Node\UnionType || $type instanceof Node\IntersectionType || $type === null);
 
         if ($type === null) {
             return null;
         }
 
-        $allowsNull = $this->isDefaultValueAvailable() && $this->getDefaultValue() === null && ! $this->isDefaultValueConstant();
+        $allowsNull = $this->defaultExpr instanceof Node\Expr\ConstFetch && $this->defaultExpr->name->toLowerString() === 'null';
 
         return ReflectionType::createFromNode($this->reflector, $this, $type, $allowsNull);
     }
@@ -338,7 +382,7 @@ class ReflectionParameter
      */
     public function hasType(): bool
     {
-        return $this->node->type !== null;
+        return $this->astType !== null;
     }
 
     /**
@@ -400,7 +444,7 @@ class ReflectionParameter
      */
     public function isVariadic(): bool
     {
-        return $this->node->variadic;
+        return $this->variadic;
     }
 
     /**
@@ -408,7 +452,7 @@ class ReflectionParameter
      */
     public function isPassedByReference(): bool
     {
-        return $this->node->byRef;
+        return $this->byRef;
     }
 
     public function canBePassedByValue(): bool
@@ -418,7 +462,7 @@ class ReflectionParameter
 
     public function isPromoted(): bool
     {
-        return $this->node->flags !== 0;
+        return $this->isPromoted;
     }
 
     /**
@@ -483,17 +527,12 @@ class ReflectionParameter
 
     public function getStartColumn(): int
     {
-        return CalculateReflectionColumn::getStartColumn($this->function->getLocatedSource()->getSource(), $this->node);
+        return $this->startColumn;
     }
 
     public function getEndColumn(): int
     {
-        return CalculateReflectionColumn::getEndColumn($this->function->getLocatedSource()->getSource(), $this->node);
-    }
-
-    public function getAst(): ParamNode
-    {
-        return $this->node;
+        return $this->endColumn;
     }
 
     /**
