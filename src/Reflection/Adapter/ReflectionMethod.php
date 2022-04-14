@@ -25,10 +25,18 @@ use function array_map;
 
 final class ReflectionMethod extends CoreReflectionMethod
 {
-    private bool $accessible = false;
+    /**
+     * @var bool
+     */
+    private $accessible = false;
+    /**
+     * @var BetterReflectionMethod
+     */
+    private $betterReflectionMethod;
 
-    public function __construct(private BetterReflectionMethod $betterReflectionMethod)
+    public function __construct(BetterReflectionMethod $betterReflectionMethod)
     {
+        $this->betterReflectionMethod = $betterReflectionMethod;
     }
 
     public function __toString(): string
@@ -155,10 +163,9 @@ final class ReflectionMethod extends CoreReflectionMethod
      */
     public function getParameters(): array
     {
-        return array_map(
-            static fn (BetterReflectionParameter $parameter): ReflectionParameter => new ReflectionParameter($parameter),
-            $this->betterReflectionMethod->getParameters(),
-        );
+        return array_map(static function (BetterReflectionParameter $parameter) : ReflectionParameter {
+            return new ReflectionParameter($parameter);
+        }, $this->betterReflectionMethod->getParameters());
     }
 
     public function hasReturnType(): bool
@@ -276,7 +283,7 @@ final class ReflectionMethod extends CoreReflectionMethod
 
         try {
             return $this->betterReflectionMethod->invoke($object, $arg, ...$args);
-        } catch (NoObjectProvided | TypeError) {
+        } catch (NoObjectProvided | TypeError $exception) {
             return null;
         } catch (Throwable $e) {
             throw new CoreReflectionException($e->getMessage(), 0, $e);
@@ -300,7 +307,7 @@ final class ReflectionMethod extends CoreReflectionMethod
 
         try {
             return $this->betterReflectionMethod->invokeArgs($object, $args);
-        } catch (NoObjectProvided | TypeError) {
+        } catch (NoObjectProvided | TypeError $exception) {
             return null;
         } catch (Throwable $e) {
             throw new CoreReflectionException($e->getMessage(), 0, $e);
@@ -349,7 +356,9 @@ final class ReflectionMethod extends CoreReflectionMethod
             $attributes = $this->betterReflectionMethod->getAttributes();
         }
 
-        return array_map(static fn (BetterReflectionAttribute $betterReflectionAttribute): ReflectionAttribute|FakeReflectionAttribute => ReflectionAttributeFactory::create($betterReflectionAttribute), $attributes);
+        return array_map(static function (BetterReflectionAttribute $betterReflectionAttribute) {
+            return ReflectionAttributeFactory::create($betterReflectionAttribute);
+        }, $attributes);
     }
 
     public function hasTentativeReturnType(): bool
