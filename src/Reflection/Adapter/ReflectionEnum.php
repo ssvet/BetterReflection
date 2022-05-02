@@ -104,7 +104,7 @@ final class ReflectionEnum extends CoreReflectionEnum
         return $this->betterReflectionEnum->getDocComment() ?: false;
     }
 
-    public function getConstructor(): ?CoreReflectionMethod
+    public function getConstructor(): ?ReflectionMethod
     {
         try {
             return new ReflectionMethod($this->betterReflectionEnum->getConstructor());
@@ -240,7 +240,7 @@ final class ReflectionEnum extends CoreReflectionEnum
     }
 
     /**
-     * @return array<class-string, CoreReflectionClass>
+     * @return array<class-string, ReflectionClass>
      */
     public function getInterfaces(): array
     {
@@ -264,7 +264,7 @@ final class ReflectionEnum extends CoreReflectionEnum
     }
 
     /**
-     * @return array<trait-string, CoreReflectionClass>
+     * @return array<trait-string, ReflectionClass>
      */
     public function getTraits(): array
     {
