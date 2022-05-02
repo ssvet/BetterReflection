@@ -44,6 +44,9 @@ final class ReflectionParameter extends CoreReflectionParameter
         return $this->betterReflectionParameter->canBePassedByValue();
     }
 
+    /**
+     * @return ReflectionFunction|ReflectionMethod
+     */
     public function getDeclaringFunction(): CoreReflectionFunctionAbstract
     {
         $function = $this->betterReflectionParameter->getDeclaringFunction();
@@ -55,6 +58,9 @@ final class ReflectionParameter extends CoreReflectionParameter
         return new ReflectionFunction($function);
     }
 
+    /**
+     * @return ReflectionClass|null
+     */
     public function getDeclaringClass(): ?CoreReflectionClass
     {
         $declaringClass = $this->betterReflectionParameter->getDeclaringClass();
@@ -66,6 +72,9 @@ final class ReflectionParameter extends CoreReflectionParameter
         return new ReflectionClass($declaringClass);
     }
 
+    /**
+     * @return ReflectionClass|null
+     */
     public function getClass(): ?CoreReflectionClass
     {
         $class = $this->betterReflectionParameter->getClass();
@@ -136,6 +145,9 @@ final class ReflectionParameter extends CoreReflectionParameter
         return $this->betterReflectionParameter->hasType();
     }
 
+    /**
+     * @return ReflectionUnionType|ReflectionNamedType|ReflectionIntersectionType|null
+     */
     public function getType(): ?\ReflectionType
     {
         return ReflectionType::fromTypeOrNull($this->betterReflectionParameter->getType());

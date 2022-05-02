@@ -116,7 +116,7 @@ final class ReflectionObject extends CoreReflectionObject
     /**
      * {@inheritDoc}
      */
-    public function getMethod($name): \ReflectionMethod
+    public function getMethod($name): ReflectionMethod
     {
         return new ReflectionMethod($this->betterReflectionObject->getMethod($this->getMethodRealName($name)));
     }
@@ -131,7 +131,8 @@ final class ReflectionObject extends CoreReflectionObject
     }
 
     /**
-     * {@inheritDoc}
+     * @param int|null $filter
+     * @return ReflectionMethod[]
      */
     public function getMethods($filter = null): array
     {
@@ -150,7 +151,8 @@ final class ReflectionObject extends CoreReflectionObject
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $name
+     * @return ReflectionProperty
      */
     public function getProperty($name): \ReflectionProperty
     {
@@ -164,7 +166,8 @@ final class ReflectionObject extends CoreReflectionObject
     }
 
     /**
-     * {@inheritDoc}
+     * @param int|null $filter
+     * @return ReflectionProperty[]
      */
     public function getProperties($filter = null): array
     {
@@ -209,7 +212,8 @@ final class ReflectionObject extends CoreReflectionObject
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $name
+     * @return ReflectionClassConstant|false
      */
     #[ReturnTypeWillChange]
     public function getReflectionConstant($name)
@@ -235,7 +239,7 @@ final class ReflectionObject extends CoreReflectionObject
     }
 
     /**
-     * @return array<class-string, CoreReflectionClass>
+     * @return array<class-string, ReflectionClass>
      */
     public function getInterfaces(): array
     {
@@ -349,7 +353,7 @@ final class ReflectionObject extends CoreReflectionObject
     }
 
     /**
-     * {@inheritDoc}
+     * @return ReflectionClass|false
      */
     #[ReturnTypeWillChange]
     public function getParentClass()
