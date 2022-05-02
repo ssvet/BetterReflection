@@ -993,7 +993,8 @@ class ReflectionClassTest extends TestCase
 
         $reflectionClassAdapter = new ReflectionClassAdapter($betterReflectionEnum);
 
-        self::assertInstanceOf(AutoloadableEnum::class, $reflectionClassAdapter->getConstant('ENUM_CASE'));
+        $this->expectException(NotImplemented::class);
+        $reflectionClassAdapter->getConstant('ENUM_CASE');
     }
 
     public function testGetReflectionConstantWithEnumCase(): void

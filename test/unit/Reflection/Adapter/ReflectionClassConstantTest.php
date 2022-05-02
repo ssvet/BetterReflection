@@ -8,6 +8,7 @@ use Error;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass as CoreReflectionClass;
 use ReflectionClassConstant as CoreReflectionClassConstant;
+use Roave\BetterReflection\Reflection\Adapter\Exception\NotImplemented;
 use Roave\BetterReflection\Reflection\Adapter\ReflectionAttribute as ReflectionAttributeAdapter;
 use Roave\BetterReflection\Reflection\Adapter\ReflectionClassConstant as ReflectionClassConstantAdapter;
 use Roave\BetterReflection\Reflection\ReflectionAttribute as BetterReflectionAttribute;
@@ -127,7 +128,8 @@ class ReflectionClassConstantTest extends TestCase
 
         $reflectionClassConstantAdapter = new ReflectionClassConstantAdapter($reflectionEnumCaseAdapter);
 
-        self::assertInstanceOf(PureEnum::class, $reflectionClassConstantAdapter->getValue());
+        $this->expectException(NotImplemented::class);
+        $reflectionClassConstantAdapter->getValue();
     }
 
     public function testGetDocCommentReturnsFalseWhenNoDocComment(): void

@@ -318,6 +318,7 @@ class ReflectionParameter
     /**
      * Get the default value of the parameter.
      *
+     * @deprecated Use getDefaultValueExpr()
      * @throws LogicException
      * @throws UnableToCompileNode
      */
@@ -327,6 +328,15 @@ class ReflectionParameter
         $value = $this->getCompiledDefaultValue()->value;
 
         return $value;
+    }
+
+    public function getDefaultValueExpr(): Node\Expr
+    {
+        if ($this->defaultExpr === null) {
+            throw new LogicException('This parameter does not have a default value available');
+        }
+
+        return $this->defaultExpr;
     }
 
     /**
